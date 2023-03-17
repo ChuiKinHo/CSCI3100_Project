@@ -1,0 +1,15 @@
+hoM2lwtr3uG5VYbzHXajd5H66pp7HqhYOBlCI1XjUDf3dGHIOgGzWAqBNemgZvPv
+
+
+curl --location --request POST 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-wosvc/endpoint/data/v1/action/findOne' \
+--header 'Content-Type: application/json' \
+--header 'Access-Control-Request-Headers: *' \
+--header 'api-key: hoM2lwtr3uG5VYbzHXajd5H66pp7HqhYOBlCI1XjUDf3dGHIOgGzWAqBNemgZvPv' \
+--data-raw '{
+    "collection":"<COLLECTION_NAME>",
+    "database":"<DATABASE_NAME>",
+    "dataSource":"Cluster0",
+    "projection": {"_id": 1}
+}'
+
+mongodb+srv://mongo:<password>@cluster0.w9h1f35.mongodb.net/test
