@@ -1,4 +1,7 @@
-/* This file contains all of the basic CRUD routes for the application to connect to our Atlas Data API.*/
+/* 
+This file contains all of the basic CRUD routes for the application to connect to our Atlas Data API.
+USED SOURCES: https://github.com/mongodb-developer/social-app-demo/tree/5-lesson
+*/
 export default async function handler(req, res) {
     const fetchOptions = {
         method: "POST",
@@ -40,7 +43,30 @@ export default async function handler(req, res) {
           const insertDataJson = await insertData.json();
           res.status(200).json(insertDataJson); //the response doesn't contain the document this time, but an indication of what actions were performed on the database.
           break;
-
+        case "PUT": //TODO: test if put request correct
+          const updateData = await fetch(`${baseUrl}/updateOne`, { 
+            ...fetchOptions, 
+            body: JSON.stringify({
+              ...fetchBody,
+              filter: {_id : { $oid: req.body._id }}, //we let know which document we want to update by ID, 
+                                                    //req.body._id gives us this id and _id needs to be equal to the object id
+              update: {$set: { body: req.body.body,}} //set our body to our new request .body
+            }),
+          });
+          const updateDataJson = await updateData.json();
+          res.status(200).json(updateDataJson); //the response doesn't contain the document this time, but an indication of what actions were performed on the database.
+          break;
+        case "DELETE": //TODO: test if delete request correct
+          const deleteData = await fetch(`${baseUrl}/deleteOne`, { 
+            ...fetchOptions, 
+            body: JSON.stringify({
+              ...fetchBody,
+              filter: {_id : { $oid: req.body._id }}, //we let know which document we want to update by ID, 
+            }),
+          });
+          const deleteDataJson = await deleteData.json();
+          res.status(200).json(deleteDataJson); //the response doesn't contain the document this time, but an indication of what actions were performed on the database.
+          break;
         default:
           res.status(405).end();
           break;
