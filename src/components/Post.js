@@ -6,8 +6,6 @@ import {
   ShareIcon,
   TrashIcon,
 } from "@heroicons/react/20/solid";
-import { useEffect, useState } from "react";
-import Input from "./Input";
 
 export default function Post({ post, id }) {
   return (
@@ -24,9 +22,9 @@ export default function Post({ post, id }) {
               {post.name}
             </h4>
             <span className="text-sm sm:text-[15px]">@{post.username} - </span>
-            {/* <span className="text-sm sm:text-[15px] hover:underline">
-              <Moment fromNow>{post.timestamp?.toDate()}</Moment>
-            </span> */}
+            <span className="text-sm sm:text-[15px] hover:underline">
+              {post.timestamp}
+            </span>
           </div>
 
           <EllipsisHorizontalCircleIcon className="h-10 hoverEffect w-10 hover:bg-sky-100 hover:text-sky-500 p-2 " />

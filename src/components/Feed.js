@@ -18,7 +18,7 @@ export default function Feed() {
         "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
       img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
       text: "hello",
-      timestamp: "just now",
+      timestamp: "1ms ago",
     },
     {
       id: "2",
