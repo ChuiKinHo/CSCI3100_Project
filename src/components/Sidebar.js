@@ -18,24 +18,28 @@ export default function Sidebar() {
         <SidebarMenuItem text="Home" Icon={HomeIcon} active />
       <SidebarMenuItem text = 'Explore' Icon =
        {
-         HashtagIcon
+    HashtagIcon
        } />
 
         <>
           <SidebarMenuItem text="Notifications" Icon={BellIcon} />
       <SidebarMenuItem text = 'Messages' Icon =
        {
-         InboxIcon
+    InboxIcon
        } />
           <SidebarMenuItem text="Bookmarks" Icon={BookmarkIcon} />
       <SidebarMenuItem text = 'Lists' Icon =
        {
-         ClipboardIcon
+    ClipboardIcon
        } />
           <SidebarMenuItem text="Profile" Icon={UserIcon} />
       <SidebarMenuItem text = 'More' Icon = {
-        EllipsisHorizontalCircleIcon
+    EllipsisHorizontalCircleIcon
       } />
         </></div>
+    <button className="bg-blue-400 text-white rounded-full w-56 h-12 font-bold shadow-md hover:brightness-95 text-lg hidden xl:inline">
+    Tweet
+  </button>
+      
     </div>);
 }
