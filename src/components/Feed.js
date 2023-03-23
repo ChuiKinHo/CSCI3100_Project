@@ -1,12 +1,5 @@
-import { SparklesIcon } from "@heroicons/react/20/solid";
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
-
 import Input from "./Input";
 import Post from "./Post";
-
-// import Input from './Input';
-// import Post from './Post';
 
 export default function Feed() {
   const posts = [
