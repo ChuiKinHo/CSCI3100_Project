@@ -1,12 +1,15 @@
 import {
-  ChartBarIcon,
   ChatBubbleBottomCenterTextIcon,
   EllipsisHorizontalCircleIcon,
-  HeartIcon,
-  ShareIcon,
-  TrashIcon,
+  ArrowPathRoundedSquareIcon,
+  HandThumbUpIcon,
+  HandThumbDownIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import {
+  HandThumbUpIcon as HandThumbUpIconSolid,
+  HandThumbDownIcon as HandThumbDownIconSolid,
+} from "@heroicons/react/24/solid";
 
 export default function Post({ post, id }) {
   // TODO:: More polishing is needed
@@ -30,40 +33,59 @@ export default function Post({ post, id }) {
               </span>
             </div>
 
-            {/*TODO:: Turn this into button */}
-            <EllipsisHorizontalCircleIcon className="h-10 hoverEffect w-10 hover:bg-sky-100 hover:text-sky-500 p-2 " />
-          </div>
+          {/*TODO:: Turn this into button */}
+          <EllipsisHorizontalCircleIcon className="h-10 hoverEffect w-10 hover:bg-sky-100 hover:text-sky-500 p-2 " />
+        </div>
 
-          <p className="text-gray-800 text-[15px sm:text-[16px] mb-2">
-            {post.text}
-          </p>
+        <p className="text-gray-800 text-[15px sm:text-[16px] mb-2">
+          {post.text}
+        </p>
 
-          <img className="rounded-2xl mr-2" src={post.image} alt="" />
+        <img className="rounded-2xl mr-2" src={post.image} alt="" />
 
-          <div className="flex justify-between text-gray-500 p-2">
-            <div className="flex items-center select-none">
-              {/*TODO:: Turn this into button */}
-              <ChatBubbleBottomCenterTextIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
-            </div>
+        <div className="flex justify-between text-gray-500 p-2">
+          <button className="flex items-center select-none">
+            <ChatBubbleBottomCenterTextIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
+          </button>
 
-            {/*TODO:: Turn this into button */}
-            {
-              /*TODO:: If the user is the poster */ 1 && (
-                <TrashIcon className="h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100" />
-              )
-            }
+          <button className="flex items-center group">
+            {post.like_by_me ? (
+              <>
+                <HandThumbUpIconSolid className="h-9 w-9 hoverEffect p-2 hover:text-green-600 hover:bg-green-100 text-green-600 group-hover:text-green-600 group-hover:bg-green-100" />
+                <span className="text-green-600 text-sm select-none group-hover:text-green-600 px-1">
+                  {post.like}
+                </span>
+              </>
+            ) : (
+              <HandThumbUpIcon className="h-9 w-9 hoverEffect p-2 hover:text-green-600 hover:bg-green-100 text-gray-600 group-hover:text-green-600" />
+            )}
+            {!post.like_by_me && post.like > 0 && (
+              <span className="text-gray-600 text-sm select-none group-hover:text-green-600 px-1">
+                {post.like}
+              </span>
+            )}
+          </button>
+          <button className="flex items-center group">
+            {post.dislike_by_me ? (
+              <>
+                <HandThumbDownIconSolid className="h-9 w-9 hoverEffect p-2 text-red-600 group-hover:text-red-600 group-hover:bg-red-100" />
+                <span className="text-red-600 text-sm select-none group-hover:text-red-600 px-1">
+                  {post.dislike}
+                </span>
+              </>
+            ) : (
+              <HandThumbDownIcon className="h-9 w-9 hoverEffect p-2 text-gray-600 group-hover:text-red-600 group-hover:bg-red-100" />
+            )}
+            {!post.dislike_by_me && post.dislike > 0 && (
+              <span className="text-gray-600 text-sm select-none group-hover:text-red-600 px-1">
+                {post.dislike}
+              </span>
+            )}
+          </button>
 
-            <div className="flex items-center">
-              {/*TODO:: Turn this into button */}
-              <HeartIcon className="h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100" />
-            </div>
-
-            {/*TODO:: Turn this into button */}
-            <ShareIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
-            {/*TODO:: Turn this into button */}
-            <ChartBarIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
-            {/* Missing retweet button */}
-          </div>
+          <button className="flex items-center">
+            <ArrowPathRoundedSquareIcon className="h-9 w-9 hoverEffect p-2 hover:text-blue-600 hover:bg-blue-100" />
+          </button>
         </div>
       </div>
     </Link>

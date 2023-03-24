@@ -13,6 +13,10 @@ export default function Feed() {
       img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
       text: "hello",
       timestamp: "1ms ago",
+      like: 500,
+      dislike: 100,
+      like_by_me: true,
+      dislike_by_me: false,
     },
     {
       id: "2",
@@ -23,6 +27,10 @@ export default function Feed() {
       img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
       text: "hello",
       timestamp: "just now",
+      like: 0,
+      dislike: 1,
+      like_by_me: false,
+      dislike_by_me: true,
     },
   ];
 
