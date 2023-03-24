@@ -17,7 +17,7 @@ const Retweet = ({ onClose, post, id }) => {
       onClick={handleCloseClick}
     >
       <div
-        className="bg-white rounded-lg shadow-lg p-8 flex flex-col w-1240 justify-between"
+        className="bg-white rounded-lg shadow-lg p-8 flex flex-col w-fit h-fit justify-between"
         onClick={handlePopUpClick}
       >
         <div className="flex justify-start ">
