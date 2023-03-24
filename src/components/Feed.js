@@ -17,6 +17,7 @@ export default function Feed() {
       dislike: 100,
       like_by_me: true,
       dislike_by_me: false,
+      retweet: true,
     },
     {
       id: "2",
@@ -31,6 +32,7 @@ export default function Feed() {
       dislike: 1,
       like_by_me: false,
       dislike_by_me: true,
+      retweet: false,
     },
   ];
 
