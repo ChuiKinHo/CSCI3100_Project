@@ -51,7 +51,7 @@ export default function Post({ post, id }) {
           </button>
           <button className="flex items-center">
             <HandThumbDownIcon className="h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100" />
-            <span className="text-red-600 text-sm select-none">1</span>
+            <span className="text-grey-600 text-sm select-none">1</span>
           </button>
           <button className="flex items-center">
             <ArrowPathRoundedSquareIcon className="h-9 w-9 hoverEffect p-2 hover:text-blue-600 hover:bg-blue-100" />
