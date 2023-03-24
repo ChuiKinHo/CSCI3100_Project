@@ -7,7 +7,8 @@ import {
   TrashIcon,
 } from "@heroicons/react/20/solid";
 
-export default function Post({ post, id }) { // TODO:: More polishing is needed
+export default function Post({ post, id }) {
+  // TODO:: More polishing is needed
   return (
     <div className="flex p-3 cursor-pointer border-b border-gray-200">
       <img
@@ -44,7 +45,11 @@ export default function Post({ post, id }) { // TODO:: More polishing is needed
           </div>
 
           {/*TODO:: Turn this into button */}
-          {/*TODO:: If the user is the poster */ 1 && <TrashIcon className="h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100" />}
+          {
+            /*TODO:: If the user is the poster */ 1 && (
+              <TrashIcon className="h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100" />
+            )
+          }
 
           <div className="flex items-center">
             {/*TODO:: Turn this into button */}

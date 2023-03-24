@@ -1,3 +1,5 @@
+import Search from "./Search.js";
+
 export default function Widget() {
   const randomUser = [
     {
@@ -21,7 +23,7 @@ export default function Widget() {
       timestamp: "just now",
     },
     {
-      id: "2",
+      id: "3",
       name: "hello",
       username: "hello",
       picture:
@@ -33,10 +35,11 @@ export default function Widget() {
   ];
   return (
     <div className="sticky top-16 text-gray-700 space-y-3 bg-gray-100 pt-2 rounded-xl w-[90%] xl:w-[75%]">
+      <Search />
       <h4 className="font-bold text-xl px-4">Who to follow</h4>
       {randomUser.map((randomUser) => (
         <div
-          key={randomUser.username}
+          key={randomUser.id}
           className="flex items-center px-4 py-2  cursor-pointer hover:bg-gray-200 transition duration-500 ease-out"
         >
           <img
