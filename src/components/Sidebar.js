@@ -8,7 +8,7 @@ import {
   HomeIcon,
   InboxIcon,
   UserIcon,
-} from "@heroicons/react/20/solid";
+} from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";

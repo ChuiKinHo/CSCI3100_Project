@@ -1,7 +1,31 @@
 import Search from "./Search.js";
-import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import Post from "./Post.js";
+import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
 
 export default function Widget() {
+  const posts = [
+    // Placeholder I guess, will be replaced by the data from the database
+    {
+      id: "1",
+      name: "hello",
+      username: "hello",
+      userImg:
+        "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
+      img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
+      text: "hello",
+      timestamp: "1ms ago",
+    },
+    {
+      id: "2",
+      name: "hello",
+      username: "hello",
+      userImg:
+        "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
+      img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
+      text: "hello",
+      timestamp: "just now",
+    },
+  ];
   const randomUser = [
     {
       id: "1",
@@ -36,17 +60,8 @@ export default function Widget() {
   ];
   return (
     <div className="xl:w-[600px] hidden lg:inline ml-4 space-y-4">
-      {/* <Search /> */}
-      <div className="w-[90%] xl:w-[75%] sticky top-0 bg-white py-1.5 z-50">
-        <div className="flex items-center p-3 rounded-full  relative">
-          <MagnifyingGlassIcon className="h-5 z-50 text-gray-500" />
-          <input
-            className="absolute inset-0 rounded-full pl-11 border-gray-500 text-gray-700 focus:shadow-lg focus:bg-white bg-gray-100 "
-            type="text"
-            placeholder="Search Twitter"
-          />
-        </div>
-      </div>
+      <Search />
+
       <h4 className="font-bold text-xl px-4">Who to follow</h4>
       {randomUser.map((randomUser) => (
         <div
@@ -71,6 +86,17 @@ export default function Widget() {
             Follow
           </button>
         </div>
+      ))}
+      <button className="text-blue-300 pl-4 pb-3 hover:text-blue-400">
+        Show more
+      </button>
+
+      <div className="flex items-center p-3 relative">
+        <ChatBubbleBottomCenterTextIcon className="h-5 z-50 text-gray-500" />
+        <h4 className="font-bold text-xl px-4">You may like</h4>
+      </div>
+      {posts.map((post) => (
+        <Post key={post.id} id={post.id} post={post} />
       ))}
       <button className="text-blue-300 pl-4 pb-3 hover:text-blue-400">
         Show more

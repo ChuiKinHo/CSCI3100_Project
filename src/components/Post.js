@@ -5,7 +5,7 @@ import {
   HeartIcon,
   ShareIcon,
   TrashIcon,
-} from "@heroicons/react/20/solid";
+} from "@heroicons/react/24/outline";
 
 export default function Post({ post, id }) {
   // TODO:: More polishing is needed
