@@ -1,6 +1,6 @@
 import Search from "./Search.js";
 import Post from "./Post.js";
-import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/20/solid";
+import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
 
 export default function Widget() {
   const posts = [

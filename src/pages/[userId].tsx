@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import Post from "@/components/Post";
 import Widget from "@/components/Widget";
-import { ArrowLeftIcon } from "@heroicons/react/20/solid";
+import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 export default function userPage() {
   const router = useRouter();
