@@ -2,11 +2,12 @@ import Input from "./Input";
 import Post from "./Post";
 
 export default function Feed() {
-  const posts = [ // Placeholder I guess, will be replaced by the data from the database
+  const posts = [
+    // Placeholder I guess, will be replaced by the data from the database
     {
       id: "1",
-      name: "hello",
       username: "hello",
+      userId: "helloId",
       userImg:
         "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
       img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
@@ -15,8 +16,8 @@ export default function Feed() {
     },
     {
       id: "2",
-      name: "hello",
-      username: "hello",
+      username: "byebye",
+      userId: "byebyeId",
       userImg:
         "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
       img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
@@ -31,7 +32,9 @@ export default function Feed() {
         <h2 className="text-lg sm:text-xl font-bold cursor-pointer">Home</h2>
       </div>
       <Input />
-      {posts.map(post => <Post key={post.id} id={post.id} post={post} />)}
+      {posts.map((post) => (
+        <Post key={post.id} id={post.id} post={post} />
+      ))}
     </div>
   );
 }

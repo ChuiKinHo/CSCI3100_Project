@@ -22,9 +22,9 @@ export default function TweetPost({ post }) {
             <div className="flex items-center justify-between">
               <div className="items-center space-x-1 whitespace-nowrap">
                 <h4 className="font-bold text-[15px] sm:text-[16px] hover:underline">
-                  {post.name}
+                  {post.username}
                 </h4>
-                <span className="text-sm sm:text-[15px]">@{post.username}</span>
+                <span className="text-sm sm:text-[15px]">@{post.userId}</span>
               </div>
 
               {/*TODO:: Turn this into button */}
