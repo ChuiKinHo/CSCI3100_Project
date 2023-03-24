@@ -5,6 +5,9 @@ import {
   HeartIcon,
   ShareIcon,
   TrashIcon,
+  ArrowPathRoundedSquareIcon,
+  HandThumbUpIcon,
+  HandThumbDownIcon,
 } from "@heroicons/react/24/outline";
 
 export default function Post({ post, id }) {
@@ -39,28 +42,20 @@ export default function Post({ post, id }) {
         <img className="rounded-2xl mr-2" src={post.image} alt="" />
 
         <div className="flex justify-between text-gray-500 p-2">
-          <div className="flex items-center select-none">
-            {/*TODO:: Turn this into button */}
+          <button className="flex items-center select-none">
             <ChatBubbleBottomCenterTextIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
-          </div>
+          </button>
 
-          {/*TODO:: Turn this into button */}
-          {
-            /*TODO:: If the user is the poster */ 1 && (
-              <TrashIcon className="h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100" />
-            )
-          }
-
-          <div className="flex items-center">
-            {/*TODO:: Turn this into button */}
-            <HeartIcon className="h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100" />
-          </div>
-
-          {/*TODO:: Turn this into button */}
-          <ShareIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
-          {/*TODO:: Turn this into button */}
-          <ChartBarIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
-          {/* Missing retweet button */}
+          <button className="flex items-center">
+            <HandThumbUpIcon className="h-9 w-9 hoverEffect p-2 hover:text-green-600 hover:bg-green-100" />
+          </button>
+          <button className="flex items-center">
+            <HandThumbDownIcon className="h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100" />
+            <span className="text-red-600 text-sm select-none">1</span>
+          </button>
+          <button className="flex items-center">
+            <ArrowPathRoundedSquareIcon className="h-9 w-9 hoverEffect p-2 hover:text-blue-600 hover:bg-blue-100" />
+          </button>
         </div>
       </div>
     </div>
