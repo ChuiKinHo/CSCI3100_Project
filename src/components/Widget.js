@@ -7,8 +7,8 @@ export default function Widget() {
     // Placeholder I guess, will be replaced by the data from the database
     {
       id: "1",
-      name: "hello",
       username: "hello",
+      userId: "hello",
       userImg:
         "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
       img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
@@ -17,8 +17,8 @@ export default function Widget() {
     },
     {
       id: "2",
-      name: "hello",
       username: "hello",
+      userId: "hello",
       userImg:
         "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
       img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
@@ -29,7 +29,7 @@ export default function Widget() {
   const randomUser = [
     {
       id: "1",
-      name: "hello",
+      userId: "helloId",
       username: "hello",
       picture:
         "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
@@ -39,7 +39,7 @@ export default function Widget() {
     },
     {
       id: "2",
-      name: "hello",
+      userId: "helloId",
       username: "hello",
       picture:
         "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
@@ -49,7 +49,7 @@ export default function Widget() {
     },
     {
       id: "3",
-      name: "hello",
+      userId: "helloId",
       username: "hello",
       picture:
         "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
@@ -66,7 +66,7 @@ export default function Widget() {
       {randomUser.map((randomUser) => (
         <div
           key={randomUser.id}
-          className="flex items-center px-4 py-2  cursor-pointer hover:bg-gray-200 transition duration-500 ease-out"
+          className="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-500 ease-out"
         >
           <img
             className="rounded-full"
@@ -76,10 +76,10 @@ export default function Widget() {
           />
           <div className="truncate ml-4 leading-5">
             <h4 className="font-bold hover:underline text-[14px] truncate">
-              @{randomUser.username}
+              {randomUser.username}
             </h4>
             <h5 className="text-[13px] text-gray-500 truncate">
-              {randomUser.name}
+              @{randomUser.id}
             </h5>
           </div>
           <button className="ml-auto bg-black text-white rounded-full text-sm px-3.5 py-1.5 font-bold">
