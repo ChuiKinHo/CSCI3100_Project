@@ -11,8 +11,20 @@ import {
   HandThumbDownIcon as HandThumbDownIconSolid,
 } from "@heroicons/react/24/solid";
 
+import React, { useState } from "react";
+import Retweet from "./Retweet";
+
 export default function Post({ post, id }) {
-  // TODO:: More polishing is needed
+  const [showPopUp, setShowPopUp] = useState(false);
+
+  const handleButtonClick = () => {
+    setShowPopUp((prevState) => !prevState);
+  };
+
+  const handleClosePopUp = () => {
+    setShowPopUp(false);
+  };
+
   return (
     <div className="flex p-3 cursor-pointer border-b border-gray-200">
       <img
@@ -86,10 +98,14 @@ export default function Post({ post, id }) {
           </button>
 
           <button className="flex items-center">
-            <ArrowPathRoundedSquareIcon className="h-9 w-9 hoverEffect p-2 hover:text-blue-600 hover:bg-blue-100" />
+            <ArrowPathRoundedSquareIcon
+              className="h-9 w-9 hoverEffect p-2 hover:text-blue-600 hover:bg-blue-100"
+              onClick={handleButtonClick}
+            />
           </button>
         </div>
       </div>
+      {showPopUp && <Retweet onClose={handleClosePopUp} />}
     </div>
   );
 }

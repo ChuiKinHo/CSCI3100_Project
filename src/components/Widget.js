@@ -92,7 +92,7 @@ export default function Widget() {
       </button>
 
       <div className="flex items-center p-3 relative">
-        <ChatBubbleBottomCenterTextIcon className="h-5 z-50 text-gray-500" />
+        <ChatBubbleBottomCenterTextIcon className="h-5 text-gray-500" />
         <h4 className="font-bold text-xl px-4">You may like</h4>
       </div>
       {posts.map((post) => (
