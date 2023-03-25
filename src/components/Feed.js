@@ -3,7 +3,7 @@ import Post from "./Post";
 import postsJSON from "../data/samplePosts.json";
 
 export default function Feed() {
-  const index = ["1", "2", "5"];
+  const index = ["1", "2", "6"];
   const posts = postsJSON.filter((post) => index.includes(post.id));
 
   // const posts = all

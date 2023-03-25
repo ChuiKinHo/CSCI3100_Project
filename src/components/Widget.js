@@ -4,66 +4,70 @@ import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
 import useStorage from "../hooks/useStorage";
 import Link from "next/link.js";
 import { useEffect, useState } from "react";
+import recommendedPosts from "@/data/sampleRecommendedPosts.json";
+import recommendedUsers from "@/data/sampleRecommendedUsers.json";
 
 export default function Widget() {
   const { getItem } = useStorage();
   const [username, setUsername] = useState(null);
   useEffect(() => setUsername(getItem("username", "session")), []);
-  const posts = [
-    // Placeholder I guess, will be replaced by the data from the database
-    {
-      id: "1",
-      name: "hello",
-      username: "hello",
-      userImg:
-        "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-      img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-      text: "hello",
-      timestamp: "1ms ago",
-    },
-    {
-      id: "2",
-      name: "hello",
-      username: "hello",
-      userImg:
-        "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-      img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-      text: "hello",
-      timestamp: "just now",
-    },
-  ];
-  const randomUser = [
-    {
-      id: "1",
-      username: "helloId",
-      name: "hello",
-      picture:
-        "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-      img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-      text: "hello",
-      timestamp: "1ms ago",
-    },
-    {
-      id: "2",
-      username: "helloId",
-      name: "hello",
-      picture:
-        "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-      img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-      text: "hello",
-      timestamp: "just now",
-    },
-    {
-      id: "3",
-      username: "helloId",
-      name: "hello",
-      picture:
-        "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-      img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-      text: "hello",
-      timestamp: "just now",
-    },
-  ];
+  const posts = recommendedPosts;
+  const randomUser = recommendedUsers;
+  // const posts = [
+  //   // Placeholder I guess, will be replaced by the data from the database
+  //   {
+  //     id: "1",
+  //     name: "hello",
+  //     username: "hello",
+  //     userImg:
+  //       "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
+  //     img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
+  //     text: "hello",
+  //     timestamp: "1ms ago",
+  //   },
+  //   {
+  //     id: "2",
+  //     name: "hello",
+  //     username: "hello",
+  //     userImg:
+  //       "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
+  //     img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
+  //     text: "hello",
+  //     timestamp: "just now",
+  //   },
+  // ];
+  // const randomUser = [
+  //   {
+  //     id: "1",
+  //     username: "helloId",
+  //     name: "hello",
+  //     picture:
+  //       "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
+  //     img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
+  //     text: "hello",
+  //     timestamp: "1ms ago",
+  //   },
+  //   {
+  //     id: "2",
+  //     username: "helloId",
+  //     name: "hello",
+  //     picture:
+  //       "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
+  //     img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
+  //     text: "hello",
+  //     timestamp: "just now",
+  //   },
+  //   {
+  //     id: "3",
+  //     username: "helloId",
+  //     name: "hello",
+  //     picture:
+  //       "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
+  //     img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
+  //     text: "hello",
+  //     timestamp: "just now",
+  //   },
+  // ];
   return username != null ? (
     <div className="xl:w-[600px] hidden lg:inline ml-4 space-y-4">
       <Search />
