@@ -12,7 +12,7 @@ export default function Layout({ children }) {
       <header className="flex mx-auto">
         <Sidebar />
       </header>
-      <main className="flex min-h-screen mx-auto" style={{ marginLeft: "4em" }}>
+      <main className="flex min-h-screen mr-auto ml-16 sm:ml-auto">
         {children}
       </main>
     </div>
