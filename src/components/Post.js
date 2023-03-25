@@ -44,10 +44,12 @@ export default function Post({ post, id }) {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-1 whitespace-nowrap">
               <h4 className="font-bold text-[15px] sm:text-[16px] hover:underline">
-                {post.username}
+                {post.name}
               </h4>
 
-              <span className="text-sm sm:text-[15px]">@{post.userId} - </span>
+              <span className="text-sm sm:text-[15px]">
+                @{post.username} -{" "}
+              </span>
               <span className="text-sm sm:text-[15px] hover:underline">
                 {post.timestamp}
               </span>

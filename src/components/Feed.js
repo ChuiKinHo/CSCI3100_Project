@@ -6,8 +6,8 @@ export default function Feed() {
     // Placeholder I guess, will be replaced by the data from the database
     {
       id: "1",
-      username: "hello",
-      userId: "helloId",
+      name: "hello",
+      username: "helloId",
       userImg:
         "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
       img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
@@ -21,8 +21,8 @@ export default function Feed() {
     },
     {
       id: "2",
-      username: "byebye",
-      userId: "byebyeId",
+      name: "byebye",
+      username: "byebyeId",
       userImg:
         "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
       img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",

@@ -18,7 +18,8 @@ import SidebarMenuItem from "./SidebarMenuItem";
 export default function Sidebar() {
   const router = useRouter();
   const pathname = router.pathname;
-  const { removeItem } = useStorage();
+  const { getItem, removeItem } = useStorage();
+  const username = getItem("username", "session");
   const handleLogout = () => {
     removeItem("username", "session");
     router.replace("/");
@@ -66,14 +67,19 @@ export default function Sidebar() {
       <button className="bg-blue-400 text-white rounded-full w-56 h-12 font-bold shadow-md hover:brightness-95 text-lg hidden xl:inline">
         Tweets
       </button>
-      <div className="absolute bottom-0">
-        <button
-          className="flex bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 mb-3"
-          onClick={handleLogout}
-        >
-          logout
-        </button>
-      </div>
+
+      {username != null ? (
+        <div className="absolute bottom-0">
+          <button
+            className="flex bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 mb-3"
+            onClick={handleLogout}
+          >
+            logout
+          </button>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

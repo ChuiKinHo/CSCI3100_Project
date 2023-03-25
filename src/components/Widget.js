@@ -7,13 +7,12 @@ import Link from "next/link.js";
 export default function Widget() {
   const { getItem } = useStorage();
   const username = getItem("username", "session");
-  console.log(username);
   const posts = [
     // Placeholder I guess, will be replaced by the data from the database
     {
       id: "1",
+      name: "hello",
       username: "hello",
-      userId: "hello",
       userImg:
         "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
       img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
@@ -22,8 +21,8 @@ export default function Widget() {
     },
     {
       id: "2",
+      name: "hello",
       username: "hello",
-      userId: "hello",
       userImg:
         "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
       img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
@@ -34,8 +33,8 @@ export default function Widget() {
   const randomUser = [
     {
       id: "1",
-      userId: "helloId",
-      username: "hello",
+      username: "helloId",
+      name: "hello",
       picture:
         "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
       img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
@@ -44,8 +43,8 @@ export default function Widget() {
     },
     {
       id: "2",
-      userId: "helloId",
-      username: "hello",
+      username: "helloId",
+      name: "hello",
       picture:
         "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
       img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
@@ -54,8 +53,8 @@ export default function Widget() {
     },
     {
       id: "3",
-      userId: "helloId",
-      username: "hello",
+      username: "helloId",
+      name: "hello",
       picture:
         "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
       img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
@@ -81,10 +80,10 @@ export default function Widget() {
           />
           <div className="truncate ml-4 leading-5">
             <h4 className="font-bold hover:underline text-[14px] truncate">
-              {randomUser.username}
+              {randomUser.name}
             </h4>
             <h5 className="text-[13px] text-gray-500 truncate">
-              @{randomUser.id}
+              @{randomUser.username}
             </h5>
           </div>
           <button className="ml-auto bg-black text-white rounded-full text-sm px-3.5 py-1.5 font-bold">

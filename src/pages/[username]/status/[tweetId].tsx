@@ -7,13 +7,13 @@ import Widget from "@/components/Widget";
 export default function Tweet() {
   const router = useRouter();
   const tweetId = router.query.tweetId;
-  const userId = router.query.userId;
+  const username = router.query.username;
   // test post
   const post = {
     id: "1",
     tweetId: tweetId,
-    username: "hello",
-    userId: userId,
+    name: "hello",
+    username: username,
     userImg:
       "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
     img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
@@ -23,8 +23,8 @@ export default function Tweet() {
   const comments = [
     {
       id: "2",
-      username: "bye",
-      userId: "byeId",
+      name: "bye",
+      username: "byeId",
       userImg:
         "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
       img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
@@ -33,8 +33,8 @@ export default function Tweet() {
     },
     {
       id: "3",
+      name: "test",
       username: "test",
-      userId: "test",
       userImg:
         "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
       img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
