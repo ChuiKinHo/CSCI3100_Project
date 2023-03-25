@@ -111,14 +111,20 @@ export default function Widget() {
   ) : (
     <div className="xl:w-[600px] hidden lg:inline ml-4 space-y-4">
       <Search />
-      <Link href="/i/login">
-        <button className="flex bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95">
-          Login
-        </button>
-      </Link>
-      <button className="flex bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95">
-        Sign up
-      </button>
+      <div>
+        <Link href="/i/login">
+          <button className="flex bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95">
+            Login
+          </button>
+        </Link>
+      </div>
+      <div>
+        <Link href="/i/signup">
+          <button className="flex bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95">
+            Sign up
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }

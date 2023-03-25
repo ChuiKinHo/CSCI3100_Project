@@ -7,7 +7,7 @@ export default function Signup() {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [loginState, setLoginState] = useState("");
+  const [warning, setWarning] = useState("");
 
   const handleUsernameChange = (event: any) => {
     setUsername(event.target.value);
@@ -17,20 +17,12 @@ export default function Signup() {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = () => {
-    if (username === "user001" && password === "123456") {
-      setLoginState("");
-      setItem("username", username, "session");
-      document.getElementById("autoclick")?.click();
-    } else {
-      setLoginState("Username or password is not correct");
-    }
-  };
+  const handleSubmit = () => {};
 
   return (
     <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
       <div className="flex py-2 px-3 sticky top-0  bg-white border-b border-gray-200">
-        <h2 className="text-lg sm:text-xl font-bold cursor-pointer">Login</h2>
+        <h2 className="text-lg sm:text-xl font-bold cursor-pointer">Sign up</h2>
       </div>
       <div className="p-4">
         <form>
@@ -44,6 +36,7 @@ export default function Signup() {
               className="mb-3 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
               placeholder="account"
               onChange={handleUsernameChange}
+              required
             />
           </label>
           <label className="block">
@@ -56,15 +49,16 @@ export default function Signup() {
               className="mb-3 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
               placeholder="password"
               onChange={handlePasswordChange}
+              required
             />
           </label>
           <input
             type="button"
             className="bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 m-1"
-            value="Login"
+            value="Sign up"
             onClick={handleSubmit}
           />
-          <p>{loginState}</p>
+          <p>{warning}</p>
           <Link href="/">
             <p id="autoclick" hidden>
               go to home page

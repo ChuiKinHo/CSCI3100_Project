@@ -7,7 +7,7 @@ export default function Login() {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [loginState, setLoginState] = useState("");
+  const [warning, setWarning] = useState("");
 
   const handleUsernameChange = (event: any) => {
     setUsername(event.target.value);
@@ -19,11 +19,11 @@ export default function Login() {
 
   const handleSubmit = () => {
     if (username === "user001" && password === "123456") {
-      setLoginState("");
+      setWarning("");
       setItem("username", username, "session");
       document.getElementById("autoclick")?.click();
     } else {
-      setLoginState("Username or password is not correct");
+      setWarning("Username or password is not correct");
     }
   };
 
@@ -44,6 +44,7 @@ export default function Login() {
               className="mb-3 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
               placeholder="account"
               onChange={handleUsernameChange}
+              required
             />
           </label>
           <label className="block">
@@ -56,6 +57,7 @@ export default function Login() {
               className="mb-3 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
               placeholder="password"
               onChange={handlePasswordChange}
+              required
             />
           </label>
           <input
@@ -64,7 +66,7 @@ export default function Login() {
             value="Login"
             onClick={handleSubmit}
           />
-          <p>{loginState}</p>
+          <p>{warning}</p>
           <Link href="/">
             <p id="autoclick" hidden>
               go to home page

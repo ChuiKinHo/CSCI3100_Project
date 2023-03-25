@@ -58,7 +58,7 @@ export default function Sidebar() {
         {/* <SidebarMenuItem text="Bookmarks" Icon={BookmarkIcon} /> */}
         {/* <SidebarMenuItem text='Lists' Icon={ClipboardIcon} /> */}
 
-        <Link href="/testUsername">
+        <Link href="/user001">
           {pathname === "/[username]" ? (
             <SidebarMenuItem text="Profile" Icon={UserIcon} active />
           ) : (
