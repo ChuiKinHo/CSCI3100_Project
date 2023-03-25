@@ -14,16 +14,19 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import useStorage from "../hooks/useStorage";
 import SidebarMenuItem from "./SidebarMenuItem";
+import { useEffect, useState } from "react";
 
 export default function Sidebar() {
   const router = useRouter();
   const pathname = router.pathname;
+  const [username, setUsername] = useState(null);
+  useEffect(() => setUsername(getItem("username", "session")), []);
   const { getItem, removeItem } = useStorage();
-  const username = getItem("username", "session");
   const handleLogout = () => {
     removeItem("username", "session");
     router.replace("/");
   };
+
   return (
     <div className=" sm:flex flex-col p-2 xl:items-start fixed h-full xl:ml-24">
       {/* <h2>{pathname}</h2> */}
@@ -55,8 +58,8 @@ export default function Sidebar() {
         {/* <SidebarMenuItem text="Bookmarks" Icon={BookmarkIcon} /> */}
         {/* <SidebarMenuItem text='Lists' Icon={ClipboardIcon} /> */}
 
-        <Link href="/testUserId">
-          {pathname === "/[userId]" ? (
+        <Link href="/testUsername">
+          {pathname === "/[username]" ? (
             <SidebarMenuItem text="Profile" Icon={UserIcon} active />
           ) : (
             <SidebarMenuItem text="Profile" Icon={UserIcon} />

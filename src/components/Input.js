@@ -1,16 +1,15 @@
-import { FaceSmileIcon, PhotoIcon } from '@heroicons/react/20/solid';
+import { FaceSmileIcon, PhotoIcon } from "@heroicons/react/20/solid";
 
 export default function Input() {
   return (
     <div className="flex border-b border-gray-200 p-3 space-x-3">
       <img
-        src="https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png"
+        src="https://pbs.twimg.com/profile_images/1254779846615420930/7I4kP65u_400x400.jpg"
         alt="user-img"
         className="h-11 w-11 rounded-full cursor-pointer hover:brightness-95"
       />
 
       <div className="w-full divide-y divide-gray-200">
-
         <div className="flex-1">
           <textarea
             className="w-full border-none focus:ring-0 text-lg placeholder-gray-700 tracking-wide min-h-[50px] text-gray-700 resize-none"

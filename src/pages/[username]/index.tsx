@@ -2,30 +2,33 @@ import { useRouter } from "next/router";
 import Post from "@/components/Post";
 import Widget from "@/components/Widget";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
+import postsJSON from "@/data/samplePosts.json";
 
 export default function userPage() {
   const router = useRouter();
   const userInfo = {
-    id: router.query.userId,
-    name: "testUsername",
+    username: router.query.username,
+    name: "testName",
     intro: "introduction",
+    userImg:
+      "https://pbs.twimg.com/profile_images/1254779846615420930/7I4kP65u_400x400.jpg",
+    userBgImg:
+      "https://pbs.twimg.com/profile_banners/2161323234/1585151401/600x200",
   };
+
+  const posts = postsJSON.filter((post) => post.username === userInfo.username);
   // test post
-  const posts = [
-    {
-      id: "1",
-      name: "hello",
-      username: "hello",
-      userImg:
-        "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-      img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-      text: "hello",
-      timestamp: "1ms ago",
-    },
-  ];
-  // test image
-  const userImg =
-    "https://store-images.s-microsoft.com/image/apps.36792.9007199266244427.c75d2ced-a383-40dc-babd-1ad2ceb13c86.f594cb3e-881b-486c-83e4-4c72d39ee3f1?w=120";
+  // const posts = [
+  //   {
+  //     id: "1",
+  //     name: userInfo.name,
+  //     username: userInfo.username,
+  //     userImg: userInfo.userImg,
+  //     img: "",
+  //     text: "hello. This is my first tweet.",
+  //     timestamp: "1ms ago",
+  //   },
+  // ];
 
   return (
     <>
@@ -83,7 +86,7 @@ export default function userPage() {
                   {userInfo.name}
                 </h2>
                 <p className="text-sm leading-5 font-medium text-gray-600">
-                  @{userInfo.id}
+                  @{userInfo.username}
                 </p>
               </div>
               <div className="mt-3">

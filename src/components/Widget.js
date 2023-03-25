@@ -3,10 +3,12 @@ import Post from "./Post.js";
 import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
 import useStorage from "../hooks/useStorage";
 import Link from "next/link.js";
+import { useEffect, useState } from "react";
 
 export default function Widget() {
   const { getItem } = useStorage();
-  const username = getItem("username", "session");
+  const [username, setUsername] = useState(null);
+  useEffect(() => setUsername(getItem("username", "session")), []);
   const posts = [
     // Placeholder I guess, will be replaced by the data from the database
     {

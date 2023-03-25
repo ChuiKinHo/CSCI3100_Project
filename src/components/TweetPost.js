@@ -1,11 +1,10 @@
 import {
-  ChartBarIcon,
   ChatBubbleBottomCenterTextIcon,
   EllipsisHorizontalCircleIcon,
-  HeartIcon,
-  ShareIcon,
-  TrashIcon,
-} from "@heroicons/react/20/solid";
+  ArrowPathRoundedSquareIcon,
+  HandThumbUpIcon,
+  HandThumbDownIcon,
+} from "@heroicons/react/24/outline";
 
 export default function TweetPost({ post }) {
   // TODO:: More polishing is needed
@@ -21,7 +20,7 @@ export default function TweetPost({ post }) {
           <div className="flex-1">
             <div className="flex items-center justify-between">
               <div className="items-center space-x-1 whitespace-nowrap">
-                <h4 className="font-bold text-[15px] sm:text-[16px] hover:underline">
+                <h4 className="leading-none font-bold text-[15px] sm:text-[16px] hover:underline">
                   {post.name}
                 </h4>
                 <span className="text-sm sm:text-[15px]">@{post.username}</span>
@@ -40,29 +39,45 @@ export default function TweetPost({ post }) {
           </p>
         </div>
       </div>
-      <div className="flex justify-between border-b text-gray-500 p-2">
-        <div className="flex items-center select-none">
-          {/*TODO:: Turn this into button */}
-          <ChatBubbleBottomCenterTextIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
-        </div>
+      <div className="flex justify-around text-gray-500 p-2 border">
+        <button className="flex items-center group">
+          {post.like_by_me ? (
+            <>
+              <HandThumbUpIconSolid className="h-9 w-9 hoverEffect p-2 hover:text-green-600 hover:bg-green-100 text-green-600 group-hover:text-green-600 group-hover:bg-green-100" />
+              <span className="text-green-600 text-sm select-none group-hover:text-green-600 px-1">
+                {post.like}
+              </span>
+            </>
+          ) : (
+            <HandThumbUpIcon className="h-9 w-9 hoverEffect p-2 hover:text-green-600 hover:bg-green-100 text-gray-600 group-hover:text-green-600" />
+          )}
+          {!post.like_by_me && post.like > 0 && (
+            <span className="text-gray-600 text-sm select-none group-hover:text-green-600 px-1">
+              {post.like}
+            </span>
+          )}
+        </button>
+        <button className="flex items-center group">
+          {post.dislike_by_me ? (
+            <>
+              <HandThumbDownIconSolid className="h-9 w-9 hoverEffect p-2 text-red-600 group-hover:text-red-600 group-hover:bg-red-100" />
+              <span className="text-red-600 text-sm select-none group-hover:text-red-600 px-1">
+                {post.dislike}
+              </span>
+            </>
+          ) : (
+            <HandThumbDownIcon className="h-9 w-9 hoverEffect p-2 text-gray-600 group-hover:text-red-600 group-hover:bg-red-100" />
+          )}
+          {!post.dislike_by_me && post.dislike > 0 && (
+            <span className="text-gray-600 text-sm select-none group-hover:text-red-600 px-1">
+              {post.dislike}
+            </span>
+          )}
+        </button>
 
-        {/*TODO:: Turn this into button */}
-        {
-          /*TODO:: If the user is the poster */ 1 && (
-            <TrashIcon className="h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100" />
-          )
-        }
-
-        <div className="flex items-center">
-          {/*TODO:: Turn this into button */}
-          <HeartIcon className="h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100" />
-        </div>
-
-        {/*TODO:: Turn this into button */}
-        <ShareIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
-        {/*TODO:: Turn this into button */}
-        <ChartBarIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
-        {/* Missing retweet button */}
+        <button className="flex items-center">
+          <ArrowPathRoundedSquareIcon className="h-9 w-9 hoverEffect p-2 hover:text-blue-600 hover:bg-blue-100" />
+        </button>
       </div>
     </>
   );
