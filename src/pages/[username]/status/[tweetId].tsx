@@ -3,45 +3,52 @@ import TweetPost from "@/components/TweetPost";
 import Comment from "@/components/Comment";
 import ReplyInput from "@/components/ReplyInput";
 import Widget from "@/components/Widget";
+import postsJSON from "@/data/samplePosts.json";
 
 export default function Tweet() {
   const router = useRouter();
   const tweetId = router.query.tweetId;
   const username = router.query.username;
+  const post = postsJSON.filter(
+    (post) => post.id === tweetId && post.username === username
+  )[0];
+  const comments = postsJSON.filter((comment) =>
+    post.commentId.includes(comment.id)
+  );
   // test post
-  const post = {
-    id: "1",
-    tweetId: tweetId,
-    name: "hello",
-    username: username,
-    userImg:
-      "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-    img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-    text: "hello",
-    timestamp: "1ms ago",
-  };
-  const comments = [
-    {
-      id: "2",
-      name: "bye",
-      username: "byeId",
-      userImg:
-        "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-      img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-      text: "bye",
-      timestamp: "1ms ago",
-    },
-    {
-      id: "3",
-      name: "test",
-      username: "test",
-      userImg:
-        "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-      img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-      text: "test",
-      timestamp: "1ms ago",
-    },
-  ];
+  // const post = {
+  //   id: "1",
+  //   tweetId: tweetId,
+  //   name: "hello",
+  //   username: username,
+  //   userImg:
+  //     "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
+  //   img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
+  //   text: "hello",
+  //   timestamp: "1ms ago",
+  // };
+  // const comments = [
+  //   {
+  //     id: "2",
+  //     name: "bye",
+  //     username: "byeId",
+  //     userImg:
+  //       "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
+  //     img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
+  //     text: "bye",
+  //     timestamp: "1ms ago",
+  //   },
+  //   {
+  //     id: "3",
+  //     name: "test",
+  //     username: "test",
+  //     userImg:
+  //       "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
+  //     img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
+  //     text: "test",
+  //     timestamp: "1ms ago",
+  //   },
+  // ];
 
   return (
     <>
@@ -51,7 +58,7 @@ export default function Tweet() {
         </div>
         <div>
           <TweetPost post={post} />
-          <ReplyInput />
+          <ReplyInput post={post} />
           {comments.map((comment) => (
             <Comment key={comment.id} id={comment.id} comment={comment} />
           ))}
