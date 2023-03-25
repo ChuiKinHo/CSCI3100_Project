@@ -24,7 +24,7 @@ export default function Sidebar() {
     router.replace("/");
   };
   return (
-    <div className="hidden sm:flex flex-col p-2 xl:items-start fixed h-full xl:ml-24">
+    <div className=" sm:flex flex-col p-2 xl:items-start fixed h-full xl:ml-24">
       {/* <h2>{pathname}</h2> */}
       {/* Twitter Logo */}
       <Link href="/">
