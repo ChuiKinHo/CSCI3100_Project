@@ -126,8 +126,11 @@ export default function userPage() {
         </div> */}
         <div>
           <nav className="flex flex-row sm:justify-center space-x-4">
-            {["Tweets", "Replies", "Likes"].map((menuItem) => (
-              <button className="basis-1/3 rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-slate-300 hover:text-slate-900">
+            {["Tweets", "Replies", "Likes"].map((menuItem, i) => (
+              <button
+                key={i}
+                className="basis-1/3 rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-slate-300 hover:text-slate-900"
+              >
                 {menuItem}
               </button>
             ))}

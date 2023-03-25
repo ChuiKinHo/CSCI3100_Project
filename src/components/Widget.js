@@ -1,6 +1,8 @@
 import Search from "./Search.js";
 import Post from "./Post.js";
 import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
+//import { isLoggedIn } from "../utils/Utils";
+import Link from "next/link.js";
 
 export default function Widget() {
   const posts = [
@@ -58,7 +60,7 @@ export default function Widget() {
       timestamp: "just now",
     },
   ];
-  return (
+  return false ? (
     <div className="xl:w-[600px] hidden lg:inline ml-4 space-y-4">
       <Search />
 
@@ -100,6 +102,18 @@ export default function Widget() {
       ))}
       <button className="text-blue-300 pl-4 pb-3 hover:text-blue-400">
         Show more
+      </button>
+    </div>
+  ) : (
+    <div className="xl:w-[600px] hidden lg:inline ml-4 space-y-4">
+      <Search />
+      <Link href="/i/login">
+        <button className="flex bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95">
+          Login
+        </button>
+      </Link>
+      <button className="flex bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95">
+        Sign up
       </button>
     </div>
   );
