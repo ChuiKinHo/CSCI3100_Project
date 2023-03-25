@@ -56,25 +56,31 @@ export default function Sidebar() {
             <SidebarMenuItem text="Home" Icon={HomeIcon} />
           )}
         </Link>
-
         <SidebarMenuItem text="Explore" Icon={HashtagIcon} />
-        {/* <SidebarMenuItem text="Notifications" Icon={BellIcon} /> */}
-        <SidebarMenuItem text="Messages" Icon={InboxIcon} />
-        {/* <SidebarMenuItem text="Bookmarks" Icon={BookmarkIcon} /> */}
-        {/* <SidebarMenuItem text='Lists' Icon={ClipboardIcon} /> */}
+        {username != null ? (
+          <>
+            <SidebarMenuItem text="Messages" Icon={InboxIcon} />
 
-        <Link href="/user001">
-          {pathname === "/[username]" ? (
-            <SidebarMenuItem text="Profile" Icon={UserIcon} active />
-          ) : (
-            <SidebarMenuItem text="Profile" Icon={UserIcon} />
-          )}
-        </Link>
-        {/* <SidebarMenuItem text='More' Icon={EllipsisHorizontalCircleIcon} /> */}
+            <Link href="/user001">
+              {pathname === "/[username]" ? (
+                <SidebarMenuItem text="Profile" Icon={UserIcon} active />
+              ) : (
+                <SidebarMenuItem text="Profile" Icon={UserIcon} />
+              )}
+            </Link>
+          </>
+        ) : (
+          ""
+        )}
       </div>
-      <button className="bg-blue-400 text-white rounded-full w-56 h-12 font-bold shadow-md hover:brightness-95 text-lg hidden xl:inline">
-        Tweets
-      </button>
+
+      {username != null ? (
+        <button className="bg-blue-400 text-white rounded-full w-56 h-12 font-bold shadow-md hover:brightness-95 text-lg hidden xl:inline">
+          Tweets
+        </button>
+      ) : (
+        ""
+      )}
 
       {username != null ? (
         <div className="absolute bottom-0">
