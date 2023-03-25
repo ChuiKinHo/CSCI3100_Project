@@ -1,10 +1,13 @@
 import Search from "./Search.js";
 import Post from "./Post.js";
 import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
-//import { isLoggedIn } from "../utils/Utils";
+import useStorage from "../hooks/useStorage";
 import Link from "next/link.js";
 
 export default function Widget() {
+  const { getItem } = useStorage();
+  const username = getItem("username", "session");
+  console.log(username);
   const posts = [
     // Placeholder I guess, will be replaced by the data from the database
     {
@@ -60,7 +63,7 @@ export default function Widget() {
       timestamp: "just now",
     },
   ];
-  return false ? (
+  return username != null ? (
     <div className="xl:w-[600px] hidden lg:inline ml-4 space-y-4">
       <Search />
 

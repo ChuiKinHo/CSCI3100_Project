@@ -12,12 +12,17 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-
+import useStorage from "../hooks/useStorage";
 import SidebarMenuItem from "./SidebarMenuItem";
 
 export default function Sidebar() {
   const router = useRouter();
   const pathname = router.pathname;
+  const { removeItem } = useStorage();
+  const handleLogout = () => {
+    removeItem("username", "session");
+    router.replace("/");
+  };
   return (
     <div className="hidden sm:flex flex-col p-2 xl:items-start fixed h-full xl:ml-24">
       {/* <h2>{pathname}</h2> */}
@@ -61,6 +66,14 @@ export default function Sidebar() {
       <button className="bg-blue-400 text-white rounded-full w-56 h-12 font-bold shadow-md hover:brightness-95 text-lg hidden xl:inline">
         Tweets
       </button>
+      <div className="absolute bottom-0">
+        <button
+          className="flex bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 mb-3"
+          onClick={handleLogout}
+        >
+          logout
+        </button>
+      </div>
     </div>
   );
 }

@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import useStorage from "../../hooks/useStorage";
 
 export default function Login() {
+  const { setItem } = useStorage();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginState, setLoginState] = useState("");
@@ -16,11 +19,14 @@ export default function Login() {
 
   const handleSubmit = () => {
     if (username === "user001" && password === "123456") {
-      setLoginState("success");
+      setLoginState("");
+      setItem("username", username, "session");
+      document.getElementById("autoclick")?.click();
     } else {
-      setLoginState("fail");
+      setLoginState("Username or password is not correct");
     }
   };
+
   return (
     <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
       <div className="flex py-2 px-3 sticky top-0  bg-white border-b border-gray-200">
@@ -59,6 +65,11 @@ export default function Login() {
             onClick={handleSubmit}
           />
           <p>{loginState}</p>
+          <Link href="/">
+            <p id="autoclick" hidden>
+              go to home page
+            </p>
+          </Link>
         </form>
       </div>
     </div>
