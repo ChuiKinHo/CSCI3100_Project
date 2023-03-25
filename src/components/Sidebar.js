@@ -19,12 +19,17 @@ import { useEffect, useState } from "react";
 export default function Sidebar() {
   const router = useRouter();
   const pathname = router.pathname;
-  const [username, setUsername] = useState(null);
-  useEffect(() => setUsername(getItem("username", "session")), []);
   const { getItem, removeItem } = useStorage();
+  const [username, setUsername] = useState(null);
+  useEffect(() => {
+    setUsername(getItem("username", "session"));
+  }, [getItem("username", "session")]);
+
   const handleLogout = () => {
     removeItem("username", "session");
-    router.replace("/");
+    setUsername(null);
+    router.replace("/i/login");
+    // router.reload();
   };
 
   return (

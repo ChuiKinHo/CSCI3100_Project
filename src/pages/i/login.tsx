@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import useStorage from "../../hooks/useStorage";
+import { useRouter } from "next/router";
 
 export default function Login() {
+  const router = useRouter();
   const { setItem } = useStorage();
 
   const [username, setUsername] = useState("");
@@ -21,7 +23,7 @@ export default function Login() {
     if (username === "user001" && password === "123456") {
       setWarning("");
       setItem("username", username, "session");
-      document.getElementById("autoclick")?.click();
+      router.replace("/");
     } else {
       setWarning("Username or password is not correct");
     }
@@ -67,11 +69,6 @@ export default function Login() {
             onClick={handleSubmit}
           />
           <p>{warning}</p>
-          <Link href="/">
-            <p id="autoclick" hidden>
-              go to home page
-            </p>
-          </Link>
         </form>
       </div>
     </div>
