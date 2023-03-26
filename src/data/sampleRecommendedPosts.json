@@ -12,7 +12,8 @@
     "like_by_me": false,
     "dislike_by_me": false,
     "retweet": false,
-    "commentId": []
+    "commentId": [],
+    "targetTweetId": null
   },
   {
     "id": "101",
@@ -27,6 +28,7 @@
     "like_by_me": false,
     "dislike_by_me": false,
     "retweet": false,
-    "commentId": []
+    "commentId": [],
+    "targetTweetId": null
   }
 ]

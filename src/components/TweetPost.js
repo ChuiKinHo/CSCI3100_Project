@@ -1,32 +1,31 @@
-import {
-  ChatBubbleBottomCenterTextIcon,
-  EllipsisHorizontalCircleIcon,
-  ArrowPathRoundedSquareIcon,
-  HandThumbUpIcon,
-  HandThumbDownIcon,
-} from "@heroicons/react/24/outline";
-import {
-  HandThumbUpIcon as HandThumbUpIconSolid,
-  HandThumbDownIcon as HandThumbDownIconSolid,
-} from "@heroicons/react/24/solid";
+import { EllipsisHorizontalCircleIcon } from "@heroicons/react/24/outline";
+import posts from "@/data/samplePosts.json";
+import Link from "next/link";
 
 export default function TweetPost({ post }) {
+  const targetPost = posts.find((tweet) => tweet.id === post.targetTweetId);
   // TODO:: More polishing is needed
   return (
     <>
+      {post.targetTweetId === null ? null : <TweetPost post={targetPost} />}
       <div className="p-3 cursor-pointer border-b border-gray-200">
         <div className="flex">
-          <img
-            className="h-11 w-11 rounded-full mr-4"
-            src={post.userImg}
-            alt="user-img"
-          />
+          <Link href={"/" + post.username}>
+            <img
+              className="h-11 w-11 rounded-full mr-4"
+              src={post.userImg}
+              alt="user-img"
+            />
+          </Link>
+
           <div className="flex-1">
             <div className="flex items-center justify-between">
               <div className="items-center space-x-1 whitespace-nowrap">
-                <h4 className="leading-none font-bold text-[15px] sm:text-[16px] hover:underline">
-                  {post.name}
-                </h4>
+                <Link href={"/" + post.username}>
+                  <h4 className="leading-none font-bold text-[15px] sm:text-[16px] hover:underline">
+                    {post.name}
+                  </h4>
+                </Link>
                 <span className="text-sm sm:text-[15px]">@{post.username}</span>
               </div>
 
@@ -42,46 +41,6 @@ export default function TweetPost({ post }) {
             {post.text}
           </p>
         </div>
-      </div>
-      <div className="flex justify-around text-gray-500 p-2 border">
-        <button className="flex items-center group">
-          {post.like_by_me ? (
-            <>
-              <HandThumbUpIconSolid className="h-9 w-9 hoverEffect p-2 hover:text-green-600 hover:bg-green-100 text-green-600 group-hover:text-green-600 group-hover:bg-green-100" />
-              <span className="text-green-600 text-sm select-none group-hover:text-green-600 px-1">
-                {post.like}
-              </span>
-            </>
-          ) : (
-            <HandThumbUpIcon className="h-9 w-9 hoverEffect p-2 hover:text-green-600 hover:bg-green-100 text-gray-600 group-hover:text-green-600" />
-          )}
-          {!post.like_by_me && post.like > 0 && (
-            <span className="text-gray-600 text-sm select-none group-hover:text-green-600 px-1">
-              {post.like}
-            </span>
-          )}
-        </button>
-        <button className="flex items-center group">
-          {post.dislike_by_me ? (
-            <>
-              <HandThumbDownIconSolid className="h-9 w-9 hoverEffect p-2 text-red-600 group-hover:text-red-600 group-hover:bg-red-100" />
-              <span className="text-red-600 text-sm select-none group-hover:text-red-600 px-1">
-                {post.dislike}
-              </span>
-            </>
-          ) : (
-            <HandThumbDownIcon className="h-9 w-9 hoverEffect p-2 text-gray-600 group-hover:text-red-600 group-hover:bg-red-100" />
-          )}
-          {!post.dislike_by_me && post.dislike > 0 && (
-            <span className="text-gray-600 text-sm select-none group-hover:text-red-600 px-1">
-              {post.dislike}
-            </span>
-          )}
-        </button>
-
-        <button className="flex items-center">
-          <ArrowPathRoundedSquareIcon className="h-9 w-9 hoverEffect p-2 hover:text-blue-600 hover:bg-blue-100" />
-        </button>
       </div>
     </>
   );

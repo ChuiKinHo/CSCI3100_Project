@@ -7,67 +7,38 @@ import { useEffect, useState } from "react";
 import recommendedPosts from "@/data/sampleRecommendedPosts.json";
 import recommendedUsers from "@/data/sampleRecommendedUsers.json";
 
+function NotLogin() {
+  return (
+    <div className="xl:w-[600px] hidden lg:inline ml-4 space-y-4">
+      <Search />
+      <div>
+        <Link href="/i/login">
+          <button className="flex bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95">
+            Login
+          </button>
+        </Link>
+      </div>
+      <div>
+        <Link href="/i/signup">
+          <button className="flex bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95">
+            Sign up
+          </button>
+        </Link>
+      </div>
+    </div>
+  );
+}
+
 export default function Widget() {
   const { getItem } = useStorage();
   const [username, setUsername] = useState(null);
-  useEffect(() => setUsername(getItem("username", "session")), []);
+  useEffect(
+    () => setUsername(getItem("username", "session")),
+    [getItem("username", "session")]
+  );
   const posts = recommendedPosts;
   const randomUser = recommendedUsers;
-  // const posts = [
-  //   // Placeholder I guess, will be replaced by the data from the database
-  //   {
-  //     id: "1",
-  //     name: "hello",
-  //     username: "hello",
-  //     userImg:
-  //       "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-  //     img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-  //     text: "hello",
-  //     timestamp: "1ms ago",
-  //   },
-  //   {
-  //     id: "2",
-  //     name: "hello",
-  //     username: "hello",
-  //     userImg:
-  //       "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-  //     img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-  //     text: "hello",
-  //     timestamp: "just now",
-  //   },
-  // ];
-  // const randomUser = [
-  //   {
-  //     id: "1",
-  //     username: "helloId",
-  //     name: "hello",
-  //     picture:
-  //       "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-  //     img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-  //     text: "hello",
-  //     timestamp: "1ms ago",
-  //   },
-  //   {
-  //     id: "2",
-  //     username: "helloId",
-  //     name: "hello",
-  //     picture:
-  //       "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-  //     img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-  //     text: "hello",
-  //     timestamp: "just now",
-  //   },
-  //   {
-  //     id: "3",
-  //     username: "helloId",
-  //     name: "hello",
-  //     picture:
-  //       "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-  //     img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-  //     text: "hello",
-  //     timestamp: "just now",
-  //   },
-  // ];
+
   return username != null ? (
     <div className="xl:w-[600px] hidden lg:inline ml-4 space-y-4">
       <Search />
@@ -78,16 +49,21 @@ export default function Widget() {
           key={randomUser.id}
           className="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-500 ease-out"
         >
-          <img
-            className="rounded-full"
-            width="40"
-            src={randomUser.picture}
-            alt=""
-          />
+          <Link href={"/" + randomUser.username}>
+            <img
+              className="rounded-full"
+              width="40"
+              src={randomUser.userImg}
+              alt=""
+            />
+          </Link>
+
           <div className="truncate ml-4 leading-5">
-            <h4 className="font-bold hover:underline text-[14px] truncate">
-              {randomUser.name}
-            </h4>
+            <Link href={"/" + randomUser.username}>
+              <h4 className="font-bold hover:underline text-[14px] truncate">
+                {randomUser.name}
+              </h4>
+            </Link>
             <h5 className="text-[13px] text-gray-500 truncate">
               @{randomUser.username}
             </h5>
@@ -113,22 +89,6 @@ export default function Widget() {
       </button>
     </div>
   ) : (
-    <div className="xl:w-[600px] hidden lg:inline ml-4 space-y-4">
-      <Search />
-      <div>
-        <Link href="/i/login">
-          <button className="flex bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95">
-            Login
-          </button>
-        </Link>
-      </div>
-      <div>
-        <Link href="/i/signup">
-          <button className="flex bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95">
-            Sign up
-          </button>
-        </Link>
-      </div>
-    </div>
+    NotLogin()
   );
 }

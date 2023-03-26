@@ -12,7 +12,8 @@
     "like_by_me": true,
     "dislike_by_me": false,
     "retweet": true,
-    "commentId": ["3", "4"]
+    "commentId": ["3", "4"],
+    "targetTweetId": null
   },
   {
     "id": "2",
@@ -27,7 +28,8 @@
     "like_by_me": false,
     "dislike_by_me": true,
     "retweet": false,
-    "commentId": []
+    "commentId": [],
+    "targetTweetId": null
   },
   {
     "id": "3",
@@ -42,7 +44,8 @@
     "like_by_me": false,
     "dislike_by_me": true,
     "retweet": false,
-    "commentId": []
+    "commentId": [],
+    "targetTweetId": "1"
   },
   {
     "id": "4",
@@ -57,7 +60,8 @@
     "like_by_me": false,
     "dislike_by_me": true,
     "retweet": false,
-    "commentId": []
+    "commentId": [],
+    "targetTweetId": "1"
   },
   {
     "id": "5",
@@ -72,7 +76,8 @@
     "like_by_me": false,
     "dislike_by_me": false,
     "retweet": false,
-    "commentId": []
+    "commentId": [],
+    "targetTweetId": null
   },
   {
     "id": "6",
@@ -87,6 +92,7 @@
     "like_by_me": false,
     "dislike_by_me": false,
     "retweet": false,
-    "commentId": []
+    "commentId": [],
+    "targetTweetId": null
   }
 ]

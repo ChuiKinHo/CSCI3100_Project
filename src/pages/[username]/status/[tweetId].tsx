@@ -1,54 +1,45 @@
 import { useRouter } from "next/router";
 import TweetPost from "@/components/TweetPost";
+import Post from "@/components/Post";
+import ActionBar from "@/components/ActionBar";
 import Comment from "@/components/Comment";
 import ReplyInput from "@/components/ReplyInput";
 import Widget from "@/components/Widget";
 import postsJSON from "@/data/samplePosts.json";
+import users from "@/data/sampleUsers.json";
+import useStorage from "@/hooks/useStorage";
+import { useEffect, useState } from "react";
 
 export default function Tweet() {
+  const { getItem } = useStorage();
+  const [user, setUser] = useState();
+
   const router = useRouter();
   const tweetId = router.query.tweetId;
   const username = router.query.username;
-  const post = postsJSON.filter(
-    (post) => post.id === tweetId && post.username === username
-  )[0];
-  const comments = postsJSON.filter((comment) =>
-    post.commentId.includes(comment.id)
-  );
-  // test post
-  // const post = {
-  //   id: "1",
-  //   tweetId: tweetId,
-  //   name: "hello",
-  //   username: username,
-  //   userImg:
-  //     "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-  //   img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-  //   text: "hello",
-  //   timestamp: "1ms ago",
-  // };
-  // const comments = [
-  //   {
-  //     id: "2",
-  //     name: "bye",
-  //     username: "byeId",
-  //     userImg:
-  //       "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-  //     img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-  //     text: "bye",
-  //     timestamp: "1ms ago",
-  //   },
-  //   {
-  //     id: "3",
-  //     name: "test",
-  //     username: "test",
-  //     userImg:
-  //       "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-  //     img: "https://pbs.twimg.com/profile_images/1121328878142853120/e-rpjoJi_bigger.png",
-  //     text: "test",
-  //     timestamp: "1ms ago",
-  //   },
-  // ];
+  // const post = postsJSON.find(
+  //   (post) => post.id === tweetId && post.username === username
+  // );
+  // const comments = postsJSON.filter((comment) =>
+  //   post.commentId.includes(comment.id)
+  // );
+  const [post, setPost] = useState();
+  const [comments, setComments] = useState([]);
+  useEffect(() => {
+    let user = users.find(
+      (user) => user.username === getItem("username", "session")
+    );
+    setUser(user);
+    setPost(
+      postsJSON.find(
+        (post) => post.id === tweetId && post.username === username
+      )
+    );
+    if (post != null)
+      setComments(
+        postsJSON.filter((comment) => post.commentId.includes(comment.id))
+      );
+  }, [tweetId, post]);
 
   return (
     <>
@@ -57,11 +48,24 @@ export default function Tweet() {
           <h2 className="text-lg sm:text-xl font-bold cursor-pointer">Tweet</h2>
         </div>
         <div>
-          <TweetPost post={post} />
-          <ReplyInput post={post} />
-          {comments.map((comment) => (
-            <Comment key={comment.id} id={comment.id} comment={comment} />
-          ))}
+          {post != null ? (
+            <>
+              <TweetPost post={post} />
+              <div className="border-b">
+                <ActionBar post={post} />
+              </div>
+            </>
+          ) : null}
+
+          {user != null ? (
+            <ReplyInput post={post} userImg={user.userImg} />
+          ) : null}
+
+          {comments != null && comments.length != 0
+            ? comments.map((comment) => (
+                <Post key={comment.id} id={comment.id} post={comment} />
+              ))
+            : null}
         </div>
       </div>
       <Widget />

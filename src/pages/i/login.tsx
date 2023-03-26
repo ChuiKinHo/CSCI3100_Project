@@ -20,14 +20,17 @@ export default function Login() {
   };
 
   const handleSubmit = () => {
-    if (username === "user001" && password === "123456") {
+    if (
+      (username === "user" && password === "user") ||
+      (username === "user001" && password === "123456")
+    ) {
       setWarning("");
       setItem("username", username, "session");
       router.replace("/");
     } else if (username === "admin" && password === "admin") {
       setWarning("");
       setItem("admin", "1", "session");
-      document.getElementById("autoclick_admin")?.click();
+      router.replace("/admin");
     } else {
       setWarning("Username or password is not correct");
     }

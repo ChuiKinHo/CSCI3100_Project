@@ -2,33 +2,44 @@ import { useRouter } from "next/router";
 import Post from "@/components/Post";
 import Widget from "@/components/Widget";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
+import { useEffect, useState } from "react";
 import postsJSON from "@/data/samplePosts.json";
+import users from "@/data/sampleUsers.json";
 
 export default function userPage() {
+  const [userInfo, setUserInfo] = useState({});
+  const [posts, setPosts] = useState([]);
   const router = useRouter();
-  const userInfo = {
-    username: router.query.username,
-    name: "testName",
-    intro: "introduction",
-    userImg:
-      "https://pbs.twimg.com/profile_images/1254779846615420930/7I4kP65u_400x400.jpg",
-    userBgImg:
-      "https://pbs.twimg.com/profile_banners/2161323234/1585151401/600x200",
-  };
+  const username = router.query.username;
+  useEffect(() => {
+    let user = users.find((user) => user.username === username);
+    if (user != null) {
+      if (user.userImg == "") {
+        user.userImg =
+          "https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png";
+      }
+      if (user.userBgImg == null) {
+        user.userBgImg = "";
+      }
+      setUserInfo(user);
+    }
+  }, [username]);
+  useEffect(() => {
+    if (userInfo.length !== 0) {
+      setPosts(postsJSON.filter((post) => post.username === userInfo.username));
+    }
+  }, [userInfo]);
+  // const userInfo = {
+  //   username: router.query.username,
+  //   name: "testName",
+  //   intro: "introduction",
+  //   userImg:
+  //     "https://pbs.twimg.com/profile_images/1254779846615420930/7I4kP65u_400x400.jpg",
+  //   userBgImg:
+  //     "https://pbs.twimg.com/profile_banners/2161323234/1585151401/600x200",
+  // };
 
-  const posts = postsJSON.filter((post) => post.username === userInfo.username);
-  // test post
-  // const posts = [
-  //   {
-  //     id: "1",
-  //     name: userInfo.name,
-  //     username: userInfo.username,
-  //     userImg: userInfo.userImg,
-  //     img: "",
-  //     text: "hello. This is my first tweet.",
-  //     timestamp: "1ms ago",
-  //   },
-  // ];
+  // const posts = postsJSON.filter((post) => post.username === userInfo.username);
 
   return (
     <>
@@ -43,17 +54,20 @@ export default function userPage() {
         <div>
           <div
             className="w-full bg-cover bg-no-repeat bg-center"
-            style={{
-              height: "200px",
-              backgroundImage:
-                "url(https://pbs.twimg.com/profile_banners/2161323234/1585151401/600x200)",
-            }}
+            style={
+              userInfo.userBgImg === ""
+                ? { height: "200px", backgroundColor: "#cfd9de" }
+                : {
+                    height: "200px",
+                    backgroundImage: "url(" + userInfo.userBgImg + ")",
+                  }
+            }
           >
-            <img
+            {/* <img
               className="opacity-0 w-full h-full"
-              src="https://pbs.twimg.com/profile_banners/2161323234/1585151401/600x200"
+              src="https://pbs.twimg.com/profile_banners/2161323234/1585151401/600x200)"
               alt=""
-            />
+            /> */}
           </div>
           <div className="p-4">
             <div className="relative flex w-full">
@@ -66,7 +80,7 @@ export default function userPage() {
                     <img
                       style={{ height: "9rem", width: "9rem" }}
                       className="md rounded-full relative border-4 border-gray-900"
-                      src="https://pbs.twimg.com/profile_images/1254779846615420930/7I4kP65u_400x400.jpg"
+                      src={userInfo.userImg}
                       alt=""
                     />
                     <div className="absolute"></div>

@@ -1,8 +1,12 @@
-export default function ReplyInput({ post }) {
+export default function ReplyInput({ post, userImg }) {
   return (
     <div className="flex border-b border-gray-200 p-3 space-x-3">
       <img
-        src="https://pbs.twimg.com/profile_images/1254779846615420930/7I4kP65u_400x400.jpg"
+        src={
+          userImg === "" || userImg == null
+            ? "https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png"
+            : userImg
+        }
         alt="user-img"
         className="h-11 w-11 rounded-full cursor-pointer hover:brightness-95"
       />
