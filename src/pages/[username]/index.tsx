@@ -7,28 +7,28 @@ import postsJSON from "@/data/samplePosts.json";
 import users from "@/data/sampleUsers.json";
 
 export default function userPage() {
-  const [userInfo, setUserInfo] = useState({});
-  const [posts, setPosts] = useState([]);
-  const router = useRouter();
-  const username = router.query.username;
-  useEffect(() => {
-    let user = users.find((user) => user.username === username);
-    if (user != null) {
-      if (user.userImg == "") {
-        user.userImg =
-          "https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png";
-      }
-      if (user.userBgImg == null) {
-        user.userBgImg = "";
-      }
-      setUserInfo(user);
-    }
-  }, [username]);
-  useEffect(() => {
-    if (userInfo && userInfo.length !== 0) {
-      setPosts(postsJSON.filter((post) => post.username === userInfo.username));
-    }
-  }, [userInfo]);
+  // const [userInfo, setUserInfo] = useState({});
+  // const [posts, setPosts] = useState([]);
+  // const router = useRouter();
+  // const username = router.query.username;
+  // useEffect(() => {
+  //   let user = users.find((user) => user.username === username);
+  //   if (user != null) {
+  //     if (user.userImg == "") {
+  //       user.userImg =
+  //         "https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png";
+  //     }
+  //     if (user.userBgImg == null) {
+  //       user.userBgImg = "";
+  //     }
+  //     setUserInfo(user);
+  //   }
+  // }, [username]);
+  // useEffect(() => {
+  //   if (Object.keys(userInfo).length !== 0) {
+  //     setPosts(postsJSON.filter((post) => post.username === userInfo.username));
+  //   }
+  // }, [userInfo]);
   // const userInfo = {
   //   username: router.query.username,
   //   name: "testName",
@@ -43,7 +43,7 @@ export default function userPage() {
 
   return (
     <>
-      <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
+      {/* <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
         <div className="flex py-2 px-3 sticky top-0 z-50 bg-white border-b border-gray-200">
           <ArrowLeftIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
           <h2 className="text-lg sm:text-xl font-bold cursor-pointer ml-3">
@@ -68,7 +68,7 @@ export default function userPage() {
               src="https://pbs.twimg.com/profile_banners/2161323234/1585151401/600x200)"
               alt=""
             /> */}
-          </div>
+          {/* </div>
           <div className="p-4">
             <div className="relative flex w-full">
               <div className="flex flex-1">
@@ -118,7 +118,7 @@ export default function userPage() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         {/* <div className="flex p-3 border-b border-gray-200">
           <img
             className="h-30 w-30 rounded-full mr-4"
@@ -141,7 +141,7 @@ export default function userPage() {
             </a>
           </div>
         </div> */}
-        <div>
+        {/* <div>
           <nav className="flex flex-row sm:justify-center space-x-4">
             {["Tweets", "Replies", "Likes"].map((menuItem, i) => (
               <button
@@ -157,7 +157,7 @@ export default function userPage() {
           ))}
         </div>
       </div>
-      <Widget />
+      <Widget /> */}
     </>
   );
 }
