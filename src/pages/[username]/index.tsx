@@ -25,7 +25,7 @@ export default function userPage() {
     }
   }, [username]);
   useEffect(() => {
-    if (userInfo.length !== 0) {
+    if (userInfo && userInfo.length !== 0) {
       setPosts(postsJSON.filter((post) => post.username === userInfo.username));
     }
   }, [userInfo]);
