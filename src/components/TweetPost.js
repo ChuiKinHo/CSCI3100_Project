@@ -1,8 +1,12 @@
 import { EllipsisHorizontalCircleIcon } from "@heroicons/react/24/outline";
-import posts from "@/data/samplePosts.json";
 import Link from "next/link";
 
+// TODO:: Remove sample data
+import posts from "@/data/samplePosts.json";
+
 export default function TweetPost({ post }) {
+  
+  // TODO:: Remove sample data
   const targetPost = posts.find((tweet) => tweet.id === post.targetTweetId);
   // TODO:: More polishing is needed
   return (

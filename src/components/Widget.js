@@ -4,6 +4,8 @@ import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
 import useStorage from "../hooks/useStorage";
 import Link from "next/link.js";
 import { useEffect, useState } from "react";
+
+// TODO:: Remove sample data
 import recommendedPosts from "@/data/sampleRecommendedPosts.json";
 import recommendedUsers from "@/data/sampleRecommendedUsers.json";
 
@@ -29,6 +31,14 @@ function NotLogin() {
   );
 }
 
+function getRecommendedPosts() {
+  return recommendedPosts;
+}
+
+function getRecommendedUsers() {
+  return recommendedUsers;
+}
+
 export default function Widget() {
   const { getItem } = useStorage();
   const [username, setUsername] = useState(null);
@@ -36,15 +46,17 @@ export default function Widget() {
     () => setUsername(getItem("username", "session")),
     [getItem("username", "session")]
   );
-  const posts = recommendedPosts;
-  const randomUser = recommendedUsers;
+
+  // TODO:: think about refreshing the page, is there any problem? If no, then remove this line.
+  const posts = getRecommendedPosts();
+  const randomUsers = getRecommendedUsers();
 
   return username != null ? (
     <div className="xl:w-[600px] hidden lg:inline ml-4 space-y-4">
       <Search />
 
       <h4 className="font-bold text-xl px-4">Who to follow</h4>
-      {randomUser.map((randomUser) => (
+      {randomUsers.map(randomUser => (
         <div
           key={randomUser.id}
           className="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-500 ease-out"

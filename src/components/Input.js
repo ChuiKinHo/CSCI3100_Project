@@ -1,6 +1,8 @@
 import { FaceSmileIcon, PhotoIcon } from "@heroicons/react/20/solid";
 import useStorage from "../hooks/useStorage";
 import { useEffect, useState } from "react";
+
+// TODO:: Remove sample data
 import users from "@/data/sampleUsers.json";
 
 export default function Input() {
@@ -11,6 +13,8 @@ export default function Input() {
   );
   useEffect(() => {
     if (username != null) {
+      
+      // TODO:: Remove sample data
       let user = users.find((user) => user.username === username);
       if (user != null && user.userImg != null && user.userImg != "") {
         setUserImg(user.userImg);

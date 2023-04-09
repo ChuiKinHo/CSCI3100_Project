@@ -1,4 +1,4 @@
-// TODO:: Would like to rename this file to something more descriptive, like "mongodb-api.js"
+// Side note: Does this really work? lol. This does.
 
 /* 
 This file contains all of the basic CRUD routes for the application to connect to our Atlas Data API.
