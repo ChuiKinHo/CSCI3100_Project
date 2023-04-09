@@ -1,0 +1,55 @@
+### This file is solely for testing purposes. It is not used in the application. ###
+
+
+### api/users tests ###
+### GET - GET USERS
+GET http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+}
+
+### POST - CREATE NEW USER
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+  "username": "user2",
+  "name": "user0",
+  "password": "user0"
+}
+
+### PUT - UPDATE USER 1
+PUT http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+  "username": "user0",
+  "password": "user1"
+}
+### PUT - UPDATE USER 2
+PUT http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+  "username": "user0",
+  "password": "user2"
+}
+### PUT - UPDATE USER 3
+PUT http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+  "username": "ewqewqeqw",
+  "password": "user2"
+}
+
+
+### DELETE - DELETE USER
+DELETE http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+  "username": "user2"
+}
+
