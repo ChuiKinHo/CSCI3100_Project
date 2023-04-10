@@ -17,6 +17,7 @@ mongoose.connect(process.env.MONGODB_DATA_API_URL);
 
 const UserSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
+  userImg: { type: String, required: true },
   name: { type: String, required: true },
   password: { type: String, required: true },
   following: { type: Array },
