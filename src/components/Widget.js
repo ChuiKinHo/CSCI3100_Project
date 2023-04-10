@@ -6,7 +6,7 @@ import Link from "next/link.js";
 import { useEffect, useState } from "react";
 
 // TODO:: Remove sample data
-import recommendedPosts from "@/data/sampleRecommendedPosts.json";
+// import recommendedPosts from "@/data/sampleRecommendedPosts.json";
 import recommendedUsers from "@/data/sampleRecommendedUsers.json";
 
 function NotLogin() {
@@ -32,7 +32,28 @@ function NotLogin() {
 }
 
 function getRecommendedPosts() {
-  return recommendedPosts;
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/tweets", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setPosts(data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching posts:", error);
+      });
+  }, []);
+
+  // Randomly select three posts from the posts array
+  const randomPosts = posts.sort(() => 0.5 - Math.random()).slice(0, 3);
+
+  return randomPosts;
 }
 
 function getRecommendedUsers() {
@@ -56,7 +77,7 @@ export default function Widget() {
       <Search />
 
       <h4 className="font-bold text-xl px-4">Who to follow</h4>
-      {randomUsers.map(randomUser => (
+      {randomUsers.map((randomUser) => (
         <div
           key={randomUser.id}
           className="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-500 ease-out"
