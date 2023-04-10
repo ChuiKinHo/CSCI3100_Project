@@ -14,10 +14,19 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       try {
-        const tweets = await Tweet.find().populate(
-          "userObjectId",
-          "username name usrImg -_id"
-        );
+        const tweetid = req.query.tweetid; // Get the tweetid parameter from the request URL
+        let tweets;
+        if (tweetid) {
+          tweets = await Tweet.findOne({ id: tweetid }).populate(
+            "userObjectId",
+            "username name usrImg -_id"
+          );
+        } else {
+          tweets = await Tweet.find().populate(
+            "userObjectId",
+            "username name usrImg -_id"
+          );
+        }
         res.status(200).json({ success: true, data: tweets });
       } catch (error) {
         res.status(400).json({ success: false });

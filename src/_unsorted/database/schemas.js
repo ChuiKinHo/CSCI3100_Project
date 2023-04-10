@@ -33,7 +33,7 @@ const AdminSchema = new mongoose.Schema({
 const Admin = mongoose.models.Admin || mongoose.model("Admin", AdminSchema);
 
 const TweetSchema = new mongoose.Schema({
-  id: { type: Number, required: true, unique: true },
+  id: { type: String, required: true, unique: true },
   userObjectId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   timestamp: { type: String, required: true },
   img: { type: String, required: false },
