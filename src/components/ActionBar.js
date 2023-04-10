@@ -13,6 +13,7 @@ import {
 
 import React, { useState } from "react";
 import Retweet from "@/components/Retweet";
+import { useRouter } from "next/router";
 
 export default function ActionBar({ post }) {
   const [showPopUp, setShowPopUp] = useState(false);
@@ -25,13 +26,20 @@ export default function ActionBar({ post }) {
     setShowPopUp(false);
   };
 
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push({
+      pathname: `/${post.userObjectId.username}/status/${post.id}`,
+      query: { tweetid: post.id },
+    });
+  };
+
   return (
     <div className="flex justify-between text-gray-500 p-2">
-      <Link href={"/" + post.userObjectId.username + "/status/" + post.id}>
-        <button className="flex items-center select-none">
-          <ChatBubbleBottomCenterTextIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
-        </button>
-      </Link>
+      <button className="flex items-center select-none" onClick={handleClick}>
+        <ChatBubbleBottomCenterTextIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
+      </button>
 
       <button className="flex items-center group">
         {post.like_by_me ? (
