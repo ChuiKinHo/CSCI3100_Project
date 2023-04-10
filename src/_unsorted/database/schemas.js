@@ -34,8 +34,8 @@ const Admin = mongoose.models.Admin || mongoose.model("Admin", AdminSchema);
 
 const TweetSchema = new mongoose.Schema({
   id: { type: Number, required: true, unique: true },
-  username: { type: String, required: true, ref: "User" },
-  timestamp: { type: Date, required: true },
+  userObjectId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  timestamp: { type: String, required: true },
   img: { type: String, required: false },
   text: { type: String, required: true },
   // timelineId: { type: Number, required: true },

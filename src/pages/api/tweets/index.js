@@ -2,6 +2,7 @@ import dbConnect from "../../../_unsorted/database/dbConnect";
 import { Post } from "../../../_unsorted/database/schemas";
 import { pwd } from "../../../_unsorted/util/utils";
 import { Tweet } from "../../../_unsorted/database/schemas";
+import { User } from "../../../_unsorted/database/schemas";
 
 export default async function handler(req, res) {
   // Wait for database to connect before continuing
@@ -11,10 +12,13 @@ export default async function handler(req, res) {
 
   // api/users
   switch (method) {
-    case "GET": // Get all Users
+    case "GET":
       try {
-        const tweet = await Tweet.find({});
-        res.status(200).json({ success: true, data: tweet });
+        const tweets = await Tweet.find().populate(
+          "userObjectId",
+          "username name usrImg -_id"
+        );
+        res.status(200).json({ success: true, data: tweets });
       } catch (error) {
         res.status(400).json({ success: false });
       }
