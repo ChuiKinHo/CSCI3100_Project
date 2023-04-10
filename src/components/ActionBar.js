@@ -27,7 +27,7 @@ export default function ActionBar({ post }) {
 
   return (
     <div className="flex justify-between text-gray-500 p-2">
-      <Link href={"/" + post.username + "/status/" + post.id}>
+      <Link href={"/" + post.userObjectId.username + "/status/" + post.id}>
         <button className="flex items-center select-none">
           <ChatBubbleBottomCenterTextIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
         </button>
