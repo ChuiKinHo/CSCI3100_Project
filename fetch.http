@@ -16,7 +16,8 @@ Content-Type: application/json
 {
   "username": "user2",
   "name": "user0",
-  "password": "user0"
+  "password": "user0",
+  "userImg": "ewq"
 }
 
 ### PUT - UPDATE USER 1
