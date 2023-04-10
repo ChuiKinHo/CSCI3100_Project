@@ -41,7 +41,6 @@ export default function ActionBar({}) {
         console.error("Error fetching posts:", error);
       });
   }, [tweetid]);
-  // console.log(post);
 
   const [showPopUp, setShowPopUp] = useState(false);
 
@@ -52,14 +51,15 @@ export default function ActionBar({}) {
   const handleClosePopUp = () => {
     setShowPopUp(false);
   };
-  if (post && post.length > 0) {
+  if (post) {
+    console.log(post);
     return (
       <div className="flex justify-between text-gray-500 p-2">
-        <Link href={"/" + post.userObjectId.username + "/status/" + post.id}>
+        {/* <Link href={"/" + post.userObjectId.username + "/status/" + post.id}>
           <button className="flex items-center select-none">
             <ChatBubbleBottomCenterTextIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
           </button>
-        </Link>
+        </Link> */}
 
         <button className="flex items-center group">
           {post.like_by_me ? (
