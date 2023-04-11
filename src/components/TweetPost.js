@@ -5,6 +5,7 @@ import Link from "next/link";
 import posts from "@/data/samplePosts.json";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { userImg } from "../_unsorted/imageRelated/cloudinary/utils";
 
 export default function TweetPost({ post }) {
   // TODO:: Remove sample data
@@ -48,11 +49,7 @@ export default function TweetPost({ post }) {
         <div className="p-3 cursor-pointer border-b border-gray-200">
           <div className="flex">
             <Link href={"/" + post.userObjectId.username}>
-              <img
-                className="h-11 w-11 rounded-full mr-4"
-                src={post.userObjectId.usrImg}
-                alt="user-img"
-              />
+              {userImg(post.userObjectId)}
             </Link>
 
             <div className="flex-1">
