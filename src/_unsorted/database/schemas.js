@@ -22,6 +22,11 @@ const UserSchema = new mongoose.Schema({
   password: { type: String, required: true },
   following: { type: Array },
   follower: { type: Array },
+  mytweets: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Tweet",
+    required: true,
+  },
 });
 const User = mongoose.models.User || mongoose.model("User", UserSchema);
 

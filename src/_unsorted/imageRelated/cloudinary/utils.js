@@ -13,15 +13,22 @@ export function userImg(user) {
   );
 }
 
-export default function img(url, alt, width, height) {
+export function userImgProfile(user) {
   return (
     <CldImage
-      width={width}
-      height={height}
+      className="md rounded-full relative border-4 border-gray-900"
+      width="75"
+      height="75"
       crop="fill"
-      src={url}
-      alt={alt}
+      src={user.usrImg}
+      alt={user.username}
     />
+  );
+}
+
+export default function img(url, alt, width, height) {
+  return (
+    <CldImage width={width} height={height} crop="fill" src={url} alt={alt} />
   );
 }
 

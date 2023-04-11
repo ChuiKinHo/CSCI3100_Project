@@ -5,6 +5,7 @@ import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import postsJSON from "@/data/samplePosts.json";
 import users from "@/data/sampleUsers.json";
+import { userImgProfile } from "../../_unsorted/imageRelated/cloudinary/utils";
 
 export default function userPage() {
   const [userInfo, setUserInfo] = useState({
@@ -15,39 +16,6 @@ export default function userPage() {
   const [posts, setPosts] = useState([]);
   const router = useRouter();
   const username = router.query.username;
-  // useEffect(() => {
-  //   let user = users.find((user) => user.username === username);
-  //   if (user != null) {
-  //     if (user.userImg == "") {
-  //       user.userImg =
-  //         "https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png";
-  //     }
-  //     if (user.userBgImg == null) {
-  //       user.userBgImg = "";
-  //     }
-  //     setUserInfo(user);
-  //   }
-  // }, [username]);
-  // useEffect(() => {
-  //   if (Object.keys(userInfo).length !== 0) {
-  //     setPosts(
-  //       postsJSON.filter((post) => post.username === userInfo.username)
-  //     );
-  //   }
-  // }, [userInfo]);
-  // const userInfo = {
-  //   username: router.query.username,
-  //   name: "testName",
-  //   intro: "introduction",
-  //   userImg:
-  //     "https://pbs.twimg.com/profile_images/1254779846615420930/7I4kP65u_400x400.jpg",
-  //   userBgImg:
-  //     "https://pbs.twimg.com/profile_banners/2161323234/1585151401/600x200",
-  // };
-
-  // const posts = postsJSON.filter(
-  //   (post) => post.username === userInfo.username
-  // );
   useEffect(() => {
     fetch("http://localhost:3000/api/users?q=" + username, {
       method: "GET",
@@ -83,22 +51,8 @@ export default function userPage() {
         </div>
 
         <div>
-          <div
-            className="w-full bg-cover bg-no-repeat bg-center"
-            // style={
-            //   userInfo.userBgImg === ""
-            //     ? { height: "200px", backgroundColor: "#cfd9de" }
-            //     : {
-            //         height: "200px",
-            //         backgroundImage: "url(" + userInfo.userBgImg + ")",
-            //       }
-            // }
-          >
-            {/* <img
-              className="opacity-0 w-full h-full"
-              src="https://pbs.twimg.com/profile_banners/2161323234/1585151401/600x200)"
-              alt=""
-            /> */}
+          <div className="w-full bg-cover bg-no-repeat bg-center">
+            {userImgProfile(userInfo)}
           </div>
           <div className="p-4">
             <div className="relative flex w-full">
@@ -108,12 +62,6 @@ export default function userPage() {
                     style={{ height: "9rem", width: "9rem" }}
                     className="md rounded-full relative avatar"
                   >
-                    <img
-                      style={{ height: "9rem", width: "9rem" }}
-                      className="md rounded-full relative border-4 border-gray-900"
-                      src={userInfo.userImg}
-                      alt=""
-                    />
                     <div className="absolute"></div>
                   </div>
                 </div>
@@ -134,9 +82,6 @@ export default function userPage() {
                   @{userInfo.username}
                 </p>
               </div>
-              <div className="mt-3">
-                <p className="text-black leading-tight mb-2">Description</p>
-              </div>
               <div className="pt-3 flex justify-start items-start w-full divide-x divide-gray-800 divide-solid">
                 <div className="text-center pr-3 hover:underline">
                   <span className="font-bold text-black">520</span>
@@ -150,28 +95,7 @@ export default function userPage() {
             </div>
           </div>
         </div>
-        <div className="flex p-3 border-b border-gray-200">
-          <img
-            className="h-30 w-30 rounded-full mr-4"
-            src={userInfo.userImg}
-            alt="user-img"
-          />
-        </div>
-        <div className="border-b border-gray-200">
-          <div className="p-3">
-            <h2 className="font-bold text-lg">{userInfo.name}</h2>
-            <h3 className="text-gray-500 text-sm">{"@" + userInfo.username}</h3>
-          </div>
-          <p className="px-3 pb-3 text-sm">intro</p>
-          <div className="flex p-2">
-            <a href="#" className="text-gray-500 px-2 text-sm hover:underline">
-              <span className="font-bold text-black">0</span> following
-            </a>
-            <a href="#" className="text-gray-500 px-2 text-sm hover:underline">
-              <span className="font-bold text-black">0</span> followers
-            </a>
-          </div>
-        </div>
+        <div className="flex p-3 border-b border-gray-200"></div>
         <div>
           <nav className="flex flex-row sm:justify-center space-x-4">
             {["Tweets", "Replies", "Likes"].map((menuItem, i) => (

@@ -29,9 +29,7 @@ export default function Post({ post, id }) {
 
       <div className="flex p-3 cursor-pointer border-b border-gray-200">
         <Link href={"/" + post.userObjectId.username}>
-          {
-            userImg(post.userObjectId, 50, 50)
-          }
+          {userImg(post.userObjectId)}
         </Link>
 
         <div className="flex-1">
