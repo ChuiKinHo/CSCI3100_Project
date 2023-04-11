@@ -59,7 +59,15 @@ const Retweet = ({ onClose, post, id }) => {
                       @{post.userId} -{" "}
                     </span>
                     <span className="text-sm sm:text-[15px] hover:underline">
-                      {post.timestamp}
+                      {new Intl.RelativeTimeFormat("en", {
+                        numeric: "auto",
+                      }).format(
+                        -Math.floor(
+                          (new Date() - new Date(post.timestamp)) /
+                            (1000 * 60 * 60 * 24)
+                        ),
+                        "day"
+                      )}
                     </span>
                   </div>
                 </div>

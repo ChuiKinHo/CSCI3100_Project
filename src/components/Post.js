@@ -63,8 +63,16 @@ export default function Post({ id }) {
                 <span className="text-sm sm:text-[15px]">
                   @{post.userObjectId.username} -{" "}
                 </span>
-                <span className="text-sm sm:text-[15px] hover:underline">
-                  {post.timestamp}
+                <span className="text-sm sm:text-[15px]">
+                  {new Intl.RelativeTimeFormat("en", {
+                    numeric: "auto",
+                  }).format(
+                    -Math.floor(
+                      (new Date() - new Date(post.timestamp)) /
+                        (1000 * 60 * 60 * 24)
+                    ),
+                    "day"
+                  )}
                 </span>
               </div>
 

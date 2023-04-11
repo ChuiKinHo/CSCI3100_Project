@@ -49,7 +49,15 @@ export default function Comment({ commentId, id }) {
               @{commentId.username} -{" "}
             </span>
             <span className="text-sm sm:text-[15px] hover:underline">
-              {commentId.timestamp}
+              {new Intl.RelativeTimeFormat("en", {
+                numeric: "auto",
+              }).format(
+                -Math.floor(
+                  (new Date() - new Date(commentId.timestamp)) /
+                    (1000 * 60 * 60 * 24)
+                ),
+                "day"
+              )}
             </span>
           </div>
 
