@@ -23,7 +23,8 @@
     "**/*.ts",
     "**/*.tsx",
     "src/pages/[username]/status/[tweetId].js",
-    "src/pages/[username]/index.js"
+    "src/pages/[username]/index.js",
+    "src/pages/query/[query].js"
   ],
   "exclude": ["node_modules"]
 }

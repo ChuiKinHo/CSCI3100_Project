@@ -5,9 +5,6 @@ import useStorage from "../hooks/useStorage";
 import Link from "next/link.js";
 import { useEffect, useState } from "react";
 
-// TODO:: Remove sample data
-// import recommendedPosts from "@/data/sampleRecommendedPosts.json";
-import recommendedUsers from "@/data/sampleRecommendedUsers.json";
 import { set } from "mongoose";
 import { userImg } from "../_unsorted/imageRelated/cloudinary/utils";
 
