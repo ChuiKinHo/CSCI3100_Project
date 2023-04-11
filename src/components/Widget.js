@@ -71,7 +71,6 @@ function getRecommendedUsers() {
       .then((response) => response.json())
       .then((data) => {
         setUsers(data.data);
-        // console.log(data.data);
       })
       .catch((error) => {
         console.error("Error fetching posts:", error);
@@ -94,7 +93,6 @@ export default function Widget() {
   // TODO:: think about refreshing the page, is there any problem? If no, then remove this line.
   const posts = getRecommendedPosts();
   const randomUsers = getRecommendedUsers();
-  console.log(recommendedUsers);
 
   return username != null ? (
     <div className="xl:w-[600px] hidden lg:inline ml-4 space-y-4">
@@ -103,7 +101,7 @@ export default function Widget() {
       <h4 className="font-bold text-xl px-4">Who to follow</h4>
       {randomUsers.map((randomUser) => (
         <div
-          key={randomUser.id}
+          key={randomUser._id}
           className="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-500 ease-out"
         >
           <Link href={"/" + randomUser.username}>

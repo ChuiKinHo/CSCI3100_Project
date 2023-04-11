@@ -16,7 +16,13 @@ import React, { useState } from "react";
 import Retweet from "@/components/Retweet";
 import { useEffect } from "react";
 
-export default function ActionBar({}) {
+import TweetPost from "@/components/TweetPost";
+import Widget from "@/components/Widget";
+import Post from "@/components/Post";
+import ActionBar from "@/components/ActionBar";
+import ReplyInput from "@/components/ReplyInput";
+
+export default function Tweet() {
   const router = useRouter();
   const { tweetid } = router.query;
   const [post, setPosts] = useState([]);
@@ -35,7 +41,8 @@ export default function ActionBar({}) {
         return response.json();
       })
       .then((data) => {
-        setPosts(data.data);
+        setPosts(data.data[0]);
+        console.log(data.data);
       })
       .catch((error) => {
         console.error("Error fetching posts:", error);
@@ -51,61 +58,31 @@ export default function ActionBar({}) {
   const handleClosePopUp = () => {
     setShowPopUp(false);
   };
-  if (post) {
-    console.log(post);
+  if (post.length !== 0)
     return (
-      <div className="flex justify-between text-gray-500 p-2">
-        {/* <Link href={"/" + post.userObjectId.username + "/status/" + post.id}>
-          <button className="flex items-center select-none">
-            <ChatBubbleBottomCenterTextIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
-          </button>
-        </Link> */}
-
-        <button className="flex items-center group">
-          {post.like_by_me ? (
-            <>
-              <HandThumbUpIconSolid className="h-9 w-9 hoverEffect p-2 hover:text-green-600 hover:bg-green-100 text-green-600 group-hover:text-green-600 group-hover:bg-green-100" />
-              <span className="text-green-600 text-sm select-none group-hover:text-green-600 px-1">
-                {post.like}
-              </span>
-            </>
-          ) : (
-            <HandThumbUpIcon className="h-9 w-9 hoverEffect p-2 hover:text-green-600 hover:bg-green-100 text-gray-600 group-hover:text-green-600" />
-          )}
-          {!post.like_by_me && post.like > 0 && (
-            <span className="text-gray-600 text-sm select-none group-hover:text-green-600 px-1">
-              {post.like}
-            </span>
-          )}
-        </button>
-        <button className="flex items-center group">
-          {post.dislike_by_me ? (
-            <>
-              <HandThumbDownIconSolid className="h-9 w-9 hoverEffect p-2 text-red-600 group-hover:text-red-600 group-hover:bg-red-100" />
-              <span className="text-red-600 text-sm select-none group-hover:text-red-600 px-1">
-                {post.dislike}
-              </span>
-            </>
-          ) : (
-            <HandThumbDownIcon className="h-9 w-9 hoverEffect p-2 text-gray-600 group-hover:text-red-600 group-hover:bg-red-100" />
-          )}
-          {!post.dislike_by_me && post.dislike > 0 && (
-            <span className="text-gray-600 text-sm select-none group-hover:text-red-600 px-1">
-              {post.dislike}
-            </span>
-          )}
-        </button>
-
-        <button className="flex items-center">
-          <ArrowPathRoundedSquareIcon
-            className="h-9 w-9 hoverEffect p-2 hover:text-blue-600 hover:bg-blue-100"
-            onClick={handleButtonClick}
-          />
-          {showPopUp && (
-            <Retweet id={post.id} post={post} onClose={handleClosePopUp} />
-          )}
-        </button>
-      </div>
+      <>
+        <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
+          <div className="flex py-2 px-3 sticky top-0 z-50 bg-white border-b border-gray-200">
+            <h2 className="text-lg sm:text-xl font-bold cursor-pointer">
+              Tweet
+            </h2>
+          </div>
+          <div>
+            {post != null ? (
+              <>
+                <TweetPost post={post} />
+                <div className="border-b">
+                  <ActionBar post={post} />
+                </div>
+              </>
+            ) : null}
+            <ReplyInput post={post} userImg={post.userObjectId.usrImg} />
+            {/* {post.commentId.map((id) => (
+                  <Post key={id} id={id} post={comment} />
+                ))} */}
+          </div>
+        </div>
+        <Widget />
+      </>
     );
-  }
 }
