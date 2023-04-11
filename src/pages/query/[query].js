@@ -38,8 +38,7 @@ export default function userPage() {
     router.push("/" + username);
   }
 
-  console.log(queryReturn);
-  if (queryReturn === "") {
+  if (queryReturn.length === 0) {
     return (
       <>
         <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
