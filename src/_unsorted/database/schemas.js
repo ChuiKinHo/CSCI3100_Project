@@ -20,8 +20,14 @@ const UserSchema = new mongoose.Schema({
   userImg: { type: String, required: true },
   name: { type: String, required: true },
   password: { type: String, required: true },
-  following: { type: Array },
-  follower: { type: Array },
+  following: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "User",
+  },
+  follower: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "User",
+  },
   mytweets: {
     type: [mongoose.Schema.Types.ObjectId],
     ref: "Tweet",
