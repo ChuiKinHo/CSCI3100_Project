@@ -1,7 +1,7 @@
 import dbConnect from "../../../_unsorted/database/dbConnect";
 import { User } from "../../../_unsorted/database/schemas";
 import { pwd } from "../../../_unsorted/util/utils";
-import cloudinary from "../../../_unsorted/imageRelated/cloudinary";
+import {uploadImage} from '../../../_unsorted/imageRelated/cloudinary/cloudinary';
 import fs from "fs";
 
 export default async function handler(req, res) {
@@ -54,7 +54,7 @@ export default async function handler(req, res) {
         const imageData = fs.readFileSync(req.body["userImg"]);
         
         // Upload the image to Cloudinary and create a new user in the database
-        cloudinary.uploadImage(imageData)
+       uploadImage(imageData)
           .then(url => {
             return User.create({
               username: req.body["username"],

@@ -15,7 +15,7 @@ DESCRIPTION: Upload image to Cloudinary
 @param:  Buffer object containing the image data. 
 @return: a Promise that resolves with the secure URL of the uploaded image if successful, or rejects with an error if there was a problem with the upload.
 */
-function uploadImage(imageData) {
+export function uploadImage(imageData) {
     console.log("hello");
     return new Promise((resolve, reject) => {
       cloudinary.uploader.upload(imageData, (error, result) => {
@@ -37,8 +37,3 @@ function uploadImage(imageData) {
 
 // Log the configuration
 console.log(cloudinaryV2.config());
-
-export default {
-    cloudinaryV2,
-    uploadImage,
-  };
