@@ -64,6 +64,7 @@ export default function userPage() {
               onClick={() => goBack()}
             />
           </div>
+          <div className="flex p-3">{queryReturn.length} User Found</div>
           {queryReturn.map((user) => (
             <div
               key={user.username}
