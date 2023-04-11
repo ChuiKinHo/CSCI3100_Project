@@ -15,6 +15,8 @@ import React, { useState } from "react";
 import Retweet from "@/components/Retweet";
 import ActionBar from "@/components/ActionBar";
 
+import { userImg } from "../_unsorted/imageRelated/cloudinary/utils";
+
 export default function Post({ post, id }) {
   return (
     <>
@@ -27,11 +29,9 @@ export default function Post({ post, id }) {
 
       <div className="flex p-3 cursor-pointer border-b border-gray-200">
         <Link href={"/" + post.userObjectId.username}>
-          <img
-            className="h-11 w-11 rounded-full mr-4"
-            src={post.userObjectId.usrImg}
-            alt="user-img"
-          />
+          {
+            userImg(post.userObjectId, 50, 50)
+          }
         </Link>
 
         <div className="flex-1">
