@@ -1,6 +1,8 @@
 import dbConnect from "../../../_unsorted/database/dbConnect";
 import { User } from "../../../_unsorted/database/schemas";
 import { pwd } from "../../../_unsorted/util/utils";
+import cloudinary from "../../../_unsorted/imageRelated/cloudinary";
+import fs from "fs";
 
 export default async function handler(req, res) {
   // Wait for database to connect before continuing
@@ -48,16 +50,28 @@ export default async function handler(req, res) {
           break;
         }
 
-        const user = await User.create({
-          username: req.body["username"],
-          name: req.body["name"],
-          password: pwd(req.body["pw"]),
-          userImg: req.body["userImg"],
-          following: req.body["following"],
-          follower: req.body["follower"],
-        });
-
-        res.status(201).json({ success: true, data: user });
+        // Read the image file into a buffer
+        const imageData = fs.readFileSync(req.body["userImg"]);
+        
+        // Upload the image to Cloudinary and create a new user in the database
+        cloudinary.uploadImage(imageData)
+          .then(url => {
+            return User.create({
+              username: req.body["username"],
+              name: req.body["name"],
+              password: pwd(req.body["pw"]),
+              userImg: url,
+              following: req.body["following"],
+              follower: req.body["follower"],
+            });
+          })
+          .then(() => {
+             res.status(201).json({ success: true, data: user });
+          })
+          .catch(error => {
+            console.error(error);
+            res.status(400).json({ success: false, data: { error: error } });
+          });
       } catch (error) {
         res.status(400).json({ success: false, data: { error: error } });
       }
