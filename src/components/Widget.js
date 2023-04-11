@@ -82,14 +82,114 @@ function getRecommendedUsers() {
 export default function Widget() {
   const { getItem } = useStorage();
   const [username, setUsername] = useState(null);
-  const posts = getRecommendedPosts();
-  const randomUsers = getRecommendedUsers();
+  //const posts = getRecommendedPosts();
+  const [posts, setPosts] = useState([]);
+  const [randomUsers, setRandomUsers] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:3000/api/tweets", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setPosts(data.data.sort(() => 0.5 - Math.random()).slice(0, 3));
+      })
+      .catch((error) => {
+        console.error("Error fetching posts:", error);
+      });
+    fetch("http://localhost:3000/api/users", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const users = data.data.sort(() => 0.5 - Math.random()).slice(0, 3);
+        setRandomUsers(
+          users.map((user) => ({
+            ...user,
+            followed: user.follower
+              .map((follower) => follower.username)
+              .includes(username),
+          }))
+        );
+      })
+      .catch((error) => {
+        console.error("Error fetching posts:", error);
+      });
+  }, []);
+
   useEffect(() => {
     setUsername(getItem("username", "session"));
   }, [getItem("username", "session")]);
 
-  const handleUnfol = () => {};
-  const handleFol = () => {};
+  const handleFol = (index) => {
+    fetch(
+      "http://localhost:3000/api/follow?username=" +
+        username +
+        "&target=" +
+        randomUsers[index].username,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data !== null && data.success) {
+          const newRandomUsers = randomUsers.map((user, i) => {
+            if (i === index) {
+              return { ...user, followed: true };
+            } else {
+              return user;
+            }
+          });
+          setRandomUsers(newRandomUsers);
+          //console.log("follow success");
+          //console.log(newRandomUsers);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching posts:", error);
+      });
+  };
+  const handleUnfol = (index) => {
+    fetch(
+      "http://localhost:3000/api/follow?username=" +
+        username +
+        "&target=" +
+        randomUsers[index].username,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data !== null && data.success) {
+          const newRandomUsers = randomUsers.map((user, i) => {
+            if (i === index) {
+              return { ...user, followed: false };
+            } else {
+              return user;
+            }
+          });
+          setRandomUsers(newRandomUsers);
+          //console.log("unfollow success");
+          //console.log(newRandomUsers);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching posts:", error);
+      });
+  };
   // TODO:: think about refreshing the page, is there any problem? If no, then remove this line.
 
   return username != null && randomUsers !== null ? (
@@ -97,9 +197,9 @@ export default function Widget() {
       <Search />
 
       <h4 className="font-bold text-xl px-4">Who to follow</h4>
-      {randomUsers.map((randomUser) => {
+      {randomUsers.map((randomUser, index) => {
         //console.log(randomUser);
-        //console.log(randomUser.follower.map((follower) => follower.username));
+        //console.log(randomUser.followed);
         return (
           <div
             key={randomUser._id}
@@ -125,19 +225,21 @@ export default function Widget() {
                 @{randomUser.username}
               </h5>
             </div>
-            {randomUser.follower
-              .map((follower) => follower.username)
-              .includes(username) ? (
+            {randomUser.followed ? (
               <button
+                key={index}
+                id={index}
                 className="ml-auto bg-white text-black border rounded-full text-sm px-3.5 py-1.5 font-bold hover:bg-red-300"
-                onClick={handleUnfol(randomUser.username)}
+                onClick={() => handleUnfol(index)}
               >
                 Following
               </button>
             ) : (
               <button
+                key={index}
+                id={index}
                 className="ml-auto bg-black text-white rounded-full text-sm px-3.5 py-1.5 font-bold"
-                onClick={handleFol(randomUser.username)}
+                onClick={() => handleFol(index)}
               >
                 Follow
               </button>
