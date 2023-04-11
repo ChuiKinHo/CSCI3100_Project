@@ -14,7 +14,6 @@ export default async function handler(req, res) {
       try {
         const keyword = req.query.q;
         let searchResults = [];
-
         if (keyword) {
           searchResults = await User.find({
             $or: [
@@ -23,7 +22,9 @@ export default async function handler(req, res) {
             ],
           });
         } else {
-          searchResults = await User.find({});
+          console.log(keyword)
+          searchResults = await User.find();
+          console.log(searchResults)
         }
 
         res.status(200).json({ success: true, data: searchResults });
@@ -42,9 +43,10 @@ export default async function handler(req, res) {
         }
 
         const user = await User.create({
-          username: String(req.body["username"]),
-          name: String(req.body["name"]),
-          password: pwd(String(req.body["pw"])),
+          username: req.body["username"],
+          name: req.body["name"],
+          password: pwd(req.body["pw"]),
+          userImg: req.body["userImg"],
           following: req.body["following"],
           follower: req.body["follower"],
         });
