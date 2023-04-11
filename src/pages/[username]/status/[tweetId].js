@@ -24,11 +24,11 @@ import ReplyInput from "@/components/ReplyInput";
 
 export default function Tweet() {
   const router = useRouter();
-  const { tweetid } = router.query;
+  const { tweetId } = router.query;
   const [post, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/tweets?tweetid=${tweetid}`, {
+    fetch("http://localhost:3000/api/tweets?q=" + tweetId, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -41,13 +41,15 @@ export default function Tweet() {
         return response.json();
       })
       .then((data) => {
-        setPosts(data.data[0]);
-        console.log(data.data);
+        if (data.data !== null) {
+          setPosts(data.data);
+          //console.log(data.data);
+        }
       })
       .catch((error) => {
         console.error("Error fetching posts:", error);
       });
-  }, [tweetid]);
+  }, [tweetId]);
 
   const [showPopUp, setShowPopUp] = useState(false);
 
@@ -77,9 +79,9 @@ export default function Tweet() {
               </>
             ) : null}
             <ReplyInput post={post} userImg={post.userObjectId.usrImg} />
-            {/* {post.commentId.map((id) => (
-                  <Post key={id} id={id} post={comment} />
-                ))} */}
+            {post.commentId.map((id) => (
+              <Post key={id} id={id} />
+            ))}
           </div>
         </div>
         <Widget />

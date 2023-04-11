@@ -3,14 +3,35 @@ import Link from "next/link";
 
 // TODO:: Remove sample data
 import posts from "@/data/samplePosts.json";
+import { useState, useEffect } from "react";
 
 export default function TweetPost({ post }) {
   // TODO:: Remove sample data
-  const targetPost = posts.find((tweet) => tweet.id === post.targetTweetId);
+  const [targetPost, setTargetPost] = useState(null);
+  useEffect(() => {
+    if (post.targetTweetId !== null) {
+      fetch("http://localhost:3000/api/tweets?q=" + post.targetTweetId, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.data !== null) {
+            setTargetPost(data.data);
+            //console.log(data.data);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching posts:", error);
+        });
+    }
+  }, []);
   // TODO:: More polishing is needed
   return (
     <>
-      {post.targetTweetId === null ? null : <TweetPost post={targetPost} />}
+      {targetPost === null ? null : <TweetPost post={targetPost} />}
       <div className="p-3 cursor-pointer border-b border-gray-200">
         <div className="flex">
           <Link href={"/" + post.userObjectId.username}>

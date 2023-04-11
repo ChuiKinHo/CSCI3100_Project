@@ -28,7 +28,7 @@ export default function Feed() {
       </div>
       <Input />
       {posts.map((post) => (
-        <Post key={post.id} id={post.id} post={post} />
+        <Post key={post.id} id={post.id} />
       ))}
     </div>
   );
