@@ -1,6 +1,8 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/router";
 
 export default function Search() {
+  const router = useRouter();
   return (
     <div className="w-[90%] xl:w-[75%] sticky top-0 bg-white py-1.5">
       <div className="flex items-center p-3 rounded-full relative">
