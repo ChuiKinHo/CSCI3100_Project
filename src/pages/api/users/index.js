@@ -13,8 +13,25 @@ export default async function handler(req, res) {
     case "GET":
       try {
         const keyword = req.query.q;
+
         let searchResults = [];
-        if (keyword) {
+
+        if (keyword && keyword.startsWith("@")) {
+          // Remove the '@' character from the beginning of the query
+          const usernameQuery = keyword.slice(1);
+          const regex = new RegExp(usernameQuery, "i");
+
+          searchResults = await User.findOne({
+            username: { $regex: regex },
+          }).populate({
+            path: "mytweets",
+            populate: {
+              path: "userObjectId",
+              model: "User",
+            },
+          });
+        } else if (keyword) {
+          // Search for users whose usernames or names match the query
           searchResults = await User.find({
             $or: [
               { username: { $regex: `.*${keyword}.*`, $options: "i" } },
@@ -28,6 +45,7 @@ export default async function handler(req, res) {
             },
           });
         } else {
+          // Return all users if no query is provided
           searchResults = await User.find();
         }
 
