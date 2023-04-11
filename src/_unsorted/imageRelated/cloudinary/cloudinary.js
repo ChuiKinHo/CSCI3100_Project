@@ -16,9 +16,8 @@ DESCRIPTION: Upload image to Cloudinary
 @return: a Promise that resolves with the secure URL of the uploaded image if successful, or rejects with an error if there was a problem with the upload.
 */
 export function uploadImage(imageData) {
-    console.log("hello");
     return new Promise((resolve, reject) => {
-      cloudinary.uploader.upload(imageData, (error, result) => {
+        cloudinaryV2.uploader.upload(imageData, (error, result) => {
         if (error) {
           reject(error);
         } else {
