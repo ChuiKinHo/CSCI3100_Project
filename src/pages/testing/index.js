@@ -41,9 +41,6 @@ export default function Testing() {
       <h1>Testing</h1>
       <ul>
         {users.map((user) => {
-          {
-            console.log(user.usrImg);
-          }
           return (
             <li>
               {user.username}
