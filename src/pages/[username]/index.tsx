@@ -39,12 +39,18 @@ export default function userPage() {
         console.error("Error fetching posts:", error);
       });
   }, [username]);
+  function goBack() {
+    router.back();
+  }
 
   return (
     <>
       <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
         <div className="flex py-2 px-3 sticky top-0 z-50 bg-white border-b border-gray-200">
-          <ArrowLeftIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
+          <ArrowLeftIcon
+            className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100"
+            onClick={() => goBack()}
+          />
           <h2 className="text-lg sm:text-xl font-bold cursor-pointer ml-3">
             {userInfo.name}
           </h2>
