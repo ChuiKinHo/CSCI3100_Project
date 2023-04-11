@@ -34,5 +34,3 @@ export function uploadImage(imageData) {
     */
 }
 
-// Log the configuration
-console.log(cloudinaryV2.config());
