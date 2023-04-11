@@ -17,7 +17,7 @@ mongoose.connect(process.env.MONGODB_DATA_API_URL);
 
 const UserSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
-  userImg: { type: String, required: true },
+  usrImg: { type: String, required: true },
   name: { type: String, required: true },
   password: { type: String, required: true },
   following: { type: Array },
@@ -27,6 +27,14 @@ const UserSchema = new mongoose.Schema({
     ref: "Tweet",
     required: true,
   },
+  // like: {
+  //   type: [mongoose.Schema.Types.ObjectId],
+  //   ref: "Tweet",
+  // },
+  // dislike: {
+  //   type: [mongoose.Schema.Types.ObjectId],
+  //   ref: "Tweet",
+  // },
 });
 const User = mongoose.models.User || mongoose.model("User", UserSchema);
 
@@ -38,6 +46,7 @@ const AdminSchema = new mongoose.Schema({
 const Admin = mongoose.models.Admin || mongoose.model("Admin", AdminSchema);
 
 const TweetSchema = new mongoose.Schema({
+  // _id: { type: mongoose.Schema.Types.ObjectId, reuqired: true },
   id: { type: String, required: true, unique: true },
   userObjectId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   timestamp: { type: Date, required: true, default: Date.now },
