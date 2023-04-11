@@ -126,9 +126,9 @@ export default function Widget() {
           </button>
         </div>
       ))}
-      <button className="text-blue-300 pl-4 pb-3 hover:text-blue-400">
+      {/* <button className="text-blue-300 pl-4 pb-3 hover:text-blue-400">
         Show more
-      </button>
+      </button> */}
 
       <div className="flex items-center p-3 relative">
         <ChatBubbleBottomCenterTextIcon className="h-5 text-gray-500" />
@@ -137,9 +137,9 @@ export default function Widget() {
       {posts.map((post) => (
         <Post key={post.id} id={post.id} post={post} />
       ))}
-      <button className="text-blue-300 pl-4 pb-3 hover:text-blue-400">
+      {/* <button className="text-blue-300 pl-4 pb-3 hover:text-blue-400">
         Show more
-      </button>
+      </button> */}
     </div>
   ) : (
     NotLogin()
