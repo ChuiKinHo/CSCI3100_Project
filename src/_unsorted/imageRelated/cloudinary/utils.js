@@ -1,6 +1,6 @@
 import { CldImage } from "next-cloudinary";
 
-export function userImg(user, width, height) {
+export function userImg(user) {
   return (
     <CldImage
       className="h-11 w-11 rounded-full mr-4"
