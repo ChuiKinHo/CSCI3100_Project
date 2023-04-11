@@ -1,14 +1,11 @@
 import { EllipsisHorizontalCircleIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
-// TODO:: Remove sample data
-import posts from "@/data/samplePosts.json";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { userImg } from "../_unsorted/imageRelated/cloudinary/utils";
 
 export default function TweetPost({ post }) {
-  // TODO:: Remove sample data
   const router = useRouter();
   const [targetPost, setTargetPost] = useState(null);
   //const [state, setState] = useState(false);
