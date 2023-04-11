@@ -1,33 +1,67 @@
 import { FaceSmileIcon, PhotoIcon } from "@heroicons/react/20/solid";
 import useStorage from "../hooks/useStorage";
 import { useEffect, useState } from "react";
+import { userImg } from "../_unsorted/imageRelated/cloudinary/utils";
 
 // TODO:: Remove sample data
 import users from "@/data/sampleUsers.json";
 
 export default function Input() {
-  const { getItem } = useStorage();
-  const username = getItem("username", "session");
-  const [userImg, setUserImg] = useState(
-    "https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png"
-  );
+  const { getItem, removeItem } = useStorage();
+  const [username, setUsername] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(1);
+  const [userInfo, setUserInfo] = useState(null);
+
+  useEffect(() => {
+    setUsername(getItem("username", "session"));
+    setIsAdmin(getItem("admin", "session"));
+  }, [getItem("username", "session"), getItem("admin", "session")]);
+
   useEffect(() => {
     if (username != null) {
-      
+      fetch("http://localhost:3000/api/users?q=@" + username, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setUserInfo(data.data);
+          isMountedRef.current = true;
+
+          return () => {
+            isMountedRef.current = false;
+          };
+        })
+        .catch((error) => {
+          console.error("Error fetching posts:", error);
+        });
+    }
+  }, [username]);
+
+  // const { getItem } = useStorage();
+  // const username = getItem("username", "session");
+  // const [userImg, setUserImg] = useState(
+  //   "https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png"
+  // );
+  useEffect(() => {
+    if (username != null) {
       // TODO:: Remove sample data
       let user = users.find((user) => user.username === username);
       if (user != null && user.userImg != null && user.userImg != "") {
-        setUserImg(user.userImg);
+        setUserInfo(user.userImg);
       }
     }
   }, []);
   return (
     <div className="flex border-b border-gray-200 p-3 space-x-3">
-      <img
+      {/* <img
         src={userImg}
         alt="user-img"
         className="h-11 w-11 rounded-full cursor-pointer hover:brightness-95"
-      />
+      /> */}
+      <div>{userImg(userInfo)}</div>
 
       <div className="w-full divide-y divide-gray-200">
         <div className="flex-1">
