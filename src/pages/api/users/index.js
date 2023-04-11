@@ -48,7 +48,23 @@ export default async function handler(req, res) {
           });
         } else {
           // Return all users if no query is provided
-          searchResults = await User.find();
+          searchResults = await User.find()
+            .populate({
+              path: "follower",
+              select: "username",
+              populate: {
+                path: "following",
+                model: "User",
+                select: "username",
+              },
+            })
+            .populate({
+              path: "mytweets",
+              populate: {
+                path: "userObjectId",
+                model: "User",
+              },
+            });
         }
 
         res.status(200).json({ success: true, data: searchResults });

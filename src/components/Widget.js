@@ -82,50 +82,69 @@ function getRecommendedUsers() {
 export default function Widget() {
   const { getItem } = useStorage();
   const [username, setUsername] = useState(null);
-  useEffect(
-    () => setUsername(getItem("username", "session")),
-    [getItem("username", "session")]
-  );
-
-  // TODO:: think about refreshing the page, is there any problem? If no, then remove this line.
   const posts = getRecommendedPosts();
   const randomUsers = getRecommendedUsers();
+  useEffect(() => {
+    setUsername(getItem("username", "session"));
+  }, [getItem("username", "session")]);
 
-  return username != null ? (
+  const handleUnfol = () => {};
+  const handleFol = () => {};
+  // TODO:: think about refreshing the page, is there any problem? If no, then remove this line.
+
+  return username != null && randomUsers !== null ? (
     <div className="xl:w-[600px] hidden lg:inline ml-4 space-y-4">
       <Search />
 
       <h4 className="font-bold text-xl px-4">Who to follow</h4>
-      {randomUsers.map((randomUser) => (
-        <div
-          key={randomUser._id}
-          className="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-500 ease-out"
-        >
-          <Link href={"/" + randomUser.username}>
-            {/* <img
+      {randomUsers.map((randomUser) => {
+        //console.log(randomUser);
+        //console.log(randomUser.follower.map((follower) => follower.username));
+        return (
+          <div
+            key={randomUser._id}
+            className="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-500 ease-out"
+          >
+            <Link href={"/" + randomUser.username}>
+              {/* <img
               className="rounded-full"
               width="40"
               src={randomUser.userImg}
               alt=""
             /> */}
-            {userImg(randomUser)}
-          </Link>
-
-          <div className="truncate ml-4 leading-5">
-            <Link href={"/" + randomUser.username}>
-              <h4 className="font-bold hover:underline text-[14px] truncate">
-                {randomUser.name}
-              </h4>
+              {userImg(randomUser)}
             </Link>
-            <h5 className="text-[13px] text-gray-500 truncate">
-              @{randomUser.username}
-            </h5>
+
+            <div className="truncate ml-4 leading-5">
+              <Link href={"/" + randomUser.username}>
+                <h4 className="font-bold hover:underline text-[14px] truncate">
+                  {randomUser.name}
+                </h4>
+              </Link>
+              <h5 className="text-[13px] text-gray-500 truncate">
+                @{randomUser.username}
+              </h5>
+            </div>
+            {randomUser.follower
+              .map((follower) => follower.username)
+              .includes(username) ? (
+              <button
+                className="ml-auto bg-white text-black border rounded-full text-sm px-3.5 py-1.5 font-bold hover:bg-red-300"
+                onClick={handleUnfol(randomUser.username)}
+              >
+                Following
+              </button>
+            ) : (
+              <button
+                className="ml-auto bg-black text-white rounded-full text-sm px-3.5 py-1.5 font-bold"
+                onClick={handleFol(randomUser.username)}
+              >
+                Follow
+              </button>
+            )}
           </div>
-          <button className="ml-auto bg-black text-white rounded-full text-sm px-3.5 py-1.5 font-bold">
-            Follow
-          </button>
-        </div>
-      ))}
+        );
+      })}
       {/* <button className="text-blue-300 pl-4 pb-3 hover:text-blue-400">
         Show more
       </button> */}
