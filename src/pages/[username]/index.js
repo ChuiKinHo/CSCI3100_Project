@@ -3,8 +3,6 @@ import Post from "@/components/Post";
 import Widget from "@/components/Widget";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
-import postsJSON from "@/data/samplePosts.json";
-import users from "@/data/sampleUsers.json";
 import { userImgProfile } from "../../_unsorted/imageRelated/cloudinary/utils";
 
 export default function userPage() {
@@ -20,7 +18,7 @@ export default function userPage() {
   const router = useRouter();
   const username = router.query.username;
   useEffect(() => {
-    fetch("http://localhost:3000/api/users?q=" + username, {
+    fetch("http://localhost:3000/api/users?q=@" + username, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -33,14 +31,7 @@ export default function userPage() {
           data.data !== null &&
           data.data.length != 0
         ) {
-          setUserInfo({
-            username: data.data[0].username,
-            name: data.data[0].name,
-            usrImg: data.data[0].usrImg,
-            following: data.data[0].following,
-            follower: data.data[0].follower,
-            mytweets: data.data[0].mytweets,
-          });
+          setUserInfo(data.data);
         }
       })
       .catch((error) => {

@@ -21,7 +21,7 @@ export default function Login() {
 
   const handleSubmit = () => {
     if (
-      (username === "user" && password === "user") ||
+      (username === "user0" && password === "user0") ||
       (username === "user001" && password === "123456")
     ) {
       setWarning("");
