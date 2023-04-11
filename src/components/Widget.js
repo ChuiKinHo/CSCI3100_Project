@@ -130,14 +130,14 @@ export default function Widget() {
               .includes(username) ? (
               <button
                 className="ml-auto bg-white text-black border rounded-full text-sm px-3.5 py-1.5 font-bold hover:bg-red-300"
-                onClick={handleUnfol()}
+                onClick={handleUnfol(randomUser.username)}
               >
                 Following
               </button>
             ) : (
               <button
                 className="ml-auto bg-black text-white rounded-full text-sm px-3.5 py-1.5 font-bold"
-                onClick={handleFol()}
+                onClick={handleFol(randomUser.username)}
               >
                 Follow
               </button>
