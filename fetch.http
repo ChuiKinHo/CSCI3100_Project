@@ -54,12 +54,36 @@ Content-Type: application/json
   "username": "user2"
 }
 
-### GET - GET ALL TWEETS
+### api/tweets tests ###
+
+### POST - CREATE NEW tweet
 GET http://localhost:3000/api/tweets
 Content-Type: application/json
-
 {
 }
 
+### GET - GET ALL TWEETS
+POST http://localhost:3000/api/tweets
+Content-Type: application/json
 
+{
+  "id": "378",
+  "author": "user2",
+  "text": "tweet1"
+  
+}
 
+### DELETE - DELETE tweet
+DELETE http://localhost:3000/api/tweets
+Content-Type: application/json
+
+{
+  "id": "378"
+}
+
+###
+POST http://localhost:3000/api/auth/login
+
+{
+
+}
