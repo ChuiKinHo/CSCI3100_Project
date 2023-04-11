@@ -5,7 +5,6 @@ import Link from "next/link";
 import posts from "@/data/samplePosts.json";
 
 export default function TweetPost({ post }) {
-  
   // TODO:: Remove sample data
   const targetPost = posts.find((tweet) => tweet.id === post.targetTweetId);
   // TODO:: More polishing is needed
@@ -14,10 +13,10 @@ export default function TweetPost({ post }) {
       {post.targetTweetId === null ? null : <TweetPost post={targetPost} />}
       <div className="p-3 cursor-pointer border-b border-gray-200">
         <div className="flex">
-          <Link href={"/" + post.username}>
+          <Link href={"/" + post.userObjectId.username}>
             <img
               className="h-11 w-11 rounded-full mr-4"
-              src={post.userImg}
+              src={post.userObjectId.usrImg}
               alt="user-img"
             />
           </Link>
@@ -25,12 +24,14 @@ export default function TweetPost({ post }) {
           <div className="flex-1">
             <div className="flex items-center justify-between">
               <div className="items-center space-x-1 whitespace-nowrap">
-                <Link href={"/" + post.username}>
+                <Link href={"/" + post.userObjectId.username}>
                   <h4 className="leading-none font-bold text-[15px] sm:text-[16px] hover:underline">
-                    {post.name}
+                    {post.userObjectId.name}
                   </h4>
                 </Link>
-                <span className="text-sm sm:text-[15px]">@{post.username}</span>
+                <span className="text-sm sm:text-[15px]">
+                  @{post.userObjectId.username}
+                </span>
               </div>
 
               {/*TODO:: Turn this into button */}
