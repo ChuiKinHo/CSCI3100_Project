@@ -9,19 +9,17 @@ import Search from "@/components/Search";
 import Link from "next/link";
 
 // TODO:: Remove sample data
-import users from "@/data/sampleUsers.json";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const { getItem } = useStorage();
   const [username, setUsername] = useState("");
-  const user = users.find((user) => user.username === username);
   useEffect(
     () => setUsername(getItem("username", "session")),
     [getItem("username", "session")]
   );
-  
+
   return username ? (
     <>
       <Feed />
