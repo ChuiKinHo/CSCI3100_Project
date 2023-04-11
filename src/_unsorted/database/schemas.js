@@ -39,7 +39,7 @@ const TweetSchema = new mongoose.Schema({
   timelineId: { type: Number, required: true },
   likeCount: { type: Number, required: true },
   dislikeCount: { type: Number, required: true },
-  reweetTo: { type: Number, ref: "Tweet" },
+  retweetTo: { type: Number, ref: "Tweet" },
 });
 const Tweet = mongoose.models.Tweet || mongoose.model("Tweet", TweetSchema);
 
