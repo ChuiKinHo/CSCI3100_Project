@@ -28,9 +28,7 @@ export default async function handler(req, res) {
             },
           });
         } else {
-          console.log(keyword);
           searchResults = await User.find();
-          console.log(searchResults);
         }
 
         res.status(200).json({ success: true, data: searchResults });
