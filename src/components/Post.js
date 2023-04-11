@@ -15,6 +15,8 @@ import React, { useState } from "react";
 import Retweet from "@/components/Retweet";
 import ActionBar from "@/components/ActionBar";
 
+import { userImg } from "../_unsorted/imageRelated/cloudinary/utils";
+
 export default function Post({ post, id }) {
   return (
     <>
@@ -26,24 +28,20 @@ export default function Post({ post, id }) {
       )}
 
       <div className="flex p-3 cursor-pointer border-b border-gray-200">
-        <Link href={"/" + post.username}>
-          <img
-            className="h-11 w-11 rounded-full mr-4"
-            src={post.userImg}
-            alt="user-img"
-          />
+        <Link href={"/" + post.userObjectId.username}>
+          {userImg(post.userObjectId)}
         </Link>
 
         <div className="flex-1">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-1 whitespace-nowrap">
-              <Link href={"/" + post.username}>
+              <Link href={"/" + post.userObjectId.username}>
                 <h4 className="font-bold text-[15px] sm:text-[16px] hover:underline">
-                  {post.name}
+                  {post.userObjectId.name}
                 </h4>
               </Link>
               <span className="text-sm sm:text-[15px]">
-                @{post.username} -{" "}
+                @{post.userObjectId.username} -{" "}
               </span>
               <span className="text-sm sm:text-[15px] hover:underline">
                 {post.timestamp}
@@ -57,7 +55,7 @@ export default function Post({ post, id }) {
           <p className="text-gray-800 text-[15px sm:text-[16px] mb-2">
             {post.text}
           </p>
-          {/* <img className="rounded-2xl mr-2" src={post.image} alt="" /> */}
+          <img className="w-full rounded-lg" src={post?.img} alt="" />
           <ActionBar post={post} />
         </div>
       </div>

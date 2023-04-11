@@ -18,6 +18,12 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/pages/[username]/status/[tweetId].js",
+    "src/pages/[username]/index.js"
+  ],
   "exclude": ["node_modules"]
 }

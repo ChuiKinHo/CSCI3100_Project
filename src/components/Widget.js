@@ -6,8 +6,10 @@ import Link from "next/link.js";
 import { useEffect, useState } from "react";
 
 // TODO:: Remove sample data
-import recommendedPosts from "@/data/sampleRecommendedPosts.json";
+// import recommendedPosts from "@/data/sampleRecommendedPosts.json";
 import recommendedUsers from "@/data/sampleRecommendedUsers.json";
+import { set } from "mongoose";
+import { userImg } from "../_unsorted/imageRelated/cloudinary/utils";
 
 function NotLogin() {
   return (
@@ -32,10 +34,52 @@ function NotLogin() {
 }
 
 function getRecommendedPosts() {
-  return recommendedPosts;
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/tweets", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setPosts(data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching posts:", error);
+      });
+  }, []);
+
+  // Randomly select three posts from the posts array
+  const randomPosts = posts.sort(() => 0.5 - Math.random()).slice(0, 3);
+
+  return randomPosts;
 }
 
 function getRecommendedUsers() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/users", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setUsers(data.data);
+        // console.log(data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching posts:", error);
+      });
+  }, []);
+
+  // Randomly select three posts from the posts array
+  const recommendedUsers = users.sort(() => 0.5 - Math.random()).slice(0, 3);
   return recommendedUsers;
 }
 
@@ -50,24 +94,26 @@ export default function Widget() {
   // TODO:: think about refreshing the page, is there any problem? If no, then remove this line.
   const posts = getRecommendedPosts();
   const randomUsers = getRecommendedUsers();
+  console.log(recommendedUsers);
 
   return username != null ? (
     <div className="xl:w-[600px] hidden lg:inline ml-4 space-y-4">
       <Search />
 
       <h4 className="font-bold text-xl px-4">Who to follow</h4>
-      {randomUsers.map(randomUser => (
+      {randomUsers.map((randomUser) => (
         <div
           key={randomUser.id}
           className="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-500 ease-out"
         >
           <Link href={"/" + randomUser.username}>
-            <img
+            {/* <img
               className="rounded-full"
               width="40"
               src={randomUser.userImg}
               alt=""
-            />
+            /> */}
+            {userImg(randomUser)}
           </Link>
 
           <div className="truncate ml-4 leading-5">
