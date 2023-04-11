@@ -7,10 +7,14 @@ import postsJSON from "@/data/samplePosts.json";
 import users from "@/data/sampleUsers.json";
 
 export default function userPage() {
-  // const [userInfo, setUserInfo] = useState({});
-  // const [posts, setPosts] = useState([]);
-  // const router = useRouter();
-  // const username = router.query.username;
+  const [userInfo, setUserInfo] = useState({
+    username: "",
+    name: "",
+    userImg: "",
+  });
+  const [posts, setPosts] = useState([]);
+  const router = useRouter();
+  const username = router.query.username;
   // useEffect(() => {
   //   let user = users.find((user) => user.username === username);
   //   if (user != null) {
@@ -26,7 +30,9 @@ export default function userPage() {
   // }, [username]);
   // useEffect(() => {
   //   if (Object.keys(userInfo).length !== 0) {
-  //     setPosts(postsJSON.filter((post) => post.username === userInfo.username));
+  //     setPosts(
+  //       postsJSON.filter((post) => post.username === userInfo.username)
+  //     );
   //   }
   // }, [userInfo]);
   // const userInfo = {
@@ -39,11 +45,36 @@ export default function userPage() {
   //     "https://pbs.twimg.com/profile_banners/2161323234/1585151401/600x200",
   // };
 
-  // const posts = postsJSON.filter((post) => post.username === userInfo.username);
+  // const posts = postsJSON.filter(
+  //   (post) => post.username === userInfo.username
+  // );
+  useEffect(() => {
+    fetch("http://localhost:3000/api/users?q=" + username, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(router.query.username);
+        if (
+          data.data !== undefined &&
+          data.data !== null &&
+          data.data.length != 0
+        ) {
+          setUserInfo(data.data[0]);
+          //console.log(data.data[0]);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching posts:", error);
+      });
+  }, [username]);
 
   return (
     <>
-      {/* <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
+      <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
         <div className="flex py-2 px-3 sticky top-0 z-50 bg-white border-b border-gray-200">
           <ArrowLeftIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
           <h2 className="text-lg sm:text-xl font-bold cursor-pointer ml-3">
@@ -54,21 +85,21 @@ export default function userPage() {
         <div>
           <div
             className="w-full bg-cover bg-no-repeat bg-center"
-            style={
-              userInfo.userBgImg === ""
-                ? { height: "200px", backgroundColor: "#cfd9de" }
-                : {
-                    height: "200px",
-                    backgroundImage: "url(" + userInfo.userBgImg + ")",
-                  }
-            }
+            // style={
+            //   userInfo.userBgImg === ""
+            //     ? { height: "200px", backgroundColor: "#cfd9de" }
+            //     : {
+            //         height: "200px",
+            //         backgroundImage: "url(" + userInfo.userBgImg + ")",
+            //       }
+            // }
           >
             {/* <img
               className="opacity-0 w-full h-full"
               src="https://pbs.twimg.com/profile_banners/2161323234/1585151401/600x200)"
               alt=""
             /> */}
-          {/* </div>
+          </div>
           <div className="p-4">
             <div className="relative flex w-full">
               <div className="flex flex-1">
@@ -118,20 +149,20 @@ export default function userPage() {
               </div>
             </div>
           </div>
-        </div> */}
-        {/* <div className="flex p-3 border-b border-gray-200">
+        </div>
+        <div className="flex p-3 border-b border-gray-200">
           <img
             className="h-30 w-30 rounded-full mr-4"
-            src={userImg}
+            src={userInfo.userImg}
             alt="user-img"
           />
-        </div> */}
-        {/* <div className="border-b border-gray-200">
+        </div>
+        <div className="border-b border-gray-200">
           <div className="p-3">
             <h2 className="font-bold text-lg">{userInfo.name}</h2>
-            <h3 className="text-gray-500 text-sm">{"@" + userInfo.id}</h3>
+            <h3 className="text-gray-500 text-sm">{"@" + userInfo.username}</h3>
           </div>
-          <p className="px-3 pb-3 text-sm">{userInfo.intro}</p>
+          <p className="px-3 pb-3 text-sm">intro</p>
           <div className="flex p-2">
             <a href="#" className="text-gray-500 px-2 text-sm hover:underline">
               <span className="font-bold text-black">0</span> following
@@ -140,8 +171,8 @@ export default function userPage() {
               <span className="font-bold text-black">0</span> followers
             </a>
           </div>
-        </div> */}
-        {/* <div>
+        </div>
+        <div>
           <nav className="flex flex-row sm:justify-center space-x-4">
             {["Tweets", "Replies", "Likes"].map((menuItem, i) => (
               <button
@@ -152,12 +183,12 @@ export default function userPage() {
               </button>
             ))}
           </nav>
-          {posts.map((post) => (
+          {/* {posts.map((post) => (
             <Post key={post.id} id={post.id} post={post} />
-          ))}
+          ))} */}
         </div>
       </div>
-      <Widget /> */}
+      <Widget />
     </>
   );
 }
