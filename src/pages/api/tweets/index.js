@@ -14,7 +14,7 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       try {
-        const tweetid = req.query.tweetid; // Get the tweetid parameter from the request URL
+        const tweetid = req.query.q; // Get the tweetid parameter from the request URL
         let tweets;
         if (tweetid) {
           tweets = await Tweet.findOne({ id: tweetid }).populate(

@@ -20,11 +20,17 @@ export default async function handler(req, res) {
               { username: { $regex: `.*${keyword}.*`, $options: "i" } },
               { name: { $regex: `.*${keyword}.*`, $options: "i" } },
             ],
+          }).populate({
+            path: "mytweets",
+            populate: {
+              path: "userObjectId",
+              model: "User",
+            },
           });
         } else {
-          console.log(keyword)
+          console.log(keyword);
           searchResults = await User.find();
-          console.log(searchResults)
+          console.log(searchResults);
         }
 
         res.status(200).json({ success: true, data: searchResults });

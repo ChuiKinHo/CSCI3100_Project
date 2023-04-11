@@ -17,8 +17,8 @@ export function userImgProfile(user) {
   return (
     <CldImage
       className="md rounded-full relative border-4 border-gray-900"
-      width="75"
-      height="75"
+      width="1000"
+      height="1000"
       crop="fill"
       src={user.usrImg}
       alt={user.username}
