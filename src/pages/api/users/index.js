@@ -82,11 +82,9 @@ export default async function handler(req, res) {
           break;
         }
 
-        // Read the image file into a buffer
-        const imageData = fs.readFileSync(req.body["userImg"]);
         
         // Upload the image to Cloudinary and create a new user in the database
-       uploadImage(imageData)
+          uploadImage(req.body["userImg"])
           .then(url => {
             return User.create({
               username: req.body["username"],

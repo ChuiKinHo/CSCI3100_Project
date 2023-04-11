@@ -13,7 +13,7 @@ cloudinaryV2.config({
 /* 
 DESCRIPTION: Upload image to Cloudinary
 @param:  Buffer object containing the image data. 
-@return: a Promise that resolves with the secure URL of the uploaded image if successful, or rejects with an error if there was a problem with the upload.
+@return: url of where imagedata can be found
 */
 export function uploadImage(imageData) {
     return new Promise((resolve, reject) => {
