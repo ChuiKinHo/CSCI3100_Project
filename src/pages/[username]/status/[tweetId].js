@@ -14,7 +14,7 @@ import {
 import { useRouter } from "next/router";
 
 import React, { useState } from "react";
-import Retweet from "@/components/Retweet";
+// import Retweet from "@/components/Retweet";
 import { useEffect } from "react";
 
 import TweetPost from "@/components/TweetPost";

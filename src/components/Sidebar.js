@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 import useStorage from "../hooks/useStorage";
 import SidebarMenuItem from "./SidebarMenuItem";
 import { useEffect, useState } from "react";
-import { userImg } from "../_unsorted/imageRelated/cloudinary/utils";
+import { sidebarImg } from "../_unsorted/imageRelated/cloudinary/utils";
 import { userInfo } from "os";
 import { useRef } from "react";
 
@@ -117,29 +117,34 @@ export default function Sidebar() {
             </div>
 
             {username != null ? (
-              <div className="flex items-center px-4 py-2 cursor-pointer transition duration-500 ease-out">
-                {" "}
-                <button
-                  onClick={() => {
-                    redirect(userInfo.username);
-                  }}
-                >
-                  {userImg(userInfo)}
-                </button>
-                <div className="truncate ml-4 leading-5">
-                  <h4
-                    className="font-bold hover:underline text-[14px] truncate"
+              <>
+                <div className="flex items-center px-4 py-1 cursor-pointer transition duration-500 ease-out ">
+                  <button
                     onClick={() => {
                       redirect(userInfo.username);
                     }}
+                    className="-ml-3"
                   >
-                    {userInfo.name}
-                  </h4>
-                  <h5 className="text-[13px] text-gray-500 truncate">
-                    @{userInfo.username}
-                  </h5>
+                    {sidebarImg(userInfo)}
+                  </button>
+                  <span className={`hidden xl:inline`}>
+                    {" "}
+                    <div className="truncate ml-4 leading-5">
+                      <h4
+                        className="font-bold hover:underline text-[14px] truncate"
+                        onClick={() => {
+                          redirect(userInfo.username);
+                        }}
+                      >
+                        {userInfo.name}
+                      </h4>
+                      <h5 className="text-[13px] text-gray-500 truncate">
+                        @{userInfo.username}
+                      </h5>
+                    </div>
+                  </span>
                 </div>
-              </div>
+              </>
             ) : null}
           </>
         )}
