@@ -5,6 +5,7 @@ import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import useStorage from "@/hooks/useStorage";
 import { userImgProfile } from "../../_unsorted/imageRelated/cloudinary/utils";
+import Link from "next/link";
 
 export default function userPage() {
   const { getItem } = useStorage();
@@ -183,18 +184,24 @@ export default function userPage() {
                   </p>
                 </div>
                 <div className="pt-3 flex justify-start items-start w-full divide-x divide-gray-800 divide-solid">
-                  <div className="text-center pr-3 hover:underline">
+                  <Link
+                    href={"/" + userInfo.username + "/following/"}
+                    className="text-center pr-3 hover:underline"
+                  >
                     <span className="font-bold text-black">
                       {userInfo.following.length}
                     </span>
                     <span className="text-gray-600"> Following</span>
-                  </div>
-                  <div className="text-center px-3 hover:underline">
+                  </Link>
+                  <Link
+                    href={"/" + userInfo.username + "/follower/"}
+                    className="text-center px-3 hover:underline"
+                  >
                     <span className="font-bold text-black">
                       {userInfo.follower.length}{" "}
                     </span>
                     <span className="text-gray-600"> Followers</span>
-                  </div>
+                  </Link>
                 </div>
               </div>
             </div>
