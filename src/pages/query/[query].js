@@ -4,11 +4,19 @@ import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import { Link } from "next/link";
 import { userImg } from "../../_unsorted/imageRelated/cloudinary/utils";
+import useStorage from "../../hooks/useStorage";
 
 export default function userPage() {
   const router = useRouter();
+  const { getItem } = useStorage();
+  const [loginUsername, setLoginUsername] = useState(null);
   const query = router.query.query;
   const [queryReturn, setQueryReturn] = useState([]);
+  const [queryReturnFollowed, setQueryReturnFollowed] = useState([]);
+  useEffect(() => {
+    setLoginUsername(getItem("username", "session"));
+  }, [getItem("username", "session")]);
+
   useEffect(() => {
     fetch("http://localhost:3000/api/users?q=" + query, {
       method: "GET",
@@ -30,6 +38,83 @@ export default function userPage() {
         console.error("Error fetching posts:", error);
       });
   }, [query]);
+
+  useEffect(() => {
+    if (queryReturn !== null && queryReturn.length !== 0) {
+      setQueryReturnFollowed(
+        queryReturn.map((user) =>
+          user.follower
+            .map((folUser) => folUser.username)
+            .includes(loginUsername)
+        )
+      );
+    }
+    console.log(queryReturn);
+  }, [queryReturn]);
+
+  const handleFol = (index) => {
+    fetch(
+      "http://localhost:3000/api/follow?username=" +
+        loginUsername +
+        "&target=" +
+        queryReturn[index].username,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data !== null && data.success) {
+          const update = queryReturnFollowed.map((followed, i) => {
+            if (i === index) {
+              return true;
+            } else {
+              return followed;
+            }
+          });
+          setQueryReturnFollowed(update);
+          //console.log("follow success");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching posts:", error);
+      });
+  };
+
+  const handleUnfol = (index) => {
+    fetch(
+      "http://localhost:3000/api/follow?username=" +
+        loginUsername +
+        "&target=" +
+        queryReturn[index].username,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data !== null && data.success) {
+          const update = queryReturnFollowed.map((followed, i) => {
+            if (i === index) {
+              return false;
+            } else {
+              return followed;
+            }
+          });
+          setQueryReturnFollowed(update);
+          //console.log("follow success");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching posts:", error);
+      });
+  };
 
   function goBack() {
     router.back();
@@ -65,7 +150,7 @@ export default function userPage() {
             />
           </div>
           <div className="flex p-3">{queryReturn.length} User Found</div>
-          {queryReturn.map((user) => (
+          {queryReturn.map((user, index) => (
             <div
               key={user.username}
               className="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-500 ease-out"
@@ -91,9 +176,25 @@ export default function userPage() {
                   @{user.username}
                 </h5>
               </div>
-              <button className="ml-auto bg-black text-white rounded-full text-sm px-3.5 py-1.5 font-bold">
-                Follow
-              </button>
+              {user.username === loginUsername ? (
+                ""
+              ) : queryReturnFollowed[index] ? (
+                <button
+                  key={index}
+                  className="ml-auto bg-white text-black border rounded-full text-sm px-3.5 py-1.5 font-bold hover:bg-red-300"
+                  onClick={() => handleUnfol(index)}
+                >
+                  Following
+                </button>
+              ) : (
+                <button
+                  key={index}
+                  className="ml-auto bg-black text-white rounded-full text-sm px-3.5 py-1.5 font-bold"
+                  onClick={() => handleFol(index)}
+                >
+                  Follow
+                </button>
+              )}
             </div>
           ))}
         </div>

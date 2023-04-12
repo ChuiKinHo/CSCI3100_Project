@@ -49,13 +49,23 @@ export default async function handler(req, res) {
               { username: { $regex: `.*${keyword}.*`, $options: "i" } },
               { name: { $regex: `.*${keyword}.*`, $options: "i" } },
             ],
-          }).populate({
-            path: "mytweets",
-            populate: {
-              path: "userObjectId",
-              model: "User",
-            },
-          });
+          })
+            .populate({
+              path: "mytweets",
+              populate: {
+                path: "userObjectId",
+                model: "User",
+              },
+            })
+            .populate({
+              path: "follower",
+              select: "username",
+              populate: {
+                path: "following",
+                model: "User",
+                select: "username",
+              },
+            });
         } else {
           // Return all users if no query is provided
           searchResults = await User.find()

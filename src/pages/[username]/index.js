@@ -59,8 +59,60 @@ export default function userPage() {
     }
   }, [userInfo]);
 
-  const handleFol = () => {};
-  const handleUnfol = () => {};
+  const handleFol = () => {
+    if (loginUsername !== userInfo) {
+      fetch(
+        "http://localhost:3000/api/follow?username=" +
+          loginUsername +
+          "&target=" +
+          userInfo.username,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data !== null && data.success) {
+            setFollowed(true);
+            //console.log("follow success");
+            //console.log(newRandomUsers);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching posts:", error);
+        });
+    }
+  };
+  const handleUnfol = () => {
+    if (loginUsername !== userInfo) {
+      fetch(
+        "http://localhost:3000/api/follow?username=" +
+          loginUsername +
+          "&target=" +
+          userInfo.username,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data !== null && data.success) {
+            setFollowed(false);
+            //console.log("follow success");
+            //console.log(newRandomUsers);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching posts:", error);
+        });
+    }
+  };
 
   function goBack() {
     router.back();
