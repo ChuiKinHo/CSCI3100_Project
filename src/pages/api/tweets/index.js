@@ -53,10 +53,17 @@ export default async function handler(req, res) {
             tweets.dislike_by_me = false;
           }
         } else {
-          tweets = await Tweet.find().populate(
-            "userObjectId",
-            "username name usrImg -_id"
-          );
+          if (tweetid) {
+            tweets = await Tweet.findOne({ id: tweetid }).populate(
+              "userObjectId",
+              "username name usrImg -_id"
+            );
+          } else {
+            tweets = await Tweet.find().populate(
+              "userObjectId",
+              "username name usrImg -_id"
+            );
+          }
         }
         res.status(200).json({ success: true, data: tweets });
       } catch (error) {

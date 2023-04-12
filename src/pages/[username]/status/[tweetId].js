@@ -91,7 +91,7 @@ export default function Tweet() {
           <div>
             {post != null ? (
               <>
-                {/* <TweetPost key={post.id} post={post} /> */}
+                <TweetPost key={post.id} post={post} />
                 <div className="border-b">
                   <ActionBar post={post} />
                 </div>
