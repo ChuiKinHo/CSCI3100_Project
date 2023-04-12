@@ -1,4 +1,4 @@
-import { User, Token } from "../database/schemas";
+import { User, Admin, Token } from "../database/schemas";
 
 // User
 async function getUserId(username) {
@@ -8,6 +8,10 @@ async function getUserId(username) {
 
 async function loginQuery(username, password) {
   return await User.exists({ username: username, password: password });
+}
+
+async function adminLoginQuery(username, password) {
+  return await Admin.exists({ username: username, password: password });
 }
 // User
 
@@ -38,4 +42,4 @@ async function addToken(username, accessToken, refreshToken) {
 }
 // Token;
 
-export { getUserId, loginQuery, getRefTokenByUserId, getRefTokenByUsername, deleteToken, addToken };
+export { getUserId, loginQuery, adminLoginQuery, getRefTokenByUserId, getRefTokenByUsername, deleteToken, addToken };
