@@ -48,11 +48,11 @@ export default function followerPage() {
       loginUsername !== null
     ) {
       setQueryReturnFollowed(
-        queryReturn.map((user) => {
+        queryReturn.map((user) =>
           user.follower
             .map((folUser) => folUser.username)
-            .includes(loginUsername);
-        })
+            .includes(loginUsername)
+        )
       );
     }
   }, [queryReturn, loginUsername]);

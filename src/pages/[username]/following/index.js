@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Link } from "next/link";
 import { userImg } from "@/_unsorted/imageRelated/cloudinary/utils";
 import useStorage from "@/hooks/useStorage";
+import { loadGetInitialProps } from "next/dist/shared/lib/utils";
 
 export default function followingPage() {
   const router = useRouter();
@@ -42,7 +43,11 @@ export default function followingPage() {
   }, [loginUsername]);
 
   useEffect(() => {
-    if (queryReturn !== null && queryReturn.length !== 0) {
+    if (
+      queryReturn !== null &&
+      queryReturn.length !== 0 &&
+      loginUsername !== null
+    ) {
       setQueryReturnFollowed(
         queryReturn.map((user) =>
           user.follower
@@ -51,7 +56,7 @@ export default function followingPage() {
         )
       );
     }
-  }, [queryReturn]);
+  }, [queryReturn, loginUsername]);
 
   const handleFol = (index) => {
     fetch(
