@@ -33,11 +33,23 @@ export default function Sidebar() {
   }, [getItem("username", "session"), getItem("admin", "session")]);
 
   const handleLogout = () => {
-    removeItem("username", "session");
-    removeItem("admin", "session");
-    setUsername(null);
-    setIsAdmin(false);
-    router.replace("/");
+    fetch("/api/auth/logout", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username: username, admin: isAdmin })
+    }).then(res => res.json()).then(json => {
+      console.log(json.data.admin)
+      if (json.data.admin) {
+        removeItem("admin", "session");
+      } else {
+        removeItem("username", "session");
+        removeItem("accessToken", "session");
+        removeItem("refreshToken", "session");
+      }
+      setUserInfo(null);
+      router.replace("/");
+      return null;
+    });
   };
 
   useEffect(() => {
@@ -63,7 +75,7 @@ export default function Sidebar() {
     }
   }, [username]);
 
-  if (isMountedRef && userInfo != null) {
+  if (isMountedRef && userInfo != null || isAdmin) {
     return (
       <div
         className={

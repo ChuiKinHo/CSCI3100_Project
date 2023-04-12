@@ -31,14 +31,19 @@ export default function Login() {
       }
       return res.json();
     }).then(json => {
+      console.log(json)
+      if (!json) return;
+
       if (json.data.admin){
         setItem("admin", "1", "session");
         router.replace("/admin");
-      } else{
+      } else if (json.data.username && json.data.accessToken && json.data.refreshToken){
         setItem("username", json.data.username, "session");
         setItem("accessToken", json.data.accessToken, "session");
         setItem("refreshToken", json.data.refreshToken, "session");
         router.replace("/");
+      } else {
+        console.log("Unknown error");
       }
     });
   };

@@ -101,7 +101,7 @@ POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
 {
-  "username": "user2",
+  "username": "Tom123",
   "password": "user0"
 }
 
@@ -110,7 +110,8 @@ DELETE http://localhost:3000/api/auth/logout
 Content-Type: application/json
 
 {
-  "username": "user2"
+  "username": "user2",
+  "admin": 1
 }
 
 ###

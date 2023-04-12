@@ -18,6 +18,9 @@ export default async function handler(req, res) {
         // await deleteToken(req.body.name, req.body.refreshToken)
         
         // refreshTokens = refreshTokens.filter(token => token !== req.body.token)
+        if (req.body.admin)
+          return res.status(201).json({ success: true, data: { admin: true } })
+
         // 204: No Content, this request is successfully executed and the token is removed 
         const logout = await deleteToken(req.body.username)
         // console.log(logout)
@@ -25,8 +28,6 @@ export default async function handler(req, res) {
           return res.status(400).json({ success: false, data: "You are not logged in!" })
 
         res.status(201).json({ success: true, data: logout })
-
-        // res.status(201).json({ success: true, data: "You are logged out!" })
       } catch (error) {
         res.status(400).json({ success: false, data: { error: error } })
       }

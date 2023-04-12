@@ -21,17 +21,13 @@ export default async function handler(req, res) {
         const user = { name: req.body.username }
         const password = pwd(req.body.password);
 
-        console.log(1)
-        console.log(req.body)
         if (await adminLoginQuery(user.name, password))
           return res.status(201).json({ success: true, data: { admin: true } })
 
-          console.log(req.body)
         if (!await loginQuery(user.name, password))
           // 401: Unauthorized, this request has the wrong username password pair
           return res.sendStatus(401)
 
-          console.log(req.body)
         // Access Token generation
         const accessToken = generateAccessToken({ name: user.name })
         
