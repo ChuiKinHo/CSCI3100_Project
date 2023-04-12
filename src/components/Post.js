@@ -113,6 +113,10 @@ export default function Post({ id }) {
               <EllipsisHorizontalCircleIcon className="h-10 hoverEffect w-10 hover:bg-sky-100 hover:text-sky-500 p-2 " />
             </div>
 
+            <p className="text-gray-800 text-[15px sm:text-[16px] mb-2">
+              {post.text}
+            </p>
+
             <div className="flex p-3 cursor-pointer border-b border-gray-200">
               <Link href={"/" + retweet.userObjectId.username}>
                 {userImg(retweet.userObjectId)}
