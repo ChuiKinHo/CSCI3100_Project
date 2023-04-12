@@ -43,7 +43,7 @@ export default async function handler(req, res) {
             targetTweetId:
               data.targetTweetId === null || data.targetTweetId.length === 0
                 ? null
-                : data.targetTweetId,
+                : data.targetTweetId.toString(),
             userObjectId: user._id,
           };
           //console.log(newTweet);
@@ -63,6 +63,15 @@ export default async function handler(req, res) {
             },
             { upsert: true }
           );
+          if (createdTweet.targetTweetId !== null) {
+            await Tweet.updateOne(
+              { id: createdTweet.targetTweetId },
+              {
+                $addToSet: { commentId: createdTweet.id },
+              },
+              { upsert: true }
+            );
+          }
           res.status(200).json({ success: true, data: createdTweet });
         }
       } catch (error) {

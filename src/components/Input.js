@@ -22,6 +22,7 @@ export default function Input() {
       username: username,
       input: input,
       targetTweetId: "",
+      img: "",
     };
     //console.log(reqData);
     if (
@@ -29,12 +30,6 @@ export default function Input() {
       reqData.input !== null &&
       reqData.input.length !== 0
     ) {
-      const reqData = {
-        username: username,
-        input: input,
-        targetTweetId: "",
-        img: "",
-      };
       fetch("http://localhost:3000/api/post", {
         method: "POST",
         headers: {
@@ -52,6 +47,7 @@ export default function Input() {
           console.error("Error fetching posts:", error);
         });
     }
+    setInput("");
   };
 
   useEffect(() => {
