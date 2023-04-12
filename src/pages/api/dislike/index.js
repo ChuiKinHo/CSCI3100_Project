@@ -34,10 +34,18 @@ export default async function handler(req, res) {
               { username: username },
               { $pull: { dislikes: tweets._id } }
             );
+            await Tweet.updateOne(
+              { id: tweetid },
+              { $inc: { dislikeCount: -1 } }
+            );
           } else {
             await User.updateOne(
-              { username: username },
+              { id: username },
               { $addToSet: { dislikes: tweets._id } }
+            );
+            await Tweet.updateOne(
+              { tweetid: tweetid },
+              { $inc: { dislikeCount: +1 } }
             );
           }
         }

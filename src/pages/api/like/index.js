@@ -28,17 +28,20 @@ export default async function handler(req, res) {
             username: username,
             likes: { $elemMatch: { $eq: postId } },
           });
-
           if (like) {
             await User.updateOne(
               { username: username },
               { $pull: { likes: tweets._id } }
             );
+            await Tweet.updateOne({ id: tweetid }, { $inc: { likeCount: -1 } });
+            // console.log(-1);
           } else {
             await User.updateOne(
               { username: username },
               { $addToSet: { likes: tweets._id } }
             );
+            await Tweet.updateOne({ id: tweetid }, { $inc: { likeCount: +1 } });
+            // console.log(+1);
           }
         }
         res.status(200).json({ success: true });
