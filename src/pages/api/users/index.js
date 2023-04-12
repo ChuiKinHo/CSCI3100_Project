@@ -32,6 +32,9 @@ export default async function handler(req, res) {
                 path: "userObjectId",
                 model: "User",
               },
+              options: {
+                sort: { timestamp: -1 }, // Sort tweets in descending order
+              },
             })
             .populate({
               path: "follower",
