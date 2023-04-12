@@ -81,11 +81,19 @@ Content-Type: application/json
 }
 
 ###
+GET http://localhost:3000/api/auth
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidXNlcjIiLCJpYXQiOjE2ODEzMTM0MDcsImV4cCI6MTY4MTM5OTgwN30.cmHlVB96vrExiltRnrZSUFeeo1qYZ3o5fRrGt4oNow0
+
+{
+}
+
+###
 GET http://localhost:3000/api/auth/pwd
 Content-Type: application/json
 
 {
-  "password": "user0"
+  "password": "admin"
 }
 
 ###

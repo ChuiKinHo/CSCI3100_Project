@@ -26,7 +26,6 @@ export default async function handler(req, res) {
         // if (!refreshTokens.includes(refreshToken))
           return res.status(403).json({ success: false, data: "No match for token!" })
     
-        let success = 
         jwt.verify(refreshToken, process.env.REFRESH_TOKEN_KEY, (err, user) => {
           // 403: Forbidden, this request is invalid(invalid/outdated token)
           if (err)

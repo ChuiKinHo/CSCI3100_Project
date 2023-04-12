@@ -11,29 +11,36 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [warning, setWarning] = useState("");
 
-  const handleUsernameChange = (event: any) => {
+  const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
 
-  const handlePasswordChange = (event: any) => {
+  const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
 
   const handleSubmit = () => {
-    if (
-      (username === "user0" && password === "user0") ||
-      (username === "user001" && password === "123456")
-    ) {
-      setWarning("");
-      setItem("username", username, "session");
-      router.replace("/");
-    } else if (username === "admin" && password === "admin") {
-      setWarning("");
-      setItem("admin", "1", "session");
-      router.replace("/admin");
-    } else {
-      setWarning("Username or password is not correct");
-    }
+    fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password })
+    }).then(res => {
+      if (res.status != 201) {
+        setWarning("Username or password is not correct");
+        return null;
+      }
+      return res.json();
+    }).then(json => {
+      if (json.data.admin){
+        setItem("admin", "1", "session");
+        router.replace("/admin");
+      } else{
+        setItem("username", json.data.username, "session");
+        setItem("accessToken", json.data.accessToken, "session");
+        setItem("refreshToken", json.data.refreshToken, "session");
+        router.replace("/");
+      }
+    });
   };
 
   return (

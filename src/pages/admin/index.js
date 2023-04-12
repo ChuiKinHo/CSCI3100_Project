@@ -1,33 +1,73 @@
 import React, { useState } from "react";
 
+const handleSubmit = async (event, method = 'POST', JSONdata = '', endpoint = '/admin/test2') => {
+  // Stop the form from submitting and refreshing the page.
+  event.preventDefault()
+
+  // Send the data to the server in JSON format.
+  // const JSONdata = JSON.stringify({
+  //   username: event.target.username.value,
+  //   password: event.target.password.value,
+  // })
+
+  // Form the request for sending data to the server.
+  // const options = { method: method, headers: { "Content-Type": "application/json" }, body: JSONdata }
+  // Send the form data to our forms API on Vercel and get a response.
+  const response = await fetch(endpoint, { 
+    method: method, 
+    headers: { "Content-Type": "application/json" }, 
+    body: JSONdata 
+  })
+
+  // Get the response data from server as JSON.
+  // If server returns the name submitted, that means the form works.
+  const result = await response.json()
+  alert(`Is this your full name: ${result.data}`)
+  return result.data
+}
+
+const createUserJSON = event => ({
+  username: event.target.username.value,
+  password: event.target.password.value,
+})
+const handleCreateUserSubmit = async (event) => handleSubmit(event, 'POST', createUserJSON(event), '/api/users')
+
 function createUserTable() {
+
   return (
     <div className="flex flex-col overflow-x-auto p-1.5 w-full inline-block align-middle overflow-hidden border rounded-lg">
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
-          <tr>
-            <th scope="col" className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">Username</th>
-            <th scope="col" className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">Password</th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-gray-200">
-          <tr>
-            <td className="px-6 py-4 whitespace-nowrap">
-              <input type="text" placeholder="username"></input>
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap">
-              <input type="text" placeholder="password"></input>
-            </td>
-          </tr>
-          <tr>
-            <td className="px-6 py-4 whitespace-nowrap">
-              <button type="button" className="px-4 py-2 text-gray-900 bg-slate-200 hover:bg-slate-300 border border-slate-300 hover:border-slate-400 mx-auto rounded-lg">
-                Submit
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <form onSubmit={handleSubmit}>
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th scope="col" className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase"><label htmlFor="username">Username</label></th>
+              <th scope="col" className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase"><label htmlFor="password">Password</label></th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-200">
+            <tr>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <input id="username" type="text" placeholder="username"></input>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <input id="password" type="text" placeholder="password"></input>
+              </td>
+            </tr>
+            <tr>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <input name="file" type="file" />
+              </td>
+            </tr>
+            <tr>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <button type="submit" className="px-4 py-2 text-gray-900 bg-slate-200 hover:bg-slate-300 border border-slate-300 hover:border-slate-400 mx-auto rounded-lg">
+                  Submit
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
     </div>
   );
 }
