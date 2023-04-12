@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { userImg } from "../_unsorted/imageRelated/cloudinary/utils";
 import ActionBar from "./ActionBar";
+import Post from "./Post";
 import useStorage from "../hooks/useStorage";
 
 export default function TweetPost({ post }) {
@@ -50,7 +51,7 @@ export default function TweetPost({ post }) {
   if (post !== null)
     return (
       <>
-        {targetPost === null ? (
+        {targetPost === null || post.retweet ? (
           ""
         ) : (
           <TweetPost
@@ -59,7 +60,8 @@ export default function TweetPost({ post }) {
             loginUsername={loginUsername}
           />
         )}
-        <div className="p-3 cursor-pointer border-b border-gray-200">
+        <Post id={post.id} />
+        {/* <div className="p-3 cursor-pointer border-b border-gray-200">
           <div className="flex">
             <Link href={"/" + post.userObjectId.username}>
               {userImg(post.userObjectId)}
@@ -78,7 +80,6 @@ export default function TweetPost({ post }) {
                   </span>
                 </div>
 
-                {/*TODO:: Turn this into button */}
                 <EllipsisHorizontalCircleIcon className="h-10 hoverEffect w-10 hover:bg-sky-100 hover:text-sky-500 p-2 " />
               </div>
 
@@ -91,7 +92,7 @@ export default function TweetPost({ post }) {
             </p>
           </div>
           <ActionBar key={post.id} post={post} />
-        </div>
+        </div> */}
       </>
     );
 }
