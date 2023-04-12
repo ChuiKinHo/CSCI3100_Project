@@ -21,6 +21,8 @@ export default function ActionBar({ post }) {
   const [isAdmin, setIsAdmin] = useState(1);
   const [likeByMe, setLikeByMe] = useState(post.like_by_me);
   const [dislikeByMe, setDislikeByMe] = useState(post.dislike_by_me);
+  const [likeCount, setLikeCount] = useState(post.likeCount);
+  const [dislikeCount, setDislikeCount] = useState(post.dislikeCount);
 
   useEffect(() => {
     setUsername(getItem("username", "session"));
@@ -51,6 +53,11 @@ export default function ActionBar({ post }) {
           },
         }
       ).then((response) => {
+        if (likeByMe) {
+          setLikeCount(likeCount - 1);
+        } else {
+          setLikeCount(likeCount + 1);
+        }
         setLikeByMe(!likeByMe);
       });
     } else {
@@ -72,6 +79,11 @@ export default function ActionBar({ post }) {
           },
         }
       ).then((response) => {
+        if (dislikeByMe) {
+          setDislikeCount(dislikeCount - 1);
+        } else {
+          setDislikeCount(dislikeCount + 1);
+        }
         setDislikeByMe(!dislikeByMe);
       });
     } else {
@@ -97,14 +109,14 @@ export default function ActionBar({ post }) {
           <>
             <HandThumbUpIconSolid className="h-9 w-9 hoverEffect p-2 hover:text-green-600 hover:bg-green-100 text-green-600 group-hover:text-green-600 group-hover:bg-green-100" />
             <span className="text-green-600 text-sm select-none group-hover:text-green-600 px-1">
-              {post.likeCount}
+              {likeCount}
             </span>
           </>
         ) : (
           <>
             <HandThumbUpIcon className="h-9 w-9 hoverEffect p-2 hover:text-green-600 hover:bg-green-100 text-gray-600 group-hover:text-green-600" />
             <span className="text-gray-600 text-sm select-none group-hover:text-green-600 px-1">
-              {post.likeCount}
+              {likeCount}
             </span>
           </>
         )}
@@ -120,14 +132,14 @@ export default function ActionBar({ post }) {
           <>
             <HandThumbDownIconSolid className="h-9 w-9 hoverEffect p-2 text-red-600 group-hover:text-red-600 group-hover:bg-red-100" />
             <span className="text-red-600 text-sm select-none group-hover:text-red-600 px-1">
-              {post.dislikeCount}
+              {dislikeCount}
             </span>
           </>
         ) : (
           <>
             <HandThumbDownIcon className="h-9 w-9 hoverEffect p-2 text-gray-600 group-hover:text-red-600 group-hover:bg-red-100" />
             <span className="text-gray-600 text-sm select-none group-hover:text-red-600 px-1">
-              {post.dislikeCount}
+              {dislikeCount}
             </span>
           </>
         )}
