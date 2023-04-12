@@ -6,38 +6,51 @@ import {
   HandThumbDownIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import {
-  HandThumbUpIcon as HandThumbUpIconSolid,
-  HandThumbDownIcon as HandThumbDownIconSolid,
-} from "@heroicons/react/24/solid";
 
 import React, { useState, useEffect } from "react";
 import Retweet from "@/components/Retweet";
 import ActionBar from "@/components/ActionBar";
-
+import useStorage from "../hooks/useStorage";
 import { userImg } from "../_unsorted/imageRelated/cloudinary/utils";
 
 export default function Post({ id }) {
+  const { getItem, removeItem } = useStorage();
+  const [username, setUsername] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(1);
   const [post, setPost] = useState(null);
+
   useEffect(() => {
-    fetch("http://localhost:3000/api/tweets?q=" + id, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.data !== null) {
-          setPost(data.data);
-          //console.log(data.data);
+    setUsername(getItem("username", "session"));
+    setIsAdmin(getItem("admin", "session"));
+  }, [getItem("username", "session"), getItem("admin", "session")]);
+
+  useEffect(() => {
+    if (username != null) {
+      fetch(
+        "http://localhost:3000/api/tweets?tweetid=" +
+          id +
+          "&username=" +
+          username,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      })
-      .catch((error) => {
-        console.error("Error fetching posts:", error);
-      });
-  }, [id]);
-  if (post !== null)
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.data !== null) {
+            setPost(data.data);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching posts:", error);
+        });
+    }
+  }, [id, username]);
+
+  if (post !== null) {
     return (
       <>
         {post.retweet && (
@@ -89,4 +102,5 @@ export default function Post({ id }) {
         </div>
       </>
     );
+  }
 }

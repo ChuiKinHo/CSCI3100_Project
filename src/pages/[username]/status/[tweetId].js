@@ -21,35 +21,51 @@ import Widget from "@/components/Widget";
 import Post from "@/components/Post";
 import ActionBar from "@/components/ActionBar";
 import ReplyInput from "@/components/ReplyInput";
+import useStorage from "../../../hooks/useStorage";
 
 export default function Tweet() {
   const router = useRouter();
   const { tweetId } = router.query;
   const [post, setPosts] = useState([]);
+  const { getItem, removeItem } = useStorage();
+  const [username, setUsername] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(1);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/tweets?q=" + tweetId, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
+    setUsername(getItem("username", "session"));
+    setIsAdmin(getItem("admin", "session"));
+  }, [getItem("username", "session"), getItem("admin", "session")]);
+
+  useEffect(() => {
+    if (username != null && tweetId != undefined) {
+      fetch(
+        "http://localhost:3000/api/tweets?tweetid=" +
+          tweetId +
+          "&username=" +
+          username,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-        return response.json();
-      })
-      .then((data) => {
-        if (data.data !== null) {
-          setPosts(data.data);
-          //console.log(data.data);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching posts:", error);
-      });
-  }, [tweetId]);
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data.data !== null) {
+            setPosts(data.data);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching posts:", error);
+        });
+    }
+  }, [username, tweetId]);
 
   const [showPopUp, setShowPopUp] = useState(false);
 
@@ -60,7 +76,10 @@ export default function Tweet() {
   const handleClosePopUp = () => {
     setShowPopUp(false);
   };
-  if (post.length !== 0)
+
+  if (post.length != 0) {
+    console.log(post);
+
     return (
       <>
         <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
@@ -87,4 +106,5 @@ export default function Tweet() {
         <Widget />
       </>
     );
+  }
 }

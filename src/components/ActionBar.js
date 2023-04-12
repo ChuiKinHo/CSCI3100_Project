@@ -48,7 +48,7 @@ export default function ActionBar({ post }) {
           <>
             <HandThumbUpIconSolid className="h-9 w-9 hoverEffect p-2 hover:text-green-600 hover:bg-green-100 text-green-600 group-hover:text-green-600 group-hover:bg-green-100" />
             <span className="text-green-600 text-sm select-none group-hover:text-green-600 px-1">
-              {post.like}
+              {post.likeCount}
             </span>
           </>
         ) : (

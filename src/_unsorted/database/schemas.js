@@ -33,14 +33,14 @@ const UserSchema = new mongoose.Schema({
     ref: "Tweet",
     required: true,
   },
-  // like: {
-  //   type: [mongoose.Schema.Types.ObjectId],
-  //   ref: "Tweet",
-  // },
-  // dislike: {
-  //   type: [mongoose.Schema.Types.ObjectId],
-  //   ref: "Tweet",
-  // },
+  likes: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Tweet",
+  },
+  dislikes: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Tweet",
+  },
 });
 const User = mongoose.models.User || mongoose.model("User", UserSchema);
 
@@ -61,8 +61,6 @@ const TweetSchema = new mongoose.Schema({
   // timelineId: { type: Number, required: true },
   likeCount: { type: Number, required: true },
   dislikeCount: { type: Number, required: true },
-  like_by_me: { type: Boolean, required: true },
-  dislike_by_me: { type: Boolean, required: true },
   retweet: { type: Boolean, required: true },
   commentId: { type: Array, required: true },
   targetTweetId: { type: Number, ref: "Tweet" }, //the targeted retweet

@@ -10,17 +10,32 @@ import {
   HandThumbUpIcon as HandThumbUpIconSolid,
   HandThumbDownIcon as HandThumbDownIconSolid,
 } from "@heroicons/react/24/solid";
+import useStorage from "../hooks/useStorage";
 
 export default function Comment({ commentId, id }) {
   const [post, setPost] = useState({});
+  const { getItem, removeItem } = useStorage();
+  const [username, setUsername] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(1);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/tweets?q=" + commentId, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    setUsername(getItem("username", "session"));
+    setIsAdmin(getItem("admin", "session"));
+  }, [getItem("username", "session"), getItem("admin", "session")]);
+
+  useEffect(() => {
+    fetch(
+      "http://localhost:3000/api/tweets?tweetid=" +
+        commentId +
+        "&username=" +
+        username,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         setPost(data.data);
@@ -31,6 +46,7 @@ export default function Comment({ commentId, id }) {
   }, []);
 
   // TODO:: More polishing is needed
+  console.log(post);
   return (
     <div className="flex p-3 cursor-pointer border-b border-gray-200">
       <img
