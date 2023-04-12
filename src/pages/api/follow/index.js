@@ -12,6 +12,21 @@ export default async function handler(req, res) {
 
   // api/users
   switch (method) {
+    case "GET":
+      try {
+        //get list of following
+        const username = req.query.following;
+        let user, targetUser;
+        user = await User.findOne({ username: username }).populate("following");
+        user = user.following;
+        res.status(200).json({ success: true, data: user });
+      } catch (error) {
+        res
+          .status(400)
+          .json({ success: false, data: { error: error.toString() } });
+      }
+      break;
+
     // user to follow target user
     case "PUT":
       try {
