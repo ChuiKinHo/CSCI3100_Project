@@ -109,10 +109,10 @@ const Retweet = ({ onClose, id }) => {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-1 whitespace-nowrap">
                       <h4 className="font-bold text-[15px] sm:text-[16px] hover:underline">
-                        {post.username}
+                        {post.userObjectId.username}
                       </h4>
                       <span className="text-sm sm:text-[15px]">
-                        @{post.userId} -{" "}
+                        @{post.userObjectId.userId} -{" "}
                       </span>
                       <span className="text-sm sm:text-[15px] hover:underline">
                         {new Intl.RelativeTimeFormat("en", {
