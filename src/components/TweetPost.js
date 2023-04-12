@@ -4,23 +4,35 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { userImg } from "../_unsorted/imageRelated/cloudinary/utils";
+import ActionBar from "./ActionBar";
+import useStorage from "../hooks/useStorage";
 
 export default function TweetPost({ post }) {
   const router = useRouter();
   const [targetPost, setTargetPost] = useState(null);
-  //const [state, setState] = useState(false);
+  const { getItem } = useStorage();
+  const [loginUsername, setLoginUsername] = useState(null);
+  useEffect(() => {
+    setLoginUsername(getItem("username", "session"));
+  }, [getItem("username", "session")]);
   useEffect(() => {
     if (targetPost !== null) {
       console.log(targetPost.id);
     }
 
-    if (post.targetTweetId !== null) {
-      fetch("http://localhost:3000/api/tweets?tweetid=" + post.targetTweetId, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+    if (post.targetTweetId !== null && loginUsername !== null) {
+      fetch(
+        "http://localhost:3000/api/tweets?tweetid=" +
+          post.targetTweetId +
+          "&username=" +
+          loginUsername,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
         .then((response) => response.json())
         .then((data) => {
           if (data.data !== null) {
@@ -33,7 +45,7 @@ export default function TweetPost({ post }) {
           console.error("Error fetching posts:", error);
         });
     }
-  }, []);
+  }, [loginUsername]);
   // TODO:: More polishing is needed
   if (post !== null)
     return (
@@ -41,7 +53,11 @@ export default function TweetPost({ post }) {
         {targetPost === null ? (
           ""
         ) : (
-          <TweetPost key={targetPost.id} post={targetPost} />
+          <TweetPost
+            key={targetPost.id}
+            post={targetPost}
+            loginUsername={loginUsername}
+          />
         )}
         <div className="p-3 cursor-pointer border-b border-gray-200">
           <div className="flex">
@@ -74,6 +90,7 @@ export default function TweetPost({ post }) {
               {post.text}
             </p>
           </div>
+          <ActionBar key={post.id} post={post} />
         </div>
       </>
     );

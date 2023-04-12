@@ -83,7 +83,7 @@ export default function Tweet() {
   };
 
   if (post.length != 0) {
-    console.log(post);
+    //console.log(post);
 
     return (
       <>
@@ -100,10 +100,10 @@ export default function Tweet() {
           <div>
             {post != null ? (
               <>
-                <TweetPost key={post.id} post={post} />
-                <div className="border-b">
+                <TweetPost key={post.id} post={post} loginUsername={username} />
+                {/* <div className="border-b">
                   <ActionBar post={post} />
-                </div>
+                </div> */}
               </>
             ) : null}
             <ReplyInput post={post} userImg={post.userObjectId.usrImg} />

@@ -49,7 +49,7 @@ export default function userPage() {
         )
       );
     }
-    console.log(queryReturn);
+    //console.log(queryReturn);
   }, [queryReturn]);
 
   const handleFol = (index) => {
