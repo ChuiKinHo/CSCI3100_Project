@@ -63,7 +63,7 @@ const TweetSchema = new mongoose.Schema({
   dislikeCount: { type: Number, required: true },
   retweet: { type: Boolean, required: true },
   commentId: { type: Array, required: true },
-  targetTweetId: { type: Number, ref: "Tweet" }, //the targeted retweet
+  targetTweetId: { type: String }, //the targeted retweet
 });
 const Tweet = mongoose.models.Tweet || mongoose.model("Tweet", TweetSchema);
 
