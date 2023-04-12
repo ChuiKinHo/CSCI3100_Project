@@ -13,6 +13,13 @@ export default function userPage() {
   const query = router.query.query;
   const [queryReturn, setQueryReturn] = useState([]);
   const [queryReturnFollowed, setQueryReturnFollowed] = useState([]);
+  const [parentFolAction, setParentFolAction] = useState(null);
+  const [childState, setChildState] = useState(0);
+  const handleChildStateChange = () => {
+    if (childState !== null) setChildState(childState + 1);
+    else setChildState(0);
+    //console.log(childState);
+  };
   useEffect(() => {
     setLoginUsername(getItem("username", "session"));
   }, [getItem("username", "session")]);
@@ -37,7 +44,7 @@ export default function userPage() {
       .catch((error) => {
         console.error("Error fetching posts:", error);
       });
-  }, [query]);
+  }, [query, childState]);
 
   useEffect(() => {
     if (queryReturn !== null && queryReturn.length !== 0) {
@@ -76,6 +83,10 @@ export default function userPage() {
             }
           });
           setQueryReturnFollowed(update);
+          setParentFolAction({
+            username: queryReturn[index].username,
+            followed: true,
+          });
           //console.log("follow success");
         }
       })
@@ -108,6 +119,10 @@ export default function userPage() {
             }
           });
           setQueryReturnFollowed(update);
+          setParentFolAction({
+            username: queryReturn[index].username,
+            followed: false,
+          });
           //console.log("follow success");
         }
       })
@@ -198,7 +213,10 @@ export default function userPage() {
             </div>
           ))}
         </div>
-        <Widget />
+        <Widget
+          onStateChange={handleChildStateChange}
+          checkFol={parentFolAction}
+        />
       </>
     );
   }

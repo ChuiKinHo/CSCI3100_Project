@@ -3,8 +3,10 @@ import useStorage from "../hooks/useStorage";
 import { useEffect, useState } from "react";
 import { userImg } from "../_unsorted/imageRelated/cloudinary/utils";
 import { useRef } from "react";
+import { useRouter } from "next/router";
 
 export default function Input() {
+  const router = useRouter();
   const { getItem, removeItem } = useStorage();
   const [username, setUsername] = useState(null);
   const [isAdmin, setIsAdmin] = useState(1);
@@ -42,6 +44,7 @@ export default function Input() {
         .then((data) => {
           if (data !== null && data.success) {
             console.log("post Tweet successful");
+            router.push("/" + username + "/status/" + data.data.id);
           }
         })
         .catch((error) => {

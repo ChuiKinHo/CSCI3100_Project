@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { userImg } from "../_unsorted/imageRelated/cloudinary/utils";
 import { useRef } from "react";
 
-export default function ReplyInput({ post }) {
+export default function ReplyInput({ post, onReply }) {
   const { getItem, removeItem } = useStorage();
   const [username, setUsername] = useState(null);
   const [isAdmin, setIsAdmin] = useState(1);
@@ -40,6 +40,7 @@ export default function ReplyInput({ post }) {
         .then((response) => response.json())
         .then((data) => {
           if (data !== null && data.success) {
+            onReply();
             console.log("reply Tweet successful");
           }
         })

@@ -13,6 +13,13 @@ export default function followerPage() {
   const query = router.query.query;
   const [queryReturn, setQueryReturn] = useState([]);
   const [queryReturnFollowed, setQueryReturnFollowed] = useState([]);
+  const [parentFolAction, setParentFolAction] = useState(null);
+  const [childState, setChildState] = useState(0);
+  const handleChildStateChange = () => {
+    if (childState !== null) setChildState(childState + 1);
+    else setChildState(0);
+    //console.log(childState);
+  };
   useEffect(() => {
     setLoginUsername(getItem("username", "session"));
   }, [getItem("username", "session")]);
@@ -39,7 +46,7 @@ export default function followerPage() {
           console.error("Error fetching posts:", error);
         });
     }
-  }, [loginUsername]);
+  }, [loginUsername, childState]);
 
   useEffect(() => {
     if (
@@ -81,6 +88,10 @@ export default function followerPage() {
             }
           });
           setQueryReturnFollowed(update);
+          setParentFolAction({
+            username: queryReturn[index].username,
+            followed: true,
+          });
           //console.log("follow success");
         }
       })
@@ -113,7 +124,11 @@ export default function followerPage() {
             }
           });
           setQueryReturnFollowed(update);
-          //console.log("follow success");
+          setParentFolAction({
+            username: queryReturn[index].username,
+            followed: false,
+          });
+          //console.log("unfollow success");
         }
       })
       .catch((error) => {
@@ -202,7 +217,10 @@ export default function followerPage() {
             </div>
           ))}
         </div>
-        <Widget />
+        <Widget
+          onStateChange={handleChildStateChange}
+          checkFol={parentFolAction}
+        />
       </>
     );
   }

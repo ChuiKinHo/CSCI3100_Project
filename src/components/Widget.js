@@ -79,7 +79,7 @@ function NotLogin() {
 //   return recommendedUsers;
 // }
 
-export default function Widget() {
+export default function Widget({ onStateChange, checkFol }) {
   const { getItem } = useStorage();
   const [username, setUsername] = useState(null);
   //const posts = getRecommendedPosts();
@@ -102,6 +102,9 @@ export default function Widget() {
       .catch((error) => {
         console.error("Error fetching posts:", error);
       });
+  }, [username]);
+
+  useEffect(() => {
     fetch("http://localhost:3000/api/users", {
       method: "GET",
       headers: {
@@ -132,6 +135,30 @@ export default function Widget() {
     setUsername(getItem("username", "session"));
   }, [getItem("username", "session")]);
 
+  useEffect(() => {
+    if (checkFol !== null && username !== null && randomUsers !== null) {
+      const index = randomUsers
+        .map((user) => user.username)
+        .indexOf(checkFol.username);
+      if (
+        index >= 0 &&
+        index < randomUsers.length &&
+        randomUsers[index].followed !== checkFol.followed
+      ) {
+        setRandomUsers(
+          randomUsers.map((user, i) => {
+            if (i === index) {
+              user.followed = checkFol.followed;
+              return user;
+            } else {
+              return user;
+            }
+          })
+        );
+      }
+    }
+  }, [checkFol]);
+
   const handleFol = (index) => {
     fetch(
       "http://localhost:3000/api/follow?username=" +
@@ -156,6 +183,7 @@ export default function Widget() {
             }
           });
           setRandomUsers(newRandomUsers);
+          onStateChange();
           //console.log("follow success");
           //console.log(newRandomUsers);
         }
@@ -188,6 +216,7 @@ export default function Widget() {
             }
           });
           setRandomUsers(newRandomUsers);
+          onStateChange();
           //console.log("unfollow success");
           //console.log(newRandomUsers);
         }

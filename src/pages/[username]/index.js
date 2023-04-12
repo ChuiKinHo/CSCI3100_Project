@@ -22,6 +22,12 @@ export default function userPage() {
   const [posts, setPosts] = useState([]);
   const router = useRouter();
   const username = router.query.username;
+  const [childState, setChildState] = useState(0);
+  const handleChildStateChange = () => {
+    if (childState !== null) setChildState(childState + 1);
+    else setChildState(0);
+    //console.log(childState);
+  };
   useEffect(() => {
     fetch("http://localhost:3000/api/users?q=@" + username, {
       method: "GET",
@@ -42,7 +48,7 @@ export default function userPage() {
       .catch((error) => {
         console.error("Error fetching posts:", error);
       });
-  }, [username]);
+  }, [username, childState]);
 
   useEffect(() => {
     setLoginUsername(getItem("username", "session"));
@@ -224,7 +230,7 @@ export default function userPage() {
             ))}
           </div>
         </div>
-        <Widget />
+        <Widget onStateChange={handleChildStateChange} />
       </>
     );
   }

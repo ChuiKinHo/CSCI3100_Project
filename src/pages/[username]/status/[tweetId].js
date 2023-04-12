@@ -31,6 +31,12 @@ export default function Tweet() {
   const { getItem, removeItem } = useStorage();
   const [username, setUsername] = useState(null);
   const [isAdmin, setIsAdmin] = useState(1);
+  const [replyState, setReplyState] = useState(0);
+
+  const handleOnReply = () => {
+    if (replyState !== null) setReplyState(replyState + 1);
+    else setReplyState(0);
+  };
 
   function goBack() {
     router.back();
@@ -70,7 +76,7 @@ export default function Tweet() {
           console.error("Error fetching posts:", error);
         });
     }
-  }, [username, tweetId]);
+  }, [username, tweetId, replyState]);
 
   const [showPopUp, setShowPopUp] = useState(false);
 
@@ -106,7 +112,11 @@ export default function Tweet() {
                 </div> */}
               </>
             ) : null}
-            <ReplyInput post={post} userImg={post.userObjectId.usrImg} />
+            <ReplyInput
+              post={post}
+              userImg={post.userObjectId.usrImg}
+              onReply={handleOnReply}
+            />
             {post.commentId.map((id) => (
               <Post key={id} id={id} />
             ))}

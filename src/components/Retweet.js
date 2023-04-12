@@ -4,8 +4,10 @@ import useStorage from "../hooks/useStorage";
 import { userImg } from "../_unsorted/imageRelated/cloudinary/utils";
 import { useEffect } from "react";
 import { useRef } from "react";
+import { useRouter } from "next/router";
 
 const Retweet = ({ onClose, id }) => {
+  const router = useRouter();
   const { getItem, removeItem } = useStorage();
   const [username, setUsername] = useState(null);
   const [isAdmin, setIsAdmin] = useState(1);
@@ -44,6 +46,7 @@ const Retweet = ({ onClose, id }) => {
         .then((response) => response.json())
         .then((data) => {
           if (data !== null && data.success) {
+            router.push("/" + username + "/status/" + data.data.id);
             console.log("retweet successful");
           }
         })
