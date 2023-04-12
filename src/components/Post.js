@@ -8,7 +8,7 @@ import {
 import Link from "next/link";
 
 import React, { useState, useEffect } from "react";
-import Retweet from "@/components/Retweet";
+// import Retweet from "@/components/Retweet";
 import ActionBar from "@/components/ActionBar";
 import useStorage from "../hooks/useStorage";
 import { userImg } from "../_unsorted/imageRelated/cloudinary/utils";

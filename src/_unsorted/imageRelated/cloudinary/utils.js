@@ -13,6 +13,19 @@ export function userImg(user) {
   );
 }
 
+export function sidebarImg(user) {
+  return (
+    <CldImage
+      className="h-11 w-11 rounded-full"
+      width="75"
+      height="75"
+      crop="fill"
+      src={user.usrImg}
+      alt={user.username}
+    />
+  );
+}
+
 export function userImgProfile(user) {
   return (
     <CldImage
