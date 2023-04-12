@@ -15,10 +15,31 @@ export default async function handler(req, res) {
     case "GET":
       try {
         //get list of following
-        const username = req.query.following;
-        let user, targetUser;
-        user = await User.findOne({ username: username }).populate("following");
-        user = user.following;
+        let user;
+        if (req.query.following) {
+          const username = req.query.following;
+          user = await User.findOne({ username: username }).populate({
+            path: "following",
+            populate: {
+              path: "follower",
+              model: "User",
+              select: "username",
+            },
+          });
+          user = user.following;
+        } else if (req.query.follower) {
+          const username = req.query.follower;
+          user = await User.findOne({ username: username }).populate({
+            path: "follower",
+            populate: {
+              path: "follower",
+              model: "User",
+              select: "username",
+            },
+          });
+          user = user.follower;
+        }
+
         res.status(200).json({ success: true, data: user });
       } catch (error) {
         res

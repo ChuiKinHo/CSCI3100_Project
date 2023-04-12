@@ -6,7 +6,7 @@ import { Link } from "next/link";
 import { userImg } from "@/_unsorted/imageRelated/cloudinary/utils";
 import useStorage from "@/hooks/useStorage";
 
-export default function userPage() {
+export default function followingPage() {
   const router = useRouter();
   const { getItem } = useStorage();
   const [loginUsername, setLoginUsername] = useState(null);
@@ -135,7 +135,7 @@ export default function userPage() {
             />
           </div>
 
-          <div className="flex p-3">No Result Found</div>
+          <div className="flex p-3">You are not following anyone!</div>
         </div>
         <Widget />
       </>
