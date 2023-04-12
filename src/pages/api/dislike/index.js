@@ -28,7 +28,6 @@ export default async function handler(req, res) {
             username: username,
             dislikes: { $elemMatch: { $eq: postId } },
           });
-
           if (dislike) {
             await User.updateOne(
               { username: username },
@@ -38,15 +37,17 @@ export default async function handler(req, res) {
               { id: tweetid },
               { $inc: { dislikeCount: -1 } }
             );
+            // console.log(-1);
           } else {
             await User.updateOne(
-              { id: username },
+              { username: username },
               { $addToSet: { dislikes: tweets._id } }
             );
             await Tweet.updateOne(
-              { tweetid: tweetid },
+              { id: tweetid },
               { $inc: { dislikeCount: +1 } }
             );
+            // console.log(+1);
           }
         }
         res.status(200).json({ success: true });
