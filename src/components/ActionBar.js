@@ -10,12 +10,25 @@ import {
   HandThumbUpIcon as HandThumbUpIconSolid,
   HandThumbDownIcon as HandThumbDownIconSolid,
 } from "@heroicons/react/24/solid";
-
+import useStorage from "../hooks/useStorage";
 import React, { useState } from "react";
 import Retweet from "@/components/Retweet";
-import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 export default function ActionBar({ post }) {
+  const { getItem, removeItem } = useStorage();
+  const [username, setUsername] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(1);
+  const [likeByMe, setLikeByMe] = useState(post.like_by_me);
+  const [dislikeByMe, setDislikeByMe] = useState(post.dislike_by_me);
+  const [likeCount, setLikeCount] = useState(post.likeCount);
+  const [dislikeCount, setDislikeCount] = useState(post.dislikeCount);
+
+  useEffect(() => {
+    setUsername(getItem("username", "session"));
+    setIsAdmin(getItem("admin", "session"));
+  }, [getItem("username", "session"), getItem("admin", "session")]);
+
   const [showPopUp, setShowPopUp] = useState(false);
 
   const handleButtonClick = () => {
@@ -26,14 +39,57 @@ export default function ActionBar({ post }) {
     setShowPopUp(false);
   };
 
-  // const router = useRouter();
+  function onClick_like() {
+    if (username != null) {
+      fetch(
+        "http://localhost:3000/api/like?tweetid=" +
+          post.id +
+          "&username=" +
+          username,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).then((response) => {
+        if (likeByMe) {
+          setLikeCount(likeCount - 1);
+        } else {
+          setLikeCount(likeCount + 1);
+        }
+        setLikeByMe(!likeByMe);
+      });
+    } else {
+      console.log("please wait for the page to finish loading");
+    }
+  }
 
-  // const handleClick = () => {
-  //   router.push({
-  //     pathname: `/${post.userObjectId.username}/status/${post.id}`,
-  //     query: { tweetid: post.id },
-  //   });
-  // };
+  function onClick_dislike() {
+    if (username != null) {
+      fetch(
+        "http://localhost:3000/api/dislike?tweetid=" +
+          post.id +
+          "&username=" +
+          username,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).then((response) => {
+        if (dislikeByMe) {
+          setDislikeCount(dislikeCount - 1);
+        } else {
+          setDislikeCount(dislikeCount + 1);
+        }
+        setDislikeByMe(!dislikeByMe);
+      });
+    } else {
+      console.log("please wait for the page to finish loading");
+    }
+  }
 
   return (
     <div className="flex justify-between text-gray-500 p-2">
@@ -43,38 +99,49 @@ export default function ActionBar({ post }) {
         </button>
       </Link>
 
-      <button className="flex items-center group">
-        {post.like_by_me ? (
+      <button
+        className="flex items-center group"
+        onClick={() => {
+          onClick_like();
+        }}
+      >
+        {likeByMe ? (
           <>
             <HandThumbUpIconSolid className="h-9 w-9 hoverEffect p-2 hover:text-green-600 hover:bg-green-100 text-green-600 group-hover:text-green-600 group-hover:bg-green-100" />
             <span className="text-green-600 text-sm select-none group-hover:text-green-600 px-1">
-              {post.likeCount}
+              {likeCount}
             </span>
           </>
         ) : (
-          <HandThumbUpIcon className="h-9 w-9 hoverEffect p-2 hover:text-green-600 hover:bg-green-100 text-gray-600 group-hover:text-green-600" />
-        )}
-        {!post.like_by_me && post.likeCount > 0 && (
-          <span className="text-gray-600 text-sm select-none group-hover:text-green-600 px-1">
-            {post.likeCount}
-          </span>
+          <>
+            <HandThumbUpIcon className="h-9 w-9 hoverEffect p-2 hover:text-green-600 hover:bg-green-100 text-gray-600 group-hover:text-green-600" />
+            <span className="text-gray-600 text-sm select-none group-hover:text-green-600 px-1">
+              {likeCount}
+            </span>
+          </>
         )}
       </button>
-      <button className="flex items-center group">
-        {post.dislike_by_me ? (
+
+      <button
+        className="flex items-center group"
+        onClick={() => {
+          onClick_dislike();
+        }}
+      >
+        {dislikeByMe ? (
           <>
             <HandThumbDownIconSolid className="h-9 w-9 hoverEffect p-2 text-red-600 group-hover:text-red-600 group-hover:bg-red-100" />
             <span className="text-red-600 text-sm select-none group-hover:text-red-600 px-1">
-              {post.dislikeCount}
+              {dislikeCount}
             </span>
           </>
         ) : (
-          <HandThumbDownIcon className="h-9 w-9 hoverEffect p-2 text-gray-600 group-hover:text-red-600 group-hover:bg-red-100" />
-        )}
-        {!post.dislike_by_me && post.dislikeCount > 0 && (
-          <span className="text-gray-600 text-sm select-none group-hover:text-red-600 px-1">
-            {post.dislikeCount}
-          </span>
+          <>
+            <HandThumbDownIcon className="h-9 w-9 hoverEffect p-2 text-gray-600 group-hover:text-red-600 group-hover:bg-red-100" />
+            <span className="text-gray-600 text-sm select-none group-hover:text-red-600 px-1">
+              {dislikeCount}
+            </span>
+          </>
         )}
       </button>
 
