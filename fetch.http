@@ -70,7 +70,6 @@ Content-Type: application/json
   "id": "378",
   "author": "user2",
   "text": "tweet1"
-  
 }
 
 ### DELETE - DELETE tweet
@@ -82,8 +81,35 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:3000/api/auth/login
+GET http://localhost:3000/api/auth/pwd
+Content-Type: application/json
 
 {
+  "password": "user0"
+}
 
+###
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "user2",
+  "password": "user0"
+}
+
+###
+DELETE http://localhost:3000/api/auth/logout
+Content-Type: application/json
+
+{
+  "username": "user2"
+}
+
+###
+POST http://localhost:3000/api/auth/refreshToken
+Content-Type: application/json
+
+{
+  "username": "user2",
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidXNlcjIiLCJpYXQiOjE2ODEyMjI5Njd9.0tg0Qpzugdi0q3_L0TUleAfCFriSEU4vsXL7443m_vY"
 }
