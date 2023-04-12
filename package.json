@@ -25,6 +25,7 @@
     "next-cloudinary": "^4.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "talkjs": "^0.15.9",
     "typescript": "4.9.5"
   },
   "devDependencies": {
