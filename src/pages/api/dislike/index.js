@@ -5,19 +5,17 @@ import { Tweet } from "../../../_unsorted/database/schemas";
 import { User } from "../../../_unsorted/database/schemas";
 
 export default async function handler(req, res) {
-  // Wait for database to connect before continuing
   const { method } = req;
 
   await dbConnect();
 
   // api/users
   switch (method) {
-    case "GET":
+    case "PUT":
       try {
         const tweetid = req.query.tweetid; // Get the tweetid parameter from the request URL
         const username = req.query.username;
         let tweets;
-        let like;
         let dislike;
         if (tweetid && username) {
           tweets = await Tweet.findOne({ id: tweetid }).populate(
@@ -25,19 +23,6 @@ export default async function handler(req, res) {
             "username name usrImg -_id"
           );
           const postId = tweets._id;
-          const plainTweet = tweets.toObject();
-
-          like = await User.findOne({
-            username: username,
-            likes: { $elemMatch: { $eq: postId } },
-          });
-          if (like) {
-            plainTweet.like_by_me = true;
-            tweets = plainTweet;
-          } else {
-            plainTweet.like_by_me = false;
-            tweets = plainTweet;
-          }
 
           dislike = await User.findOne({
             username: username,
@@ -45,24 +30,18 @@ export default async function handler(req, res) {
           });
 
           if (dislike) {
-            tweets.dislike_by_me = true;
-          } else {
-            tweets.dislike_by_me = false;
-          }
-        } else {
-          if (tweetid) {
-            tweets = await Tweet.findOne({ id: tweetid }).populate(
-              "userObjectId",
-              "username name usrImg -_id"
+            await User.updateOne(
+              { username: username },
+              { $pull: { dislikes: tweets._id } }
             );
           } else {
-            tweets = await Tweet.find().populate(
-              "userObjectId",
-              "username name usrImg -_id"
+            await User.updateOne(
+              { username: username },
+              { $addToSet: { dislikes: tweets._id } }
             );
           }
         }
-        res.status(200).json({ success: true, data: tweets });
+        res.status(200).json({ success: true });
       } catch (error) {
         console.log(error);
         res.status(400).json({ success: false });
