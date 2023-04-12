@@ -1,12 +1,22 @@
 import { useState, useEffect } from "react";
 import Input from "./Input";
 import Post from "./Post";
+import useStorage from "../hooks/useStorage";
 
 export default function Feed() {
   const [posts, setPosts] = useState([]);
+  const { getItem, removeItem } = useStorage();
+  const [username, setUsername] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(1);
+  const [post, setPost] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/tweets", {
+    setUsername(getItem("username", "session"));
+    setIsAdmin(getItem("admin", "session"));
+  }, [getItem("username", "session"), getItem("admin", "session")]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/tweets?username=" + username, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
