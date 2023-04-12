@@ -18,7 +18,7 @@ export default async function handler(req, res) {
         const username = req.query.username;
         const targetUsername = req.query.target;
         let user, targetUser;
-        if (username && targetUsername) {
+        if (username && targetUsername && username !== targetUsername) {
           user = await User.findOne({ username: username });
           if (user) {
             targetUser = await User.findOneAndUpdate(
@@ -59,7 +59,7 @@ export default async function handler(req, res) {
         const username = req.query.username;
         const targetUsername = req.query.target;
         let user, targetUser;
-        if (username && targetUsername) {
+        if (username && targetUsername && username !== targetUsername) {
           user = await User.findOne({ username: username });
           if (user) {
             targetUser = await User.findOneAndUpdate(

@@ -3,16 +3,20 @@ import Post from "@/components/Post";
 import Widget from "@/components/Widget";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
+import useStorage from "@/hooks/useStorage";
 import { userImgProfile } from "../../_unsorted/imageRelated/cloudinary/utils";
 
 export default function userPage() {
+  const { getItem } = useStorage();
+  const [loginUsername, setLoginUsername] = useState(null);
+  const [followed, setFollowed] = useState(null);
   const [userInfo, setUserInfo] = useState({
     username: "",
     name: "",
     usrImg: "",
-    following: "",
-    follower: "",
-    mytweets: "",
+    following: [],
+    follower: [],
+    mytweets: [],
   });
   const [posts, setPosts] = useState([]);
   const router = useRouter();
@@ -38,6 +42,25 @@ export default function userPage() {
         console.error("Error fetching posts:", error);
       });
   }, [username]);
+
+  useEffect(() => {
+    setLoginUsername(getItem("username", "session"));
+  }, [getItem("username", "session")]);
+
+  useEffect(() => {
+    if (userInfo.username !== loginUsername) {
+      setFollowed(
+        userInfo.follower
+          .map((follower) => follower.username)
+          .includes(loginUsername)
+      );
+    } else {
+      setFollowed(null);
+    }
+  }, [userInfo]);
+
+  const handleFol = () => {};
+  const handleUnfol = () => {};
 
   function goBack() {
     router.back();
@@ -76,9 +99,25 @@ export default function userPage() {
                   </div>
                 </div>
                 <div className="flex flex-col text-right">
-                  <button className="flex justify-center max-h-max whitespace-nowrap focus:outline-none focus:ring rounded max-w-max border bg-transparent border-blue-500 text-blue-500 hover:border-blue-800 hover:border-blue-800 flex items-center hover:shadow-lg font-bold py-2 px-4 rounded-full mr-0 ml-auto">
-                    Edit Profile
-                  </button>
+                  {followed === null ? (
+                    <button className="flex justify-center max-h-max whitespace-nowrap focus:outline-none focus:ring rounded max-w-max border bg-transparent border-blue-500 text-blue-500 hover:border-blue-800 hover:border-blue-800 flex items-center hover:shadow-lg font-bold py-2 px-4 rounded-full mr-0 ml-auto">
+                      Edit Profile
+                    </button>
+                  ) : followed ? (
+                    <button
+                      className="ml-auto bg-white text-black border rounded-full text-sm px-3.5 py-1.5 font-bold hover:bg-red-300"
+                      onClick={handleUnfol}
+                    >
+                      Following
+                    </button>
+                  ) : (
+                    <button
+                      className="ml-auto bg-black text-white rounded-full text-sm px-3.5 py-1.5 font-bold"
+                      onClick={handleFol}
+                    >
+                      Follow
+                    </button>
+                  )}
                 </div>
               </div>
 

@@ -1,7 +1,7 @@
 import dbConnect from "../../../_unsorted/database/dbConnect";
 import { User } from "../../../_unsorted/database/schemas";
 import { pwd } from "../../../_unsorted/util/utils";
-import {uploadImage} from '../../../_unsorted/imageRelated/cloudinary/cloudinary';
+import { uploadImage } from "../../../_unsorted/imageRelated/cloudinary/cloudinary";
 import fs from "fs";
 
 export default async function handler(req, res) {
@@ -25,13 +25,23 @@ export default async function handler(req, res) {
 
           searchResults = await User.findOne({
             username: { $regex: regex },
-          }).populate({
-            path: "mytweets",
-            populate: {
-              path: "userObjectId",
-              model: "User",
-            },
-          });
+          })
+            .populate({
+              path: "mytweets",
+              populate: {
+                path: "userObjectId",
+                model: "User",
+              },
+            })
+            .populate({
+              path: "follower",
+              select: "username",
+              populate: {
+                path: "following",
+                model: "User",
+                select: "username",
+              },
+            });
         } else if (keyword) {
           // Search for users whose usernames or names match the query
           searchResults = await User.find({
@@ -82,10 +92,9 @@ export default async function handler(req, res) {
           break;
         }
 
-        
         // Upload the image to Cloudinary and create a new user in the database
-          uploadImage(req.body["userImg"])
-          .then(url => {
+        uploadImage(req.body["userImg"])
+          .then((url) => {
             return User.create({
               username: req.body["username"],
               name: req.body["name"],
@@ -96,9 +105,9 @@ export default async function handler(req, res) {
             });
           })
           .then(() => {
-             res.status(201).json({ success: true, data: user });
+            res.status(201).json({ success: true, data: user });
           })
-          .catch(error => {
+          .catch((error) => {
             console.error(error);
             res.status(400).json({ success: false, data: { error: error } });
           });

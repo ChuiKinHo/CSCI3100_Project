@@ -30,54 +30,54 @@ function NotLogin() {
   );
 }
 
-function getRecommendedPosts() {
-  const [posts, setPosts] = useState([]);
+// function getRecommendedPosts() {
+//   const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
-    fetch("http://localhost:3000/api/tweets", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setPosts(data.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching posts:", error);
-      });
-  }, []);
+//   useEffect(() => {
+//     fetch("http://localhost:3000/api/tweets", {
+//       method: "GET",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     })
+//       .then((response) => response.json())
+//       .then((data) => {
+//         setPosts(data.data);
+//       })
+//       .catch((error) => {
+//         console.error("Error fetching posts:", error);
+//       });
+//   }, []);
 
-  // Randomly select three posts from the posts array
-  const randomPosts = posts.sort(() => 0.5 - Math.random()).slice(0, 3);
+//   // Randomly select three posts from the posts array
+//   const randomPosts = posts.sort(() => 0.5 - Math.random()).slice(0, 3);
 
-  return randomPosts;
-}
+//   return randomPosts;
+// }
 
-function getRecommendedUsers() {
-  const [users, setUsers] = useState([]);
+// function getRecommendedUsers() {
+//   const [users, setUsers] = useState([]);
 
-  useEffect(() => {
-    fetch("http://localhost:3000/api/users", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setUsers(data.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching posts:", error);
-      });
-  }, []);
+//   useEffect(() => {
+//     fetch("http://localhost:3000/api/users", {
+//       method: "GET",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     })
+//       .then((response) => response.json())
+//       .then((data) => {
+//         setUsers(data.data);
+//       })
+//       .catch((error) => {
+//         console.error("Error fetching posts:", error);
+//       });
+//   }, []);
 
-  // Randomly select three posts from the posts array
-  const recommendedUsers = users.sort(() => 0.5 - Math.random()).slice(0, 3);
-  return recommendedUsers;
-}
+//   // Randomly select three posts from the posts array
+//   const recommendedUsers = users.sort(() => 0.5 - Math.random()).slice(0, 3);
+//   return recommendedUsers;
+// }
 
 export default function Widget() {
   const { getItem } = useStorage();
@@ -94,7 +94,10 @@ export default function Widget() {
     })
       .then((response) => response.json())
       .then((data) => {
-        setPosts(data.data.sort(() => 0.5 - Math.random()).slice(0, 3));
+        const filterPost = data.data.filter(
+          (post) => post.userObjectId.username !== username
+        );
+        setPosts(filterPost.sort(() => 0.5 - Math.random()).slice(0, 3));
       })
       .catch((error) => {
         console.error("Error fetching posts:", error);
@@ -107,7 +110,10 @@ export default function Widget() {
     })
       .then((response) => response.json())
       .then((data) => {
-        const users = data.data.sort(() => 0.5 - Math.random()).slice(0, 3);
+        const users = data.data
+          .filter((user) => user.username !== username)
+          .sort(() => 0.5 - Math.random())
+          .slice(0, 3);
         setRandomUsers(
           users.map((user) => ({
             ...user,
@@ -120,7 +126,7 @@ export default function Widget() {
       .catch((error) => {
         console.error("Error fetching posts:", error);
       });
-  }, []);
+  }, [username]);
 
   useEffect(() => {
     setUsername(getItem("username", "session"));
