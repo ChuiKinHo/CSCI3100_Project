@@ -38,7 +38,7 @@ export default async function handler(req, res) {
             text: data.input,
             likeCount: 0,
             dislikeCount: 0,
-            retweet: false,
+            retweet: data.retweet === null ? false : data.retweet,
             commentId: [],
             targetTweetId:
               data.targetTweetId === null || data.targetTweetId.length === 0
@@ -51,11 +51,12 @@ export default async function handler(req, res) {
           await Tweet.create(newTweet)
             .then((result) => {
               createdTweet = result;
+              //console.log(createdTweet);
             })
             .catch((err) => {
               console.error(err);
             });
-          //console.log(createdTweet);
+
           await User.updateOne(
             { _id: user._id },
             {
@@ -63,7 +64,10 @@ export default async function handler(req, res) {
             },
             { upsert: true }
           );
-          if (createdTweet.targetTweetId !== null) {
+          if (
+            createdTweet.targetTweetId !== null &&
+            createdTweet.retweet === false
+          ) {
             await Tweet.updateOne(
               { id: createdTweet.targetTweetId },
               {

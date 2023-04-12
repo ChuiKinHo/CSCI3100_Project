@@ -73,7 +73,7 @@ export default function Post({ id }) {
   }, [id, post]);
 
   if (post !== null) {
-    console.log(retweet);
+    //console.log(retweet);
     return (
       <>
         {retweet !== null && (

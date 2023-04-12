@@ -23,6 +23,7 @@ export default function Input() {
       input: input,
       targetTweetId: "",
       img: "",
+      retweet: false,
     };
     //console.log(reqData);
     if (

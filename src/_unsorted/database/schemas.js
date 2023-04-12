@@ -59,11 +59,11 @@ const TweetSchema = new mongoose.Schema({
   img: { type: String, required: false },
   text: { type: String, required: true },
   // timelineId: { type: Number, required: true },
-  likeCount: { type: Number, required: true },
-  dislikeCount: { type: Number, required: true },
-  retweet: { type: Boolean, required: true },
-  commentId: { type: Array, required: true },
-  targetTweetId: { type: String }, //the targeted retweet
+  likeCount: { type: Number, required: true, default: 0 },
+  dislikeCount: { type: Number, required: true, default: 0 },
+  retweet: { type: Boolean, required: true, default: false },
+  commentId: { type: Array, required: true, default: [] },
+  targetTweetId: { type: String, require: true, default: null }, //the targeted retweet
 });
 const Tweet = mongoose.models.Tweet || mongoose.model("Tweet", TweetSchema);
 

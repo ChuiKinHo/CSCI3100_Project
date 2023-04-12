@@ -22,6 +22,7 @@ export default function ReplyInput({ post }) {
       input: input,
       targetTweetId: post.id,
       img: "",
+      retweet: false,
     };
     //console.log(reqData);
     if (
