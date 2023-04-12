@@ -23,7 +23,7 @@ export default function Home() {
   return username ? (
     <>
       <Feed />
-      {/* <Widget /> */}
+      <Widget />
     </>
   ) : (
     <>
