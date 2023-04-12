@@ -15,7 +15,7 @@ export default function TweetPost({ post }) {
     }
 
     if (post.targetTweetId !== null) {
-      fetch("http://localhost:3000/api/tweets?q=" + post.targetTweetId, {
+      fetch("http://localhost:3000/api/tweets?tweetid=" + post.targetTweetId, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

@@ -1,5 +1,5 @@
 import React from "react";
-import Post from "./Post";
+// import Post from "./Post";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 const Retweet = ({ onClose, post, id }) => {
   const handlePopUpClick = (e) => {

@@ -33,14 +33,14 @@ const UserSchema = new mongoose.Schema({
     ref: "Tweet",
     required: true,
   },
-  // like: {
-  //   type: [mongoose.Schema.Types.ObjectId],
-  //   ref: "Tweet",
-  // },
-  // dislike: {
-  //   type: [mongoose.Schema.Types.ObjectId],
-  //   ref: "Tweet",
-  // },
+  likes: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Tweet",
+  },
+  dislikes: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Tweet",
+  },
 });
 const User = mongoose.models.User || mongoose.model("User", UserSchema);
 
@@ -61,8 +61,6 @@ const TweetSchema = new mongoose.Schema({
   // timelineId: { type: Number, required: true },
   likeCount: { type: Number, required: true },
   dislikeCount: { type: Number, required: true },
-  like_by_me: { type: Boolean, required: true },
-  dislike_by_me: { type: Boolean, required: true },
   retweet: { type: Boolean, required: true },
   commentId: { type: Array, required: true },
   targetTweetId: { type: Number, ref: "Tweet" }, //the targeted retweet
@@ -78,17 +76,6 @@ const ReplySchema = new mongoose.Schema({
 });
 const Reply = mongoose.models.Reply || mongoose.model("Reply", ReplySchema);
 
-const LikeDislikeSchema = new mongoose.Schema({
-  id: { type: Number, required: true, unique: true },
-  author: { type: String, required: true, ref: "User" },
-  tweetId: { type: Number, required: true, ref: "Tweet" },
-  timestamp: { type: Date, required: true },
-  value: { type: Number, required: true }, // like or dislike, (dislike < (0 = neutral) < like), or (0 = neutral, 1 = like, -1 = dislike)
-});
-const LikeDislike =
-  mongoose.models.LikeDislike ||
-  mongoose.model("LikeDislike", LikeDislikeSchema);
-
 // Not used yet, preassumably for authentication, haven't looked into Auth0 yet, dunno if Auth0 can do tokens
 const TokenSchema = new mongoose.Schema({
   userid: { type: String, required: true, unique: true, ref: "User" },
@@ -97,4 +84,4 @@ const TokenSchema = new mongoose.Schema({
 });
 const Token = mongoose.models.Token || mongoose.model("Token", TokenSchema);
 
-module.exports = { User, Tweet, Admin, Reply, LikeDislike, Token };
+module.exports = { User, Tweet, Admin, Reply, Token };
