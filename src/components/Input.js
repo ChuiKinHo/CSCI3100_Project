@@ -3,11 +3,11 @@ import useStorage from "../hooks/useStorage";
 import { useEffect, useState } from "react";
 import {
   userImg,
-  UploadButton,
+  imageVideoDisplay,
 } from "../_unsorted/imageRelated/cloudinary/utils";
 import { useRef } from "react";
 import { useRouter } from "next/router";
-import { CldUploadButton, CldImage } from "next-cloudinary";
+import { CldUploadButton } from "next-cloudinary";
 
 export default function Input() {
   const router = useRouter();
@@ -119,7 +119,6 @@ export default function Input() {
     return (
       <div className="flex border-b border-gray-200 p-3 space-x-3">
         <div>{userImg(userInfo)}</div>
-
         <div className="w-full divide-y divide-gray-200">
           <form onSubmit={handleSubmit}>
             <div className="flex-1">
@@ -134,15 +133,7 @@ export default function Input() {
               ></textarea>
             </div>
             <div className="flex items-center justify-between pt-2.5">
-              {imgid !== "" && (
-                <CldImage
-                  width={700}
-                  height={700}
-                  crop="fill"
-                  src={imgid}
-                  alt={imgid}
-                />
-              )}
+              {imgid !== "" && imageVideoDisplay(imgid, 700, 700)}
             </div>
 
             <div className="flex items-center justify-between pt-2.5">
