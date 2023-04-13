@@ -16,6 +16,7 @@ export default function Input() {
   const [userInfo, setUserInfo] = useState(null);
   const isMountedRef = useRef(false);
   const [input, setInput] = useState("");
+  const [isPrivate, setIsPrivate] = useState(false);
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
@@ -29,6 +30,7 @@ export default function Input() {
       targetTweetId: "",
       img: "",
       retweet: false,
+      private: isPrivate,
     };
     //console.log(reqData);
     if (
@@ -107,6 +109,11 @@ export default function Input() {
         });
     }
   }, [username]);
+
+  const handleSetPrivate = () => {
+    setIsPrivate(!isPrivate);
+  };
+
   if (isMountedRef && userInfo != null) {
     return (
       <div className="flex border-b border-gray-200 p-3 space-x-3">
@@ -134,7 +141,22 @@ export default function Input() {
                   {/* </label> */}
                   <input id="image-upload" type="file" hidden />
                 </div>
-                <FaceSmileIcon className="h-10 w-10 hoverEffect p-2 text-sky-500 hover:bg-sky-100" />
+                {/* <FaceSmileIcon className="h-10 w-10 hoverEffect p-2 text-sky-500 hover:bg-sky-100" /> */}
+                {isPrivate ? (
+                  <button
+                    className="bg-white text-green-500 border border-green-300 px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50"
+                    onClick={handleSetPrivate}
+                  >
+                    private
+                  </button>
+                ) : (
+                  <button
+                    className="bg-white text-violet-500 border border-violet-300 px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50"
+                    onClick={handleSetPrivate}
+                  >
+                    public
+                  </button>
+                )}
               </div>
 
               <button

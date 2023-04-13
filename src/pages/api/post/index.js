@@ -45,6 +45,7 @@ export default async function handler(req, res) {
                 ? null
                 : data.targetTweetId.toString(),
             userObjectId: user._id,
+            private: data.private === null ? false : data.private,
           };
           //console.log(newTweet);
           let createdTweet;
