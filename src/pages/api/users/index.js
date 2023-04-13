@@ -103,27 +103,15 @@ export default async function handler(req, res) {
             .status(400)
             .json({ success: false, data: "Username already exist!" });
           break;
-        }
-
-        // Upload the image to Cloudinary and create a new user in the database
-        uploadImage(req.body["userImg"])
-          .then((url) => {
-            return User.create({
-              username: req.body["username"],
-              name: req.body["name"],
-              password: pwd(req.body["pw"]),
-              userImg: url,
-              following: req.body["following"],
-              follower: req.body["follower"],
-            });
-          })
-          .then(() => {
-            res.status(201).json({ success: true, data: user });
-          })
-          .catch((error) => {
-            console.error(error);
-            res.status(400).json({ success: false, data: { error: error } });
+        } else {
+          const tweet = await User.create({
+            username: String(req.body["username"]),
+            name: String(req.body["name"]),
+            password: String(req.body["password"]),
+            usrImg: String(req.body["img"]),
           });
+          res.status(200).json({ success: true });
+        }
       } catch (error) {
         res.status(400).json({ success: false, data: { error: error } });
       }
