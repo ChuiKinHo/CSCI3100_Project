@@ -7,12 +7,14 @@ import {
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { CldImage } from "next-cloudinary";
-
 import React, { useState, useEffect } from "react";
 // import Retweet from "@/components/Retweet";
 import ActionBar from "@/components/ActionBar";
 import useStorage from "../hooks/useStorage";
-import { userImg } from "../_unsorted/imageRelated/cloudinary/utils";
+import {
+  userImg,
+  imageVideoDisplay,
+} from "../_unsorted/imageRelated/cloudinary/utils";
 import Retweet from "./Retweet";
 
 export default function Post({ id }) {
@@ -159,15 +161,17 @@ export default function Post({ id }) {
                           <p className="text-gray-800 text-[15px sm:text-[16px] mb-2">
                             {retweet.text}
                           </p>
-                          {retweet?.img && (
-                            <CldImage
-                              width={700}
-                              height={700}
-                              crop="fill"
-                              src={retweet?.img}
-                              alt={retweet?.img}
-                            />
-                          )}
+                          {
+                            retweet?.img &&
+                              imageVideoDisplay(retweet?.img, 700, 700)
+                            // <CldImage
+                            //   width={700}
+                            //   height={700}
+                            //   crop="fill"
+                            //   src={retweet?.img}
+                            //   alt={retweet?.img}
+                            // />
+                          }
                         </div>
                       </div>
                     </div>
@@ -220,15 +224,15 @@ export default function Post({ id }) {
                   <p className="text-gray-800 text-[15px sm:text-[16px] mb-2">
                     {post.text}
                   </p>
-                  {post?.img && (
-                    <CldImage
-                      width={700}
-                      height={700}
-                      crop="fill"
-                      src={post?.img}
-                      alt={post?.img}
-                    />
-                  )}
+                  {post?.img &&
+                    // <CldImage
+                    //   width={700}
+                    //   height={700}
+                    //   crop="fill"
+                    //   src={post?.img}
+                    //   alt={post?.img}
+                    // />
+                    imageVideoDisplay(post?.img, 700, 700)}
                 </div>
               </div>
             </Link>
