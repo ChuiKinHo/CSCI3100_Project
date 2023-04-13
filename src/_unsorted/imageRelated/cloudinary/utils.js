@@ -1,4 +1,4 @@
-import { CldImage } from "next-cloudinary";
+import { CldImage, CldUploadButton } from "next-cloudinary";
 
 export function userImg(user) {
   return (
@@ -11,6 +11,10 @@ export function userImg(user) {
       alt={user.username}
     />
   );
+}
+
+export function uploadButton() {
+  return <CldUploadButton uploadPreset="next-cloudinary-unsigned" />;
 }
 
 export function sidebarImg(user) {

@@ -1,7 +1,10 @@
 import { FaceSmileIcon, PhotoIcon } from "@heroicons/react/20/solid";
 import useStorage from "../hooks/useStorage";
 import { useEffect, useState } from "react";
-import { userImg } from "../_unsorted/imageRelated/cloudinary/utils";
+import {
+  userImg,
+  uploadButton,
+} from "../_unsorted/imageRelated/cloudinary/utils";
 import { useRef } from "react";
 import { useRouter } from "next/router";
 
@@ -126,12 +129,11 @@ export default function Input() {
             <div className="flex items-center justify-between pt-2.5">
               <div className="flex">
                 <div className="">
-                  <label htmlFor="image-upload">
-                    <PhotoIcon className="h-10 w-10 hoverEffect p-2 text-sky-500 hover:bg-sky-100" />
-                  </label>
+                  {/* <label htmlFor="image-upload"> */}
+                  {uploadButton()}
+                  {/* </label> */}
                   <input id="image-upload" type="file" hidden />
                 </div>
-                <FaceSmileIcon className="h-10 w-10 hoverEffect p-2 text-sky-500 hover:bg-sky-100" />
               </div>
 
               <button
