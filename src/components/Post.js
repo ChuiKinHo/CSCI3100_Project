@@ -175,19 +175,33 @@ export default function Post({ id }) {
                           <p className="text-gray-800 text-[15px sm:text-[16px] mb-2">
                             {retweet.text}
                           </p>
-                          <div onClick={handleVideoClick}>
-                            {
-                              retweet.img != "" &&
-                                imageVideoDisplay(retweet.img, 700, 700)
-                              // <CldImage
-                              //   width={700}
-                              //   height={700}
-                              //   crop="fill"
-                              //   src={retweet?.img}
-                              //   alt={retweet?.img}
-                              // />
-                            }
-                          </div>
+                          {
+                            retweet.img != "" &&
+                              ([
+                                "mp4",
+                                "mov",
+                                "avi",
+                                "wmv",
+                                "flv",
+                                "mkv",
+                                "webm",
+                              ].includes(retweet.img.split(".").pop()) ? (
+                                <div onClick={handleVideoClick}>
+                                  {imageVideoDisplay(retweet.img, 700, 700)}
+                                </div>
+                              ) : (
+                                <div>
+                                  {imageVideoDisplay(retweet.img, 700, 700)}
+                                </div>
+                              ))
+                            // <CldImage
+                            //   width={700}
+                            //   height={700}
+                            //   crop="fill"
+                            //   src={retweet?.img}
+                            //   alt={retweet?.img}
+                            // />
+                          }
                         </div>
                       </div>
                     </div>
@@ -247,17 +261,29 @@ export default function Post({ id }) {
                   <p className="text-gray-800 text-[15px sm:text-[16px] mb-2">
                     {post.text}
                   </p>
-                  <div onClick={handleVideoClick}>
-                    {post.img !== "" &&
-                      // <CldImage
-                      //   width={700}
-                      //   height={700}
-                      //   crop="fill"
-                      //   src={post?.img}
-                      //   alt={post?.img}
-                      // />
-                      imageVideoDisplay(post.img, 700, 700)}
-                  </div>
+                  {post.img !== "" &&
+                    // <CldImage
+                    //   width={700}
+                    //   height={700}
+                    //   crop="fill"
+                    //   src={post?.img}
+                    //   alt={post?.img}
+                    // />
+                    ([
+                      "mp4",
+                      "mov",
+                      "avi",
+                      "wmv",
+                      "flv",
+                      "mkv",
+                      "webm",
+                    ].includes(post.img.split(".").pop()) ? (
+                      <div onClick={handleVideoClick}>
+                        {imageVideoDisplay(post.img, 700, 700)}
+                      </div>
+                    ) : (
+                      <div>{imageVideoDisplay(post.img, 700, 700)}</div>
+                    ))}
                 </div>
               </div>
             </Link>
