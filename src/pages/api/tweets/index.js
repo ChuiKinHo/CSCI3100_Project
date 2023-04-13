@@ -31,7 +31,8 @@ export default async function handler(req, res) {
             if (tweets.private && tweets.userObjectId.username !== username) {
               res
                 .status(200)
-                .json({ success: true, data: [], permission: false });
+                .json({ success: true, data: null, permission: false });
+              return;
             } else {
               const postId = tweets._id;
               const plainTweet = tweets.toObject();

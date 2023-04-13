@@ -11,7 +11,7 @@ export default function followingPage() {
   const router = useRouter();
   const { getItem } = useStorage();
   const [loginUsername, setLoginUsername] = useState(null);
-  const query = router.query.query;
+  const username = router.query.username;
   const [queryReturn, setQueryReturn] = useState([]);
   const [queryReturnFollowed, setQueryReturnFollowed] = useState([]);
   const [parentFolAction, setParentFolAction] = useState(null);
@@ -22,12 +22,13 @@ export default function followingPage() {
     //console.log(childState);
   };
   useEffect(() => {
+    console.log(username);
     setLoginUsername(getItem("username", "session"));
   }, [getItem("username", "session")]);
 
   useEffect(() => {
-    if (loginUsername != null) {
-      fetch("/api/follow?following=" + loginUsername, {
+    if (username) {
+      fetch("/api/follow?following=" + username, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -47,7 +48,7 @@ export default function followingPage() {
           console.error("Error fetching posts:", error);
         });
     }
-  }, [loginUsername, childState]);
+  }, [username, childState]);
 
   useEffect(() => {
     if (
@@ -155,7 +156,7 @@ export default function followingPage() {
             />
           </div>
 
-          <div className="flex p-3">You are not following anyone!</div>
+          <div className="flex p-3">The user is not following anyone</div>
         </div>
         <Widget onStateChange={handleChildStateChange} />
       </>

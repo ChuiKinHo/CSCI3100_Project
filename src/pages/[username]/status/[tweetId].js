@@ -27,11 +27,12 @@ import useStorage from "../../../hooks/useStorage";
 export default function Tweet() {
   const router = useRouter();
   const { tweetId } = router.query;
-  const [post, setPosts] = useState([]);
+  const [post, setPost] = useState([]);
   const { getItem, removeItem } = useStorage();
   const [username, setUsername] = useState(null);
   const [isAdmin, setIsAdmin] = useState(1);
   const [replyState, setReplyState] = useState(0);
+  const [permission, setPermission] = useState(null);
 
   const handleOnReply = () => {
     if (replyState !== null) setReplyState(replyState + 1);
@@ -62,8 +63,14 @@ export default function Tweet() {
           return response.json();
         })
         .then((data) => {
-          if (data.data !== null) {
-            setPosts(data.data);
+          if (data.success) {
+            if (data.data !== null && data.permission) {
+              setPost(data.data);
+              setPermission(true);
+            } else if (!data.permission) {
+              setPermission(false);
+              setPost({});
+            }
           }
         })
         .catch((error) => {
@@ -88,10 +95,14 @@ export default function Tweet() {
     //console.log(childState);
   };
 
-  if (post.length != 0) {
+  if (post && permission !== null) {
     //console.log(post);
 
-    return (
+    return !permission ? (
+      <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
+        <h2 className="text-xl">no permission</h2>
+      </div>
+    ) : (
       <>
         <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
           <div className="flex py-2 px-3 sticky top-0 z-50 bg-white border-b border-gray-200">

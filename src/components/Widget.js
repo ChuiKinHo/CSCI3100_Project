@@ -86,49 +86,53 @@ export default function Widget({ onStateChange, checkFol }) {
   const [posts, setPosts] = useState([]);
   const [randomUsers, setRandomUsers] = useState([]);
   useEffect(() => {
-    fetch("/api/tweets", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        const filterPost = data.data.filter(
-          (post) => post.userObjectId.username !== username
-        );
-        setPosts(filterPost.sort(() => 0.5 - Math.random()).slice(0, 3));
+    if (username) {
+      fetch("/api/tweets", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .catch((error) => {
-        console.error("Error fetching posts:", error);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          const filterPost = data.data.filter(
+            (post) => post.userObjectId.username !== username
+          );
+          setPosts(filterPost.sort(() => 0.5 - Math.random()).slice(0, 3));
+        })
+        .catch((error) => {
+          console.error("Error fetching posts:", error);
+        });
+    }
   }, [username]);
 
   useEffect(() => {
-    fetch("/api/users", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        const users = data.data
-          .filter((user) => user.username !== username)
-          .sort(() => 0.5 - Math.random())
-          .slice(0, 3);
-        setRandomUsers(
-          users.map((user) => ({
-            ...user,
-            followed: user.follower
-              .map((follower) => follower.username)
-              .includes(username),
-          }))
-        );
+    if (username) {
+      fetch("/api/users", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .catch((error) => {
-        console.error("Error fetching posts:", error);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          const users = data.data
+            .filter((user) => user.username !== username)
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 3);
+          setRandomUsers(
+            users.map((user) => ({
+              ...user,
+              followed: user.follower
+                .map((follower) => follower.username)
+                .includes(username),
+            }))
+          );
+        })
+        .catch((error) => {
+          console.error("Error fetching posts:", error);
+        });
+    }
   }, [username]);
 
   useEffect(() => {
