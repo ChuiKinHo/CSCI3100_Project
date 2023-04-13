@@ -19,9 +19,11 @@ export default function Input() {
   const [input, setInput] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
   const [imgid, setImgid] = useState("");
+  const [warning, setWarning] = useState("");
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
+    setWarning("");
   };
 
   const handleSubmit = (event) => {
@@ -56,6 +58,12 @@ export default function Input() {
         .catch((error) => {
           console.error("Error fetching posts:", error);
         });
+    } else {
+      if (reqData.input === null || reqData.input.length === 0) {
+        setWarning("Input cannot be empty");
+      } else {
+        setWarning("An error occur");
+      }
     }
     setInput("");
   };
@@ -176,6 +184,7 @@ export default function Input() {
                 Tweet
               </button>
             </div>
+            <p className="text-red-500">{warning}</p>
           </form>
         </div>
       </div>

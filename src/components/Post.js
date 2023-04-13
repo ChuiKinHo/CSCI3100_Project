@@ -76,6 +76,10 @@ export default function Post({ id }) {
     }
   }, [id, post]);
 
+  const handleVideoClick = (event) => {
+    event.preventDefault();
+  };
+
   if (post && permission !== null) {
     //console.log(post);
     return !permission ? (
@@ -83,17 +87,17 @@ export default function Post({ id }) {
     ) : (
       <>
         {retweet !== null && (
-          <div>
-            <div className="hover:bg-gray-100">
-              <Link
-                href={"/" + post.userObjectId.username + "/status/" + post.id}
-              >
+          <div className="border-b border-gray-200">
+            <Link
+              href={"/" + post.userObjectId.username + "/status/" + post.id}
+            >
+              <div className="hover:bg-gray-100">
                 <div className="flex items-center">
                   <ArrowPathRoundedSquareIcon className="h-4 w-4" />
                   <span className="ml-1 text-gray-500">Retweeted</span>
                 </div>
 
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-start">
                   <Link href={"/" + post.userObjectId.username}>
                     {userImg(post.userObjectId)}
                   </Link>
@@ -170,24 +174,26 @@ export default function Post({ id }) {
                           <p className="text-gray-800 text-[15px sm:text-[16px] mb-2">
                             {retweet.text}
                           </p>
-                          {
-                            retweet.img != "" &&
-                              imageVideoDisplay(retweet.img, 700, 700)
-                            // <CldImage
-                            //   width={700}
-                            //   height={700}
-                            //   crop="fill"
-                            //   src={retweet?.img}
-                            //   alt={retweet?.img}
-                            // />
-                          }
+                          <div onClick={handleVideoClick}>
+                            {
+                              retweet.img != "" &&
+                                imageVideoDisplay(retweet.img, 700, 700)
+                              // <CldImage
+                              //   width={700}
+                              //   height={700}
+                              //   crop="fill"
+                              //   src={retweet?.img}
+                              //   alt={retweet?.img}
+                              // />
+                            }
+                          </div>
                         </div>
                       </div>
                     </div>
                   </Link>
                 </div>
-              </Link>
-            </div>
+              </div>
+            </Link>
             <ActionBar post={post} />
           </div>
         )}
@@ -233,15 +239,17 @@ export default function Post({ id }) {
                   <p className="text-gray-800 text-[15px sm:text-[16px] mb-2">
                     {post.text}
                   </p>
-                  {post.img !== "" &&
-                    // <CldImage
-                    //   width={700}
-                    //   height={700}
-                    //   crop="fill"
-                    //   src={post?.img}
-                    //   alt={post?.img}
-                    // />
-                    imageVideoDisplay(post.img, 700, 700)}
+                  <div onClick={handleVideoClick}>
+                    {post.img !== "" &&
+                      // <CldImage
+                      //   width={700}
+                      //   height={700}
+                      //   crop="fill"
+                      //   src={post?.img}
+                      //   alt={post?.img}
+                      // />
+                      imageVideoDisplay(post.img, 700, 700)}
+                  </div>
                 </div>
               </div>
             </Link>
