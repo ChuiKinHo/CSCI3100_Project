@@ -6,6 +6,7 @@ import {
   HandThumbDownIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { CldImage } from "next-cloudinary";
 
 import React, { useState, useEffect } from "react";
 // import Retweet from "@/components/Retweet";
@@ -161,11 +162,15 @@ export default function Post({ id }) {
                         <p className="text-gray-800 text-[15px sm:text-[16px] mb-2">
                           {retweet.text}
                         </p>
-                        <img
-                          className="w-full rounded-lg"
-                          src={retweet?.img}
-                          alt=""
-                        />
+                        {retweet?.img && (
+                          <CldImage
+                            width={700}
+                            height={700}
+                            crop="fill"
+                            src={retweet?.img}
+                            // alt={alt}
+                          />
+                        )}
                       </div>
                     </div>
                   </div>
@@ -214,7 +219,15 @@ export default function Post({ id }) {
                 <p className="text-gray-800 text-[15px sm:text-[16px] mb-2">
                   {post.text}
                 </p>
-                <img className="w-full rounded-lg" src={post?.img} alt="" />
+                {post?.img && (
+                  <CldImage
+                    width={700}
+                    height={700}
+                    crop="fill"
+                    src={post?.img}
+                    // alt={alt}
+                  />
+                )}
                 <ActionBar post={post} />
               </div>
             </div>

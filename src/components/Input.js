@@ -7,6 +7,7 @@ import {
 } from "../_unsorted/imageRelated/cloudinary/utils";
 import { useRef } from "react";
 import { useRouter } from "next/router";
+import { CldUploadButton, CldImage } from "next-cloudinary";
 
 export default function Input() {
   const router = useRouter();
@@ -17,6 +18,7 @@ export default function Input() {
   const isMountedRef = useRef(false);
   const [input, setInput] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
+  const [imgid, setImgid] = useState("");
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
@@ -28,11 +30,11 @@ export default function Input() {
       username: username,
       input: input,
       targetTweetId: "",
-      img: "",
+      img: imgid,
       retweet: false,
       private: isPrivate,
     };
-    //console.log(reqData);
+    console.log(reqData);
     if (
       reqData.username !== null &&
       reqData.input !== null &&
@@ -132,10 +134,30 @@ export default function Input() {
                 onChange={handleInputChange}
               ></textarea>
             </div>
+            <div className="flex items-center justify-between pt-2.5">
+              {imgid !== "" && (
+                <CldImage
+                  width={700}
+                  height={700}
+                  crop="fill"
+                  src={retweet?.img}
+                  // alt={alt}
+                />
+              )}
+            </div>
 
             <div className="flex items-center justify-between pt-2.5">
               <div className="flex">
-                {UploadButton()}
+                <CldUploadButton
+                  onUpload={(result, error, widget) => {
+                    if (result.event === "success") {
+                      setImgid(result.info.secure_url.split("upload/")[1]);
+                    }
+                  }}
+                  uploadPreset="ml_unsigned"
+                >
+                  <PhotoIcon className="h-10 w-10 hoverEffect p-2 text-sky-500 hover:bg-sky-100" />
+                </CldUploadButton>
                 {isPrivate ? (
                   <button
                     className="bg-white text-green-500 border border-green-300 px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50"
