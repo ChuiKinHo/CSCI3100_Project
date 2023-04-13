@@ -138,6 +138,7 @@ export default function Widget({ onStateChange, checkFol }) {
   useEffect(() => {
     if (
       checkFol !== null &&
+      checkFol !== undefined &&
       checkFol.username !== null &&
       checkFol.followed !== null &&
       username !== null &&
