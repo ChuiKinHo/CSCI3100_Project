@@ -137,6 +137,9 @@ export default function Signup() {
                     setImgid(result.info.secure_url.split("upload/")[1]);
                   }
                 }}
+                onClick={(e, widget) => {
+                  e.preventDefault();
+                }}
                 uploadPreset="ml_unsigned"
               >
                 <PhotoIcon className="h-10 w-10 hoverEffect p-2 text-sky-500 hover:bg-sky-100" />
