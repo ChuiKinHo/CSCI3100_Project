@@ -22,10 +22,17 @@ export default function Home() {
     [getItem("username", "session")]
   );
 
+  const [childState, setChildState] = useState(0);
+  const handleChildStateChange = () => {
+    if (childState !== null) setChildState(childState + 1);
+    else setChildState(0);
+    //console.log(childState);
+  };
+
   return username ? (
     <>
       <Feed />
-      <Widget />
+      <Widget onStateChange={handleChildStateChange} checkFol={() => {}} />
     </>
   ) : (
     <>

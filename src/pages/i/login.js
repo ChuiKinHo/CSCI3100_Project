@@ -23,31 +23,42 @@ export default function Login() {
     fetch("/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password })
-    }).then(res => {
-      if (res.status != 201) {
-        setWarning("Username or password is not correct");
-        return null;
-      }
-      return res.json();
-    }).then(json => {
-      console.log(json)
-      if (!json) return;
+      body: JSON.stringify({ username, password }),
+    })
+      .then((res) => {
+        if (res.status != 201) {
+          setWarning("Username or password is not correct");
+          return null;
+        }
+        return res.json();
+      })
+      .then((json) => {
+        console.log(json);
+        if (!json) return;
 
-      if (json.data.admin){
-        setItem("admin", "1", "session");
-        router.replace("/admin");
-      } else if (json.data.username && json.data.accessToken && json.data.refreshToken){
-        setItem("username", json.data.username, "session");
-        setItem("accessToken", json.data.accessToken, "session");
-        setItem("refreshToken", json.data.refreshToken, "session");
-        router.replace("/");
-      } else {
-        console.log("Unknown error");
-      }
-    });
+        if (json.data.admin) {
+          setItem("admin", "1", "session");
+          router.replace("/admin");
+        } else if (
+          json.data.username &&
+          json.data.accessToken &&
+          json.data.refreshToken
+        ) {
+          setItem("username", json.data.username, "session");
+          setItem("accessToken", json.data.accessToken, "session");
+          setItem("refreshToken", json.data.refreshToken, "session");
+          router.replace("/");
+        } else {
+          console.log("Unknown error");
+        }
+      });
   };
-
+  const [childState, setChildState] = useState(0);
+  const handleChildStateChange = () => {
+    if (childState !== null) setChildState(childState + 1);
+    else setChildState(0);
+    //console.log(childState);
+  };
   return (
     <>
       <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
@@ -92,7 +103,7 @@ export default function Login() {
           </form>
         </div>
       </div>
-      <Widget />
+      <Widget onStateChange={handleChildStateChange} />
     </>
   );
 }

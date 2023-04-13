@@ -1,5 +1,5 @@
 import Talk from "talkjs";
-import { User } from "../../../_unsorted/database/schemas";
+import { User } from "@/_unsorted/database/schemas";
 
 Talk.ready.then(() => {
   Talk.init({
@@ -34,7 +34,8 @@ Talk.ready.then(() => {
 
   conversation.setSubject("Private chat");
 
-  conversation.start()
+  conversation
+    .start()
     .then(() => {
       console.log("Conversation started");
     })

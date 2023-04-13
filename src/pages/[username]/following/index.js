@@ -145,6 +145,13 @@ export default function followingPage() {
   }
 
   if (queryReturn.length === 0) {
+    const [childState, setChildState] = useState(0);
+    const handleChildStateChange = () => {
+      if (childState !== null) setChildState(childState + 1);
+      else setChildState(0);
+      //console.log(childState);
+    };
+
     return (
       <>
         <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
@@ -157,7 +164,7 @@ export default function followingPage() {
 
           <div className="flex p-3">You are not following anyone!</div>
         </div>
-        <Widget />
+        <Widget onStateChange={handleChildStateChange} />
       </>
     );
   } else {
