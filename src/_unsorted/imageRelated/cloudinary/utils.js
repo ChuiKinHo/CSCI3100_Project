@@ -43,7 +43,6 @@ export function userImgProfile(user) {
 
 export function imageVideoDisplay(url, width, height) {
   const fileExtension = url.split(".").pop();
-  console.log(url);
   const urlWithoutExtension = url.slice(0, url.lastIndexOf("."));
   if (
     ["mp4", "mov", "avi", "wmv", "flv", "mkv", "webm"].includes(fileExtension)

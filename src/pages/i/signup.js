@@ -55,7 +55,7 @@ export default function Signup() {
           .then((response) => response.json())
           .then((data) => {
             if (data !== null && data.success) {
-              setWarning("Success! Please log in.");
+              window.alert("Success! Please log in.");
               router.push("/i/login");
             } else {
               setWarning(data.data);

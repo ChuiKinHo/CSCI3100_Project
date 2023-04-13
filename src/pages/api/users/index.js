@@ -21,10 +21,9 @@ export default async function handler(req, res) {
         if (keyword && keyword.startsWith("@")) {
           // Remove the '@' character from the beginning of the query
           const usernameQuery = keyword.slice(1);
-          const regex = new RegExp(usernameQuery, "i");
 
           searchResults = await User.findOne({
-            username: { $regex: regex },
+            username: usernameQuery,
           })
             .populate({
               path: "mytweets",
