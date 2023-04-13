@@ -88,14 +88,15 @@ export default function Tweet() {
     setShowPopUp(false);
   };
 
+  const handleChildStateChange = () => {
+    // if (childState !== null) setChildState(childState + 1);
+    // else setChildState(0);
+    //console.log(childState);
+  };
+
   if (post.length != 0) {
     //console.log(post);
-    const [childState, setChildState] = useState(0);
-    const handleChildStateChange = () => {
-      if (childState !== null) setChildState(childState + 1);
-      else setChildState(0);
-      //console.log(childState);
-    };
+
     return (
       <>
         <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">

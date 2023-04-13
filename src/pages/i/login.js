@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import useStorage from "../../hooks/useStorage";
 import { useRouter } from "next/router";
 import Widget from "@/components/Widget";
@@ -10,13 +10,16 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [warning, setWarning] = useState("");
+  const inputRef = useRef(null);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
+    setWarning("");
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+    setWarning("");
   };
 
   const handleSubmit = () => {
@@ -59,6 +62,12 @@ export default function Login() {
     else setChildState(0);
     //console.log(childState);
   };
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      inputRef.current.click();
+    }
+  };
   return (
     <>
       <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
@@ -78,6 +87,7 @@ export default function Login() {
                 placeholder="account"
                 onChange={handleUsernameChange}
                 required
+                onKeyDown={handleKeyDown}
               />
             </label>
             <label className="block">
@@ -91,6 +101,7 @@ export default function Login() {
                 placeholder="password"
                 onChange={handlePasswordChange}
                 required
+                onKeyDown={handleKeyDown}
               />
             </label>
             <input
@@ -98,8 +109,9 @@ export default function Login() {
               className="bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 m-1"
               value="Login"
               onClick={handleSubmit}
+              ref={inputRef}
             />
-            <p>{warning}</p>
+            <p className="text-red-500">{warning}</p>
           </form>
         </div>
       </div>
