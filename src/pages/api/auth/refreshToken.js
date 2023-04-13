@@ -1,6 +1,6 @@
 import dbConnect from '../../../_unsorted/database/dbConnect'
 import jwt from 'jsonwebtoken'
-import { getRefTokenByUsername } from '../../../_unsorted/util/authUtil'
+import { getRefTokenByUsername } from '../../../_unsorted/util/queryUtil'
 
 export default async function handler(req, res) {
 

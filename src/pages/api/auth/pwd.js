@@ -2,7 +2,7 @@ import dbConnect from '../../../_unsorted/database/dbConnect'
 import { User } from '../../../_unsorted/database/schemas'
 import { pwd } from '../../../_unsorted/util/utils'
 import jwt from 'jsonwebtoken'
-import { getUserId, loginQuery, getRefTokenByUserId, getRefTokenByUsername, deleteToken, addToken } from '../../../_unsorted/util/authUtil'
+import { getUserId, loginQuery, getRefTokenByUserId, getRefTokenByUsername, deleteToken, addToken } from '../../../_unsorted/util/queryUtil'
 
 export default async function handler(req, res) {
   

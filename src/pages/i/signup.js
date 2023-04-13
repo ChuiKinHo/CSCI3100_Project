@@ -13,8 +13,8 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [imgid, setImgid] = useState("v1681392440/d6zzeny0jiyonexeoazo.png");
   const [warning, setWarning] = useState("");
-  const inputRef = useRef(null);
   const [name, setName] = useState("");
+  const inputRef = useRef(null);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -75,12 +75,14 @@ export default function Signup() {
     if (childState !== null) setChildState(childState + 1);
     else setChildState(0);
   };
+
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
       inputRef.current.click();
     }
   };
+
   return (
     <>
       <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">

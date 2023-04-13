@@ -108,6 +108,7 @@ const Retweet = ({ onClose, id }) => {
         });
     }
   }, [id, username]);
+  
   const handlePopUpClick = (e) => {
     // Prevent the click event from propagating to the parent element
     e.stopPropagation();
@@ -116,6 +117,7 @@ const Retweet = ({ onClose, id }) => {
   const handleCloseClick = () => {
     onClose();
   };
+
   if (post !== null) {
     console.log(post.image);
     return (
