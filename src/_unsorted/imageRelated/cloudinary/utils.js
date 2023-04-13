@@ -1,17 +1,23 @@
 import { CldImage, CldUploadButton } from "next-cloudinary";
 import { useState } from "react";
+import { PhotoIcon } from "@heroicons/react/20/solid";
+
+// import {setResource}
 export function UploadButton() {
   return (
     <>
       <CldUploadButton
-        onUpload={(error, result, widget) => {
-          console.log(result?.info);
-          setResource(result?.info); // Updating local state with asset details
-          widget.close(); // Close widget immediately after successful upload
+        onUpload={(result, error, widget) => {
+          if (result.event === "success") {
+            console.log(
+              "Done! Here is the image info: ",
+              result.info.secure_url.split("upload/")[1]
+            );
+          }
         }}
         uploadPreset="ml_unsigned"
       >
-        Upload to Cloudinary
+        <PhotoIcon className="h-10 w-10 hoverEffect p-2 text-sky-500 hover:bg-sky-100" />
       </CldUploadButton>
     </>
   );
