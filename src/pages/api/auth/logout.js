@@ -1,5 +1,5 @@
 import dbConnect from '../../../_unsorted/database/dbConnect'
-import { deleteToken } from '../../../_unsorted/util/authUtil'
+import { deleteToken } from '../../../_unsorted/util/queryUtil'
 
 
 export default async function handler(req, res) {
