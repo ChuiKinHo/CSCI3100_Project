@@ -140,9 +140,10 @@ export default function Signup() {
                 User Image:
               </span>
               <CldUploadButton
-                onUpload={(result, error, widget) => {
+                onUpload={(result, widget, error) => {
                   if (result.event === "success") {
                     setImgid(result.info.secure_url.split("upload/")[1]);
+                    widget.close();
                   }
                 }}
                 onClick={(e, widget) => {
