@@ -134,6 +134,7 @@ export default function Input() {
                   {/* </label> */}
                   <input id="image-upload" type="file" hidden />
                 </div>
+                <FaceSmileIcon className="h-10 w-10 hoverEffect p-2 text-sky-500 hover:bg-sky-100" />
               </div>
 
               <button
