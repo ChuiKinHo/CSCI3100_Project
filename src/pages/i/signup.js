@@ -4,25 +4,24 @@ import useStorage from "../../hooks/useStorage";
 import Widget from "@/components/Widget";
 import { CldUploadButton, CldImage } from "next-cloudinary";
 import { FaceSmileIcon, PhotoIcon } from "@heroicons/react/20/solid";
-
+import { useRouter } from "next/router";
 export default function Signup() {
   const { setItem } = useStorage();
+  const router = useRouter();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [imgid, setImgid] = useState("");
+  const [imgid, setImgid] = useState("v1681392440/d6zzeny0jiyonexeoazo.png");
   const [warning, setWarning] = useState("");
   const inputRef = useRef(null);
   const [name, setName] = useState("");
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
-    setWarning("");
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
-    setWarning("");
   };
 
   const handleNameChange = (event) => {
@@ -31,34 +30,43 @@ export default function Signup() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const reqData = {
-      username: username,
-      password: password,
-      img: imgid,
-      name: name,
-    };
-    console.log(reqData);
-    if (
-      reqData.username !== "" &&
-      reqData.password !== "" &&
-      reqData.name !== ""
-    ) {
-      fetch("/api/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(reqData),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data !== null && data.success) {
-            console.log("Successfully Created User");
-          }
+
+    const form = document.getElementById("my-form");
+    if (form.checkValidity()) {
+      const reqData = {
+        username: username,
+        password: password,
+        img: imgid,
+        name: name,
+      };
+      if (
+        reqData.username !== "" &&
+        reqData.password !== "" &&
+        reqData.name !== "" &&
+        reqData.img !== ""
+      ) {
+        fetch("/api/users", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(reqData),
         })
-        .catch((error) => {
-          console.error("Error fetching posts:", error);
-        });
+          .then((response) => response.json())
+          .then((data) => {
+            if (data !== null && data.success) {
+              setWarning("Success! Please log in.");
+              router.push("/i/login");
+            } else {
+              setWarning(data.data);
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching posts:", error);
+          });
+      }
+    } else {
+      form.reportValidity();
     }
   };
 
@@ -66,7 +74,6 @@ export default function Signup() {
   const handleChildStateChange = () => {
     if (childState !== null) setChildState(childState + 1);
     else setChildState(0);
-    //console.log(childState);
   };
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
@@ -83,10 +90,10 @@ export default function Signup() {
           </h2>
         </div>
         <div className="p-4">
-          <form>
+          <form id="my-form">
             <label className="block">
               <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
-                Username:
+                Username (in one consective word):
               </span>
               <input
                 type="text"
@@ -96,6 +103,7 @@ export default function Signup() {
                 onChange={handleUsernameChange}
                 required
                 onKeyDown={handleKeyDown}
+                pattern="^\S+$"
               />
             </label>
             <label className="block">
@@ -128,14 +136,18 @@ export default function Signup() {
               />
             </label>
             <label className="block">
-              <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+              <span className=" after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
                 User Image:
               </span>
               <CldUploadButton
-                onUpload={(result, error, widget) => {
+                onUpload={(result, widget, error) => {
                   if (result.event === "success") {
                     setImgid(result.info.secure_url.split("upload/")[1]);
+                    widget.close();
                   }
+                }}
+                onClick={(e, widget) => {
+                  e.preventDefault();
                 }}
                 uploadPreset="ml_unsigned"
               >
@@ -143,19 +155,15 @@ export default function Signup() {
               </CldUploadButton>
             </label>
 
-            <input
+            <button
               type="button"
               className="bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 m-1"
-              value="Sign up"
               onClick={handleSubmit}
               ref={inputRef}
-            />
+            >
+              Sign up
+            </button>
             <p className="text-red-500">{warning}</p>
-            <Link href="/">
-              <p id="autoclick" hidden>
-                go to home page
-              </p>
-            </Link>
           </form>
         </div>
       </div>

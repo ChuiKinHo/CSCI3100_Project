@@ -34,7 +34,6 @@ export default function Input() {
       retweet: false,
       private: isPrivate,
     };
-    console.log(reqData);
     if (
       reqData.username !== null &&
       reqData.input !== null &&
@@ -149,10 +148,14 @@ export default function Input() {
             <div className="flex items-center justify-between pt-2.5">
               <div className="flex">
                 <CldUploadButton
-                  onUpload={(result, error, widget) => {
+                  onUpload={(result, widget, error) => {
                     if (result.event === "success") {
                       setImgid(result.info.secure_url.split("upload/")[1]);
+                      widget.close();
                     }
+                  }}
+                  onClick={(e, widget) => {
+                    e.preventDefault();
                   }}
                   uploadPreset="ml_unsigned"
                 >
