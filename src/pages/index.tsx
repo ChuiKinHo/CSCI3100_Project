@@ -7,6 +7,8 @@ import useStorage from "../hooks/useStorage";
 import { useEffect, useState } from "react";
 import Search from "@/components/Search";
 import Link from "next/link";
+import { CldImage } from "next-cloudinary";
+import Image from "next/image";
 
 // TODO:: Remove sample data
 
@@ -27,11 +29,20 @@ export default function Home() {
     </>
   ) : (
     <>
-      <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
-        <div className="flex py-2 px-3 sticky top-0  bg-white border-gray-200">
-          <Search />
+      <div className="xl:ml-370 border-l border-r border-gray-200 xl:min-w-576 sm:ml-73 flex-grow max-w-xl">
+        <div className="sticky top-0 bg-white border-gray-200">
+          <div className="flex py-2 px-3">
+            <h1>Welcome to Twitter! Sign up or Login to continue</h1>
+            <Image
+              width={1000}
+              height={1000}
+              src="https://help.twitter.com/content/dam/help-twitter/brand/logo.png"
+              alt="Twitter logo"
+            />
+          </div>
         </div>
       </div>
+
       <div className="xl:w-[600px] hidden lg:inline ml-4 space-y-4 py-5">
         <div>
           <Link href="/i/login">
