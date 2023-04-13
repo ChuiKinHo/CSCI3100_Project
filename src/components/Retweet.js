@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import useStorage from "../hooks/useStorage";
-import { userImg } from "../_unsorted/imageRelated/cloudinary/utils";
+import {
+  userImg,
+  imageVideoDisplay,
+} from "../_unsorted/imageRelated/cloudinary/utils";
 import { useEffect } from "react";
 import { useRef } from "react";
 import { useRouter } from "next/router";
@@ -114,6 +117,7 @@ const Retweet = ({ onClose, id }) => {
     onClose();
   };
   if (post !== null) {
+    console.log(post.image);
     return (
       <div
         className="fixed z-50 inset-0 overflow-y-auto bg-gray-800 bg-opacity-50 flex items-center justify-center"
@@ -174,10 +178,11 @@ const Retweet = ({ onClose, id }) => {
                     <p className="text-gray-800 text-[15px sm:text-[16px] mb-2">
                       {post.text}
                     </p>
-                    <img className="rounded-2xl mr-2" src={post.image} alt="" />
+                    {post.image !== "" && imageVideoDisplay(post.img, 700, 700)}
+                    {/* <img className="rounded-2xl mr-2" src={post.image} alt="" /> */}
                   </div>
                 </div>
-                <img className="rounded-2xl mr-2" src={post.image} alt="" />
+                {/* <img className="rounded-2xl mr-2" src={post.image} alt="" /> */}
               </div>
             </div>
 
