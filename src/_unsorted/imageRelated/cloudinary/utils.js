@@ -1,15 +1,15 @@
 import { CldImage, CldUploadButton } from "next-cloudinary";
 import { useState } from "react";
-
 export function UploadButton() {
   return (
     <>
       <CldUploadButton
         onUpload={(error, result, widget) => {
+          console.log(result?.info);
           setResource(result?.info); // Updating local state with asset details
           widget.close(); // Close widget immediately after successful upload
         }}
-        uploadPreset="next-cloudinary-signed"
+        uploadPreset="ml_unsigned"
       >
         Upload to Cloudinary
       </CldUploadButton>
