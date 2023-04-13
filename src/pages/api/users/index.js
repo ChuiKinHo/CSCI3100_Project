@@ -100,7 +100,7 @@ export default async function handler(req, res) {
       try {
         if (await User.exists({ username: String(req.body["username"]) })) {
           res
-            .status(400)
+            .status(200)
             .json({ success: false, data: "Username already exist!" });
           break;
         } else {
@@ -109,11 +109,16 @@ export default async function handler(req, res) {
             name: String(req.body["name"]),
             password: String(req.body["password"]),
             usrImg: String(req.body["img"]),
+            following: [],
+            follower: [],
+            mytweets: [],
+            likes: [],
+            dislikes: [],
           });
           res.status(200).json({ success: true });
         }
       } catch (error) {
-        res.status(400).json({ success: false, data: { error: error } });
+        res.status(403).json({ success: false, data: { error: error } });
       }
       break;
 
