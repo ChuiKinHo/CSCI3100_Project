@@ -10,8 +10,8 @@ import { userImg } from "../_unsorted/imageRelated/cloudinary/utils";
 
 function NotLogin() {
   return (
-    <div className="xl:w-[600px] hidden lg:inline ml-4 space-y-4">
-      <Search />
+    <div className="xl:w-[600px] hidden lg:inline ml-4 space-y-4 my-5">
+      {/* <Search /> */}
       <div>
         <Link href="/i/login">
           <button className="flex bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95">

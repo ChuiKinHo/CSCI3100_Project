@@ -168,7 +168,7 @@ export default function Post({ id }) {
                             height={700}
                             crop="fill"
                             src={retweet?.img}
-                            // alt={alt}
+                            alt={retweet?.img}
                           />
                         )}
                       </div>
@@ -225,7 +225,7 @@ export default function Post({ id }) {
                     height={700}
                     crop="fill"
                     src={post?.img}
-                    // alt={alt}
+                    alt={post?.img}
                   />
                 )}
                 <ActionBar post={post} />

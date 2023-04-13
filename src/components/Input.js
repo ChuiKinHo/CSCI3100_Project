@@ -141,7 +141,7 @@ export default function Input() {
                   height={700}
                   crop="fill"
                   src={imgid}
-                  // alt={alt}
+                  alt={imgid}
                 />
               )}
             </div>
