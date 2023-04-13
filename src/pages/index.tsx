@@ -39,7 +39,7 @@ export default function Home() {
       <div className="xl:ml-370 border-l border-r border-gray-200 xl:min-w-576 sm:ml-73 flex-grow max-w-xl">
         <div className="sticky top-0 bg-white border-gray-200">
           <div className="flex py-2 px-3">
-            <h1>Welcome to Twitter! Sign up or Login to continue (New)</h1>
+            <h1>Welcome to Twitter! Sign up or Login to continue</h1>
             <Image
               width={1000}
               height={1000}
