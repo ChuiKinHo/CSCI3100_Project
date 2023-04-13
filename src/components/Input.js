@@ -135,13 +135,7 @@ export default function Input() {
 
             <div className="flex items-center justify-between pt-2.5">
               <div className="flex">
-                <div className="">
-                  {/* <label htmlFor="image-upload"> */}
-                  {UploadButton()}
-                  {/* </label> */}
-                  <input id="image-upload" type="file" hidden />
-                </div>
-                {/* <FaceSmileIcon className="h-10 w-10 hoverEffect p-2 text-sky-500 hover:bg-sky-100" /> */}
+                {UploadButton()}
                 {isPrivate ? (
                   <button
                     className="bg-white text-green-500 border border-green-300 px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50"
