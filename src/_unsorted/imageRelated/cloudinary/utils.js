@@ -1,4 +1,4 @@
-import { CldImage, CldUploadButton } from "next-cloudinary";
+import { CldImage, CldUploadButton, CldVideoPlayer } from "next-cloudinary";
 import { useState } from "react";
 import { PhotoIcon } from "@heroicons/react/20/solid";
 
@@ -41,10 +41,21 @@ export function userImgProfile(user) {
   );
 }
 
-export default function img(url, alt, width, height) {
-  return (
-    <CldImage width={width} height={height} crop="fill" src={url} alt={alt} />
-  );
+export function imageVideoDisplay(url, width, height) {
+  const fileExtension = url.split(".").pop();
+  console.log(url);
+  const urlWithoutExtension = url.slice(0, url.lastIndexOf("."));
+  if (
+    ["mp4", "mov", "avi", "wmv", "flv", "mkv", "webm"].includes(fileExtension)
+  ) {
+    return (
+      <CldVideoPlayer width={width} height={height} src={urlWithoutExtension} />
+    );
+  } else {
+    return (
+      <CldImage width={width} height={height} crop="fill" src={url} alt={url} />
+    );
+  }
 }
 
 // export default { userImg, img }
