@@ -3,7 +3,7 @@ import useStorage from "../hooks/useStorage";
 import { useEffect, useState } from "react";
 import {
   userImg,
-  uploadButton,
+  UploadButton,
 } from "../_unsorted/imageRelated/cloudinary/utils";
 import { useRef } from "react";
 import { useRouter } from "next/router";
@@ -130,7 +130,7 @@ export default function Input() {
               <div className="flex">
                 <div className="">
                   {/* <label htmlFor="image-upload"> */}
-                  {uploadButton()}
+                  {UploadButton()}
                   {/* </label> */}
                   <input id="image-upload" type="file" hidden />
                 </div>
