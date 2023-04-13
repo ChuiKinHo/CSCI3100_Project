@@ -128,6 +128,16 @@ GET http://localhost:3000/api/users/privateChat
 Content-Type: application/json
 
 {
-  "username": "64380b3f692dc532234b0a67",
-  "targetUsername": "64380c8c692dc532234b0a9f"
+  "username": "user1234",
+  "targetUsername": "user123"
+}
+
+###
+POST http://localhost:3000/api/users/privateChat
+Content-Type: application/json
+
+{
+  "message": "stfu, retard",
+  "username": "user123",
+  "targetUsername": "user1234"
 }
