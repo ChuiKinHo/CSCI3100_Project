@@ -23,6 +23,7 @@ export default function Post({ id }) {
   const [isAdmin, setIsAdmin] = useState(1);
   const [post, setPost] = useState(null);
   const [retweet, setRetweet] = useState(null);
+  const [permission, setPermission] = useState(null);
 
   useEffect(() => {
     setUsername(getItem("username", "session"));
@@ -39,8 +40,14 @@ export default function Post({ id }) {
       })
         .then((response) => response.json())
         .then((data) => {
-          if (data.data !== null) {
-            setPost(data.data);
+          if (data.success) {
+            if (data.data !== null && data.permission) {
+              setPost(data.data);
+              setPermission(true);
+            } else if (!data.permission) {
+              setPermission(false);
+              setPost({});
+            }
           }
         })
         .catch((error) => {
@@ -50,7 +57,7 @@ export default function Post({ id }) {
   }, [id, username]);
 
   useEffect(() => {
-    if (post !== null && post.retweet && id !== null) {
+    if (post !== null && post.retweet && id !== null && permission) {
       fetch("/api/retweets?tweetid=" + id, {
         method: "GET",
         headers: {
@@ -69,9 +76,11 @@ export default function Post({ id }) {
     }
   }, [id, post]);
 
-  if (post !== null) {
-    //console.log(retweet);
-    return (
+  if (post && permission !== null) {
+    //console.log(post);
+    return !permission ? (
+      ""
+    ) : (
       <>
         {retweet !== null && (
           <div>
@@ -111,7 +120,7 @@ export default function Post({ id }) {
                   </div>
 
                   {/*TODO:: Turn this into button */}
-                  <EllipsisHorizontalCircleIcon className="h-10 hoverEffect w-10 hover:bg-sky-100 hover:text-sky-500 p-2 " />
+                  {/* <EllipsisHorizontalCircleIcon className="h-10 hoverEffect w-10 hover:bg-sky-100 hover:text-sky-500 p-2 " /> */}
                 </div>
 
                 <p className="text-gray-800 text-[15px sm:text-[16px] mb-2">
@@ -218,7 +227,7 @@ export default function Post({ id }) {
                     </div>
 
                     {/*TODO:: Turn this into button */}
-                    <EllipsisHorizontalCircleIcon className="h-10 hoverEffect w-10 hover:bg-sky-100 hover:text-sky-500 p-2 " />
+                    {/* <EllipsisHorizontalCircleIcon className="h-10 hoverEffect w-10 hover:bg-sky-100 hover:text-sky-500 p-2 " /> */}
                   </div>
 
                   <p className="text-gray-800 text-[15px sm:text-[16px] mb-2">

@@ -10,7 +10,7 @@ export default function followerPage() {
   const router = useRouter();
   const { getItem } = useStorage();
   const [loginUsername, setLoginUsername] = useState(null);
-  const query = router.query.query;
+  const username = router.query.username;
   const [queryReturn, setQueryReturn] = useState([]);
   const [queryReturnFollowed, setQueryReturnFollowed] = useState([]);
   const [parentFolAction, setParentFolAction] = useState(null);
@@ -25,8 +25,8 @@ export default function followerPage() {
   }, [getItem("username", "session")]);
 
   useEffect(() => {
-    if (loginUsername != null) {
-      fetch("/api/follow?follower=" + loginUsername, {
+    if (username != null) {
+      fetch("/api/follow?follower=" + username, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export default function followerPage() {
           console.error("Error fetching posts:", error);
         });
     }
-  }, [loginUsername, childState]);
+  }, [username, childState]);
 
   useEffect(() => {
     if (
@@ -154,7 +154,7 @@ export default function followerPage() {
             />
           </div>
 
-          <div className="flex p-3">You are not following anyone!</div>
+          <div className="flex p-3">The user has no follower</div>
         </div>
         <Widget onStateChange={handleChildStateChange} />
       </>

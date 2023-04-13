@@ -22,6 +22,7 @@ export default function userPage() {
   const [posts, setPosts] = useState([]);
   const router = useRouter();
   const username = router.query.username;
+  const [parentFolAction, setParentFolAction] = useState(null);
   const [childState, setChildState] = useState(0);
   const handleChildStateChange = () => {
     if (childState !== null) setChildState(childState + 1);
@@ -29,26 +30,28 @@ export default function userPage() {
     //console.log(childState);
   };
   useEffect(() => {
-    fetch("/api/users?q=@" + username, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (
-          data.data !== undefined &&
-          data.data !== null &&
-          data.data.length != 0
-        ) {
-          setUserInfo(data.data);
-        }
+    if (username) {
+      fetch("/api/users?q=@" + username, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .catch((error) => {
-        console.error("Error fetching posts:", error);
-      });
-  }, [username, childState]);
+        .then((response) => response.json())
+        .then((data) => {
+          if (
+            data.data !== undefined &&
+            data.data !== null &&
+            data.data.length != 0
+          ) {
+            setUserInfo(data.data);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching posts:", error);
+        });
+    }
+  }, [username, childState, parentFolAction]);
 
   useEffect(() => {
     setLoginUsername(getItem("username", "session"));
@@ -84,8 +87,10 @@ export default function userPage() {
         .then((data) => {
           if (data !== null && data.success) {
             setFollowed(true);
-            //console.log("follow success");
-            //console.log(newRandomUsers);
+            setParentFolAction({
+              username: username,
+              followed: true,
+            });
           }
         })
         .catch((error) => {
@@ -111,8 +116,10 @@ export default function userPage() {
         .then((data) => {
           if (data !== null && data.success) {
             setFollowed(false);
-            //console.log("follow success");
-            //console.log(newRandomUsers);
+            setParentFolAction({
+              username: username,
+              followed: false,
+            });
           }
         })
         .catch((error) => {
@@ -226,11 +233,14 @@ export default function userPage() {
             </nav>
 
             {userInfo.mytweets.map((tweet) => (
-              <Post key={tweet.id} id={tweet.id} post={tweet} />
+              <Post key={tweet.id} id={tweet.id} />
             ))}
           </div>
         </div>
-        <Widget onStateChange={handleChildStateChange} />
+        <Widget
+          onStateChange={handleChildStateChange}
+          checkFol={parentFolAction}
+        />
       </>
     );
   }
