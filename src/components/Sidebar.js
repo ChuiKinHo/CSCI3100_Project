@@ -87,7 +87,7 @@ export default function Sidebar() {
       >
         {/* <h2>{pathname}</h2> */}
         {/* Twitter Logo */}
-        <Link href="/">
+        <Link href={getItem("admin", "session") ? "/admin" : "/"}>
           <div className="hoverEffect p-0 hover:bg-blue-100 xl:px-1">
             <Image
               width={50}
