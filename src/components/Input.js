@@ -135,7 +135,7 @@ export default function Input() {
               ></textarea>
             </div>
             <div className="flex items-center justify-between pt-2.5">
-              {imgid !== "" && (
+              {/* {retweet.img !== "" && (
                 <CldImage
                   width={700}
                   height={700}
@@ -143,7 +143,7 @@ export default function Input() {
                   src={retweet?.img}
                   // alt={alt}
                 />
-              )}
+              )} */}
             </div>
 
             <div className="flex items-center justify-between pt-2.5">
