@@ -162,8 +162,8 @@ export default function Post({ id }) {
                             {retweet.text}
                           </p>
                           {
-                            retweet?.img &&
-                              imageVideoDisplay(retweet?.img, 700, 700)
+                            retweet.img != "" &&
+                              imageVideoDisplay(retweet.img, 700, 700)
                             // <CldImage
                             //   width={700}
                             //   height={700}
@@ -224,7 +224,7 @@ export default function Post({ id }) {
                   <p className="text-gray-800 text-[15px sm:text-[16px] mb-2">
                     {post.text}
                   </p>
-                  {post?.img &&
+                  {post.img !== "" &&
                     // <CldImage
                     //   width={700}
                     //   height={700}
@@ -232,7 +232,7 @@ export default function Post({ id }) {
                     //   src={post?.img}
                     //   alt={post?.img}
                     // />
-                    imageVideoDisplay(post?.img, 700, 700)}
+                    imageVideoDisplay(post.img, 700, 700)}
                 </div>
               </div>
             </Link>
