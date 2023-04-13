@@ -18,9 +18,11 @@ const Retweet = ({ onClose, id }) => {
   const [userInfo, setUserInfo] = useState(null);
   const isMountedRef = useRef(false);
   const [input, setInput] = useState("");
+  const [warning, setWarning] = useState("");
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
+    setWarning("");
   };
 
   const handleSubmit = (event) => {
@@ -49,6 +51,7 @@ const Retweet = ({ onClose, id }) => {
         .then((response) => response.json())
         .then((data) => {
           if (data !== null && data.success) {
+            onClose();
             router.push("/" + username + "/status/" + data.data.id);
             console.log("retweet successful");
           }
@@ -56,9 +59,14 @@ const Retweet = ({ onClose, id }) => {
         .catch((error) => {
           console.error("Error fetching posts:", error);
         });
+    } else {
+      if (reqData.input === null || reqData.input.length === 0) {
+        setWarning("Input cannot be empty");
+      } else {
+        setWarning("An error occur");
+      }
     }
     setInput("");
-    onClose();
   };
 
   useEffect(() => {
@@ -108,7 +116,7 @@ const Retweet = ({ onClose, id }) => {
         });
     }
   }, [id, username]);
-  
+
   const handlePopUpClick = (e) => {
     // Prevent the click event from propagating to the parent element
     e.stopPropagation();
@@ -187,7 +195,7 @@ const Retweet = ({ onClose, id }) => {
                 {/* <img className="rounded-2xl mr-2" src={post.image} alt="" /> */}
               </div>
             </div>
-
+            <p className="text-red-500">{warning}</p>
             <div className="flex justify-end mt-3">
               <button
                 type="submit"

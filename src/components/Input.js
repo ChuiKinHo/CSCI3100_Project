@@ -162,14 +162,14 @@ export default function Input() {
                 </CldUploadButton>
                 {isPrivate ? (
                   <div
-                    className="bg-white text-green-500 border border-green-300 px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50"
+                    className="bg-white text-green-500 border border-green-300 px-4 py-1.5 rounded-full font-bold shadow-md hover:bg-green-100 disabled:opacity-50 cursor-pointer"
                     onClick={handleSetPrivate}
                   >
                     private
                   </div>
                 ) : (
                   <div
-                    className="bg-white text-violet-500 border border-violet-300 px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50"
+                    className="bg-white text-violet-500 border border-violet-300 px-4 py-1.5 rounded-full font-bold shadow-md hover:bg-violet-100 disabled:opacity-50 cursor-pointer"
                     onClick={handleSetPrivate}
                   >
                     public
