@@ -68,15 +68,6 @@ const TweetSchema = new mongoose.Schema({
 });
 const Tweet = mongoose.models.Tweet || mongoose.model("Tweet", TweetSchema);
 
-const ReplySchema = new mongoose.Schema({
-  id: { type: Number, required: true, unique: true },
-  author: { type: String, required: true, ref: "User" },
-  tweetId: { type: Number, required: true, ref: "Tweet" },
-  timestamp: { type: Date, required: true },
-  reply: { type: String, required: true },
-});
-const Reply = mongoose.models.Reply || mongoose.model("Reply", ReplySchema);
-
 // Not used yet, preassumably for authentication, haven't looked into Auth0 yet, dunno if Auth0 can do tokens
 const TokenSchema = new mongoose.Schema({
   userid: { type: String, required: true, unique: true, ref: "User" },
@@ -85,4 +76,4 @@ const TokenSchema = new mongoose.Schema({
 });
 const Token = mongoose.models.Token || mongoose.model("Token", TokenSchema);
 
-module.exports = { User, Tweet, Admin, Reply, Token };
+module.exports = { User, Tweet, Admin, Token };
