@@ -16,20 +16,23 @@ export default function Feed() {
   }, [getItem("username", "session"), getItem("admin", "session")]);
 
   useEffect(() => {
-    fetch("/api/tweets?username=" + username, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setPosts(data.data);
+    if (username) {
+      fetch("/api/tweets?username=" + username, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .catch((error) => {
-        console.error("Error fetching posts:", error);
-      });
-  }, []);
+        .then((response) => response.json())
+        .then((data) => {
+          setPosts(data.data);
+          //console.log(data.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching posts:", error);
+        });
+    }
+  }, [username]);
 
   return (
     <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
