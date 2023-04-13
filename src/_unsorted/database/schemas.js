@@ -64,6 +64,7 @@ const TweetSchema = new mongoose.Schema({
   retweet: { type: Boolean, required: true, default: false },
   commentId: { type: Array, required: true, default: [] },
   targetTweetId: { type: String, require: true, default: null }, //the targeted retweet
+  private: { type: Boolean, require: true, default: false },
 });
 const Tweet = mongoose.models.Tweet || mongoose.model("Tweet", TweetSchema);
 

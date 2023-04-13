@@ -136,7 +136,13 @@ export default function Widget({ onStateChange, checkFol }) {
   }, [getItem("username", "session")]);
 
   useEffect(() => {
-    if (checkFol !== null && username !== null && randomUsers !== null) {
+    if (
+      checkFol !== null &&
+      checkFol.username !== null &&
+      checkFol.followed !== null &&
+      username !== null &&
+      randomUsers !== null
+    ) {
       const index = randomUsers
         .map((user) => user.username)
         .indexOf(checkFol.username);
