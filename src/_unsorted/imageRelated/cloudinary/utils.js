@@ -15,10 +15,6 @@ export function UploadButton() {
             );
           }
         }}
-        onClick={(e) => {
-          e.preventDefault();
-          open();
-        }}
         uploadPreset="ml_unsigned"
       >
         <PhotoIcon className="h-10 w-10 hoverEffect p-2 text-sky-500 hover:bg-sky-100" />
