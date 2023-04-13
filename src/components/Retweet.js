@@ -36,7 +36,7 @@ const Retweet = ({ onClose, id }) => {
       reqData.input !== null &&
       reqData.input.length !== 0
     ) {
-      fetch("http://localhost:3000/api/post", {
+      fetch("/api/post", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -65,7 +65,7 @@ const Retweet = ({ onClose, id }) => {
 
   useEffect(() => {
     if (username != null) {
-      fetch("http://localhost:3000/api/users?q=@" + username, {
+      fetch("/api/users?q=@" + username, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -88,18 +88,12 @@ const Retweet = ({ onClose, id }) => {
 
   useEffect(() => {
     if (username != null) {
-      fetch(
-        "http://localhost:3000/api/tweets?tweetid=" +
-          id +
-          "&username=" +
-          username,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      fetch("/api/tweets?tweetid=" + id + "&username=" + username, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
         .then((response) => response.json())
         .then((data) => {
           if (data.data !== null) {

@@ -23,7 +23,7 @@ export default function TweetPost({ post }) {
 
     if (post.targetTweetId !== null && loginUsername !== null) {
       fetch(
-        "http://localhost:3000/api/tweets?tweetid=" +
+        "/api/tweets?tweetid=" +
           post.targetTweetId +
           "&username=" +
           loginUsername,

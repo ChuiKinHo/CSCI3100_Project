@@ -25,7 +25,7 @@ export default function userPage() {
   }, [getItem("username", "session")]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/users?q=" + query, {
+    fetch("/api/users?q=" + query, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -61,7 +61,7 @@ export default function userPage() {
 
   const handleFol = (index) => {
     fetch(
-      "http://localhost:3000/api/follow?username=" +
+      "/api/follow?username=" +
         loginUsername +
         "&target=" +
         queryReturn[index].username,
@@ -97,7 +97,7 @@ export default function userPage() {
 
   const handleUnfol = (index) => {
     fetch(
-      "http://localhost:3000/api/follow?username=" +
+      "/api/follow?username=" +
         loginUsername +
         "&target=" +
         queryReturn[index].username,

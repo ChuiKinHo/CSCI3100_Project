@@ -16,7 +16,7 @@ export default function Testing() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/users", {
+    fetch("/api/users", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

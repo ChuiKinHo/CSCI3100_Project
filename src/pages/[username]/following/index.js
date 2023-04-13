@@ -27,7 +27,7 @@ export default function followingPage() {
 
   useEffect(() => {
     if (loginUsername != null) {
-      fetch("http://localhost:3000/api/follow?following=" + loginUsername, {
+      fetch("/api/follow?following=" + loginUsername, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -67,7 +67,7 @@ export default function followingPage() {
 
   const handleFol = (index) => {
     fetch(
-      "http://localhost:3000/api/follow?username=" +
+      "/api/follow?username=" +
         loginUsername +
         "&target=" +
         queryReturn[index].username,
@@ -103,7 +103,7 @@ export default function followingPage() {
 
   const handleUnfol = (index) => {
     fetch(
-      "http://localhost:3000/api/follow?username=" +
+      "/api/follow?username=" +
         loginUsername +
         "&target=" +
         queryReturn[index].username,

@@ -40,7 +40,7 @@ export default function Input() {
       reqData.input !== null &&
       reqData.input.length !== 0
     ) {
-      fetch("http://localhost:3000/api/post", {
+      fetch("/api/post", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -68,7 +68,7 @@ export default function Input() {
 
   useEffect(() => {
     if (username != null) {
-      fetch("http://localhost:3000/api/users?q=@" + username, {
+      fetch("/api/users?q=@" + username, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -91,7 +91,7 @@ export default function Input() {
 
   useEffect(() => {
     if (username != null) {
-      fetch("http://localhost:3000/api/users?q=@" + username, {
+      fetch("/api/users?q=@" + username, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

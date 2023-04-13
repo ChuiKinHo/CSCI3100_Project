@@ -36,25 +36,27 @@ export default function Sidebar() {
     fetch("/api/auth/logout", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username: username, admin: isAdmin })
-    }).then(res => res.json()).then(json => {
-      console.log(json.data.admin)
-      if (json.data.admin) {
-        removeItem("admin", "session");
-      } else {
-        removeItem("username", "session");
-        removeItem("accessToken", "session");
-        removeItem("refreshToken", "session");
-      }
-      setUserInfo(null);
-      router.replace("/");
-      return null;
-    });
+      body: JSON.stringify({ username: username, admin: isAdmin }),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json.data.admin);
+        if (json.data.admin) {
+          removeItem("admin", "session");
+        } else {
+          removeItem("username", "session");
+          removeItem("accessToken", "session");
+          removeItem("refreshToken", "session");
+        }
+        setUserInfo(null);
+        router.replace("/");
+        return null;
+      });
   };
 
   useEffect(() => {
     if (username != null) {
-      fetch("http://localhost:3000/api/users?q=@" + username, {
+      fetch("/api/users?q=@" + username, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -75,7 +77,7 @@ export default function Sidebar() {
     }
   }, [username]);
 
-  if (isMountedRef && userInfo != null || isAdmin) {
+  if ((isMountedRef && userInfo != null) || isAdmin) {
     return (
       <div
         className={

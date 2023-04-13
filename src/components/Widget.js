@@ -34,7 +34,7 @@ function NotLogin() {
 //   const [posts, setPosts] = useState([]);
 
 //   useEffect(() => {
-//     fetch("http://localhost:3000/api/tweets", {
+//     fetch("/api/tweets", {
 //       method: "GET",
 //       headers: {
 //         "Content-Type": "application/json",
@@ -59,7 +59,7 @@ function NotLogin() {
 //   const [users, setUsers] = useState([]);
 
 //   useEffect(() => {
-//     fetch("http://localhost:3000/api/users", {
+//     fetch("/api/users", {
 //       method: "GET",
 //       headers: {
 //         "Content-Type": "application/json",
@@ -86,7 +86,7 @@ export default function Widget({ onStateChange, checkFol }) {
   const [posts, setPosts] = useState([]);
   const [randomUsers, setRandomUsers] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:3000/api/tweets", {
+    fetch("/api/tweets", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -105,7 +105,7 @@ export default function Widget({ onStateChange, checkFol }) {
   }, [username]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/users", {
+    fetch("/api/users", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -168,7 +168,7 @@ export default function Widget({ onStateChange, checkFol }) {
 
   const handleFol = (index) => {
     fetch(
-      "http://localhost:3000/api/follow?username=" +
+      "/api/follow?username=" +
         username +
         "&target=" +
         randomUsers[index].username,
@@ -201,7 +201,7 @@ export default function Widget({ onStateChange, checkFol }) {
   };
   const handleUnfol = (index) => {
     fetch(
-      "http://localhost:3000/api/follow?username=" +
+      "/api/follow?username=" +
         username +
         "&target=" +
         randomUsers[index].username,

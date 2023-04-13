@@ -49,18 +49,12 @@ export default function Tweet() {
 
   useEffect(() => {
     if (username != null && tweetId != undefined) {
-      fetch(
-        "http://localhost:3000/api/tweets?tweetid=" +
-          tweetId +
-          "&username=" +
-          username,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      fetch("/api/tweets?tweetid=" + tweetId + "&username=" + username, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
         .then((response) => {
           if (!response.ok) {
             throw new Error("Network response was not ok");

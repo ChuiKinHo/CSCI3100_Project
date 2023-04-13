@@ -29,18 +29,12 @@ export default function Post({ id }) {
 
   useEffect(() => {
     if (username != null) {
-      fetch(
-        "http://localhost:3000/api/tweets?tweetid=" +
-          id +
-          "&username=" +
-          username,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      fetch("/api/tweets?tweetid=" + id + "&username=" + username, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
         .then((response) => response.json())
         .then((data) => {
           if (data.data !== null) {
@@ -55,7 +49,7 @@ export default function Post({ id }) {
 
   useEffect(() => {
     if (post !== null && post.retweet && id !== null) {
-      fetch("http://localhost:3000/api/retweets?tweetid=" + id, {
+      fetch("/api/retweets?tweetid=" + id, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

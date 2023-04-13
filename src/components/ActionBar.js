@@ -41,18 +41,12 @@ export default function ActionBar({ post }) {
 
   function onClick_like() {
     if (username != null) {
-      fetch(
-        "http://localhost:3000/api/like?tweetid=" +
-          post.id +
-          "&username=" +
-          username,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      ).then((response) => {
+      fetch("/api/like?tweetid=" + post.id + "&username=" + username, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((response) => {
         if (likeByMe) {
           setLikeCount(likeCount - 1);
         } else {
@@ -67,18 +61,12 @@ export default function ActionBar({ post }) {
 
   function onClick_dislike() {
     if (username != null) {
-      fetch(
-        "http://localhost:3000/api/dislike?tweetid=" +
-          post.id +
-          "&username=" +
-          username,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      ).then((response) => {
+      fetch("/api/dislike?tweetid=" + post.id + "&username=" + username, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((response) => {
         if (dislikeByMe) {
           setDislikeCount(dislikeCount - 1);
         } else {

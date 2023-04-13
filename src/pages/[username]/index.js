@@ -29,7 +29,7 @@ export default function userPage() {
     //console.log(childState);
   };
   useEffect(() => {
-    fetch("http://localhost:3000/api/users?q=@" + username, {
+    fetch("/api/users?q=@" + username, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -69,7 +69,7 @@ export default function userPage() {
   const handleFol = () => {
     if (loginUsername !== userInfo) {
       fetch(
-        "http://localhost:3000/api/follow?username=" +
+        "/api/follow?username=" +
           loginUsername +
           "&target=" +
           userInfo.username,
@@ -96,7 +96,7 @@ export default function userPage() {
   const handleUnfol = () => {
     if (loginUsername !== userInfo) {
       fetch(
-        "http://localhost:3000/api/follow?username=" +
+        "/api/follow?username=" +
           loginUsername +
           "&target=" +
           userInfo.username,

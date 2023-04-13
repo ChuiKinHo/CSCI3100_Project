@@ -25,18 +25,12 @@ export default function Comment({ commentId, id }) {
 
   useEffect(() => {
     if (username != null) {
-      fetch(
-        "http://localhost:3000/api/tweets?tweetid=" +
-          commentId +
-          "&username=" +
-          username,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      fetch("/api/tweets?tweetid=" + commentId + "&username=" + username, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
         .then((response) => response.json())
         .then((data) => {
           setPost(data.data);

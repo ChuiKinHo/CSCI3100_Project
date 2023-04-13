@@ -16,7 +16,7 @@ export default function Feed() {
   }, [getItem("username", "session"), getItem("admin", "session")]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/tweets?username=" + username, {
+    fetch("/api/tweets?username=" + username, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
