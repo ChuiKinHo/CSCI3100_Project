@@ -126,12 +126,22 @@ export default function ReplyInput({ post, onReply }) {
                 onChange={handleInputChange}
               ></textarea>
               <div>
-                <button
-                  type="submit"
-                  className="bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50"
-                >
-                  Reply
-                </button>
+                {input.length === 0 ? (
+                  <button
+                    type="submit"
+                    className="bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50"
+                    disabled
+                  >
+                    Reply
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    className="bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50"
+                  >
+                    Reply
+                  </button>
+                )}
               </div>
             </div>
             <p className="text-red-500">{warning}</p>

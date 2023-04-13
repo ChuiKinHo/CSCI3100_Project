@@ -197,12 +197,22 @@ const Retweet = ({ onClose, id }) => {
             </div>
             <p className="text-red-500">{warning}</p>
             <div className="flex justify-end mt-3">
-              <button
-                type="submit"
-                className="bg-blue-400 hover:brightness-95 text-white font-bold py-2 px-4  rounded-full"
-              >
-                Retweet
-              </button>
+              {input.length === 0 ? (
+                <button
+                  type="submit"
+                  className="bg-blue-400 hover:brightness-95 text-white font-bold py-2 px-4  rounded-full disabled:opacity-50"
+                  disabled
+                >
+                  Retweet
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className="bg-blue-400 hover:brightness-95 text-white font-bold py-2 px-4  rounded-full disabled:opacity-50"
+                >
+                  Retweet
+                </button>
+              )}
             </div>
           </div>
         </form>

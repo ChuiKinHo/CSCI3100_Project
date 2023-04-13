@@ -4,6 +4,7 @@ import {
   ArrowPathRoundedSquareIcon,
   HandThumbUpIcon,
   HandThumbDownIcon,
+  LockClosedIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { CldImage } from "next-cloudinary";
@@ -87,7 +88,7 @@ export default function Post({ id }) {
     ) : (
       <>
         {retweet !== null && (
-          <div className="border-b border-gray-200">
+          <div className="border border-gray-200">
             <Link
               href={"/" + post.userObjectId.username + "/status/" + post.id}
             >
@@ -131,7 +132,7 @@ export default function Post({ id }) {
                   {post.text}
                 </p>
 
-                <div className="border-b border-gray-200">
+                <div className="p-1">
                   <Link
                     href={
                       "/" +
@@ -199,7 +200,7 @@ export default function Post({ id }) {
         )}
 
         {!post.retweet && (
-          <div className="border-b border-gray-200">
+          <div className="border border-gray-200">
             <Link
               href={"/" + post.userObjectId.username + "/status/" + post.id}
             >
@@ -231,9 +232,16 @@ export default function Post({ id }) {
                         )}
                       </span>
                     </div>
-
                     {/*TODO:: Turn this into button */}
                     {/* <EllipsisHorizontalCircleIcon className="h-10 hoverEffect w-10 hover:bg-sky-100 hover:text-sky-500 p-2 " /> */}
+                    <div className="flex">
+                      {post.targetTweetId && (
+                        <ChatBubbleBottomCenterTextIcon className="h-10 w-10 p-2" />
+                      )}
+                      {post.private && (
+                        <LockClosedIcon className="h-10 w-10 p-2" />
+                      )}
+                    </div>
                   </div>
 
                   <p className="text-gray-800 text-[15px sm:text-[16px] mb-2">
