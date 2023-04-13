@@ -107,7 +107,7 @@ export default async function handler(req, res) {
           const tweet = await User.create({
             username: String(req.body["username"]),
             name: String(req.body["name"]),
-            password: String(req.body["password"]),
+            password: pwd(String(req.body["password"])),
             usrImg: String(req.body["img"]),
             following: [],
             follower: [],

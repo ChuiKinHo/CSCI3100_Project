@@ -153,19 +153,19 @@ export default function Input() {
                   <PhotoIcon className="h-10 w-10 hoverEffect p-2 text-sky-500 hover:bg-sky-100" />
                 </CldUploadButton>
                 {isPrivate ? (
-                  <button
+                  <div
                     className="bg-white text-green-500 border border-green-300 px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50"
                     onClick={handleSetPrivate}
                   >
                     private
-                  </button>
+                  </div>
                 ) : (
-                  <button
+                  <div
                     className="bg-white text-violet-500 border border-violet-300 px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50"
                     onClick={handleSetPrivate}
                   >
                     public
-                  </button>
+                  </div>
                 )}
               </div>
 
