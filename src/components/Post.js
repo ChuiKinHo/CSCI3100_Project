@@ -6,7 +6,7 @@ import {
   HandThumbDownIcon,
   LockClosedIcon,
 } from "@heroicons/react/24/outline";
-import Link from "next/link";
+// import Link from "next/link";
 import { CldImage } from "next-cloudinary";
 import React, { useState, useEffect } from "react";
 // import Retweet from "@/components/Retweet";
@@ -17,6 +17,7 @@ import {
   imageVideoDisplay,
 } from "../_unsorted/imageRelated/cloudinary/utils";
 import Retweet from "./Retweet";
+import { useRouter } from "next/router";
 
 export default function Post({ id }) {
   const { getItem, removeItem } = useStorage();
@@ -25,6 +26,7 @@ export default function Post({ id }) {
   const [post, setPost] = useState(null);
   const [retweet, setRetweet] = useState(null);
   const [permission, setPermission] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     setUsername(getItem("username", "session"));
@@ -89,8 +91,12 @@ export default function Post({ id }) {
       <>
         {retweet !== null && retweet.userObjectId && (
           <div className="border border-gray-200">
-            <Link
-              href={"/" + post.userObjectId.username + "/status/" + post.id}
+            <div
+              onClick={() => {
+                router.push(
+                  "/" + post.userObjectId.username + "/status/" + post.id
+                );
+              }}
             >
               <div className="hover:bg-gray-100">
                 <div className="flex items-center">
@@ -99,15 +105,23 @@ export default function Post({ id }) {
                 </div>
 
                 <div className="flex items-center justify-start">
-                  <Link href={"/" + post.userObjectId.username}>
+                  <div
+                    onClick={() => {
+                      router.push("/" + post.userObjectId.username);
+                    }}
+                  >
                     {userImg(post.userObjectId)}
-                  </Link>
+                  </div>
                   <div className="flex items-center space-x-1 whitespace-nowrap">
-                    <Link href={"/" + post.userObjectId.username}>
+                    <div
+                      onClick={() => {
+                        router.push("/" + post.userObjectId.username);
+                      }}
+                    >
                       <h4 className="font-bold text-[15px] sm:text-[16px] hover:underline">
                         {post.userObjectId.name}
                       </h4>
-                    </Link>
+                    </div>
                     <span className="text-sm sm:text-[15px]">
                       @{post.userObjectId.username} -{" "}
                     </span>
@@ -133,27 +147,39 @@ export default function Post({ id }) {
                 </p>
 
                 <div className="p-1">
-                  <Link
-                    href={
-                      "/" +
-                      retweet.userObjectId.username +
-                      "/status/" +
-                      retweet.id
-                    }
+                  <div
+                    onClick={() => {
+                      router.push(
+                        "/" +
+                          retweet.userObjectId.username +
+                          "/status/" +
+                          retweet.id
+                      );
+                    }}
                   >
                     <div className="flex p-3 cursor-pointer border border-gray-200 m-2 hover:bg-gray-200">
-                      <Link href={"/" + retweet.userObjectId.username}>
+                      <div
+                        onClick={() => {
+                          router.push("/" + retweet.userObjectId.username);
+                        }}
+                      >
                         {userImg(retweet.userObjectId)}
-                      </Link>
+                      </div>
 
                       <div className="flex-1">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-1 whitespace-nowrap">
-                            <Link href={"/" + retweet.userObjectId.username}>
+                            <div
+                              onClick={() => {
+                                router.push(
+                                  "/" + retweet.userObjectId.username
+                                );
+                              }}
+                            >
                               <h4 className="font-bold text-[15px] sm:text-[16px] hover:underline">
                                 {retweet.userObjectId.name}
                               </h4>
-                            </Link>
+                            </div>
                             <span className="text-sm sm:text-[15px]">
                               @{retweet.userObjectId.username} -{" "}
                             </span>
@@ -205,32 +231,44 @@ export default function Post({ id }) {
                         </div>
                       </div>
                     </div>
-                  </Link>
+                  </div>
                 </div>
               </div>
-            </Link>
+            </div>
             <ActionBar post={post} />
           </div>
         )}
 
         {!post.retweet && post.userObjectId && (
           <div className="border border-gray-200">
-            <Link
-              href={"/" + post.userObjectId.username + "/status/" + post.id}
+            <div
+              onClick={() => {
+                router.push(
+                  "/" + post.userObjectId.username + "/status/" + post.id
+                );
+              }}
             >
               <div className="flex p-3 cursor-pointer hover:bg-gray-100">
-                <Link href={"/" + post.userObjectId.username}>
+                <div
+                  onClick={() => {
+                    router.push("/" + post.userObjectId.username);
+                  }}
+                >
                   {userImg(post.userObjectId)}
-                </Link>
+                </div>
 
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-1 whitespace-nowrap">
-                      <Link href={"/" + post.userObjectId.username}>
+                      <div
+                        onClick={() => {
+                          router.push("/" + post.userObjectId.username);
+                        }}
+                      >
                         <h4 className="font-bold text-[15px] sm:text-[16px] hover:underline">
                           {post.userObjectId.name}
                         </h4>
-                      </Link>
+                      </div>
                       <span className="text-sm sm:text-[15px]">
                         @{post.userObjectId.username} -{" "}
                       </span>
@@ -286,7 +324,7 @@ export default function Post({ id }) {
                     ))}
                 </div>
               </div>
-            </Link>
+            </div>
             <ActionBar post={post} />
           </div>
         )}
