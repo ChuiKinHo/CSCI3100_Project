@@ -8,16 +8,15 @@ import { useEffect, useState } from "react";
 import { set } from "mongoose";
 import { userImgProfile } from "../_unsorted/imageRelated/cloudinary/utils";
 
-export default function MessageTo({ userInfo }) {
-  if (userInfo != null) {
+export default function MessageTo({ userInfo, text }) {
+  if (userInfo.username != "") {
     return (
       <div className="chat-message">
         <div className="flex items-end">
           <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
             <div>
               <span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">
-                Thanks for your message David. I thought I'm alone with this
-                issue. Please, ? the issue to support it :)
+                {text}
               </span>
             </div>
           </div>

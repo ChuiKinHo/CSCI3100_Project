@@ -43,47 +43,41 @@ export default async function handler(req, res) {
     // const req = await reqCheck(req)
     // if (!req.success)
     //   return res.status(400).json(req)
-    case "GET":
+    case "PUT":
       try {
         // req: { username, targetUsername }
         const username = req.body.username;
         const targetUsername = req.body.targetUsername;
         if (!username || !targetUsername)
-          return res
-            .status(400)
-            .json({
-              success: false,
-              data: {
-                username,
-                targetUsername,
-                message: (!username ? "U" : "Targetu") + "ser cannot be empty!",
-              },
-            });
+          return res.status(400).json({
+            success: false,
+            data: {
+              username,
+              targetUsername,
+              message: (!username ? "U" : "Targetu") + "ser cannot be empty!",
+            },
+          });
 
         const user = await User.findOne({ username: username });
         const targetUser = await User.findOne({ username: targetUsername });
         if (!user || !targetUser)
-          return res
-            .status(400)
-            .json({
-              success: false,
-              data: {
-                user,
-                targetUser,
-                message: (!user ? "U" : "Targetu") + "ser not found!",
-              },
-            });
+          return res.status(400).json({
+            success: false,
+            data: {
+              user,
+              targetUser,
+              message: (!user ? "U" : "Targetu") + "ser not found!",
+            },
+          });
         if (user == targetUser)
-          return res
-            .status(400)
-            .json({
-              success: false,
-              data: {
-                user,
-                targetUser,
-                message: "Cannot send message to yourself!",
-              },
-            });
+          return res.status(400).json({
+            success: false,
+            data: {
+              user,
+              targetUser,
+              message: "Cannot send message to yourself!",
+            },
+          });
 
         const messages = await ChatMessage.find({
           $or: [
@@ -92,16 +86,14 @@ export default async function handler(req, res) {
           ],
         }).sort({ timestamp: 1 });
         if (!messages)
-          return res
-            .status(200)
-            .json({
-              success: true,
-              data: {
-                user,
-                targetUser,
-                message: "Be the first one who go first!",
-              },
-            });
+          return res.status(200).json({
+            success: true,
+            data: {
+              user,
+              targetUser,
+              message: "Be the first one who go first!",
+            },
+          });
 
         res
           .status(200)
@@ -118,41 +110,35 @@ export default async function handler(req, res) {
         const username = req.body.username;
         const targetUsername = req.body.targetUsername;
         if (!username || !targetUsername)
-          return res
-            .status(400)
-            .json({
-              success: false,
-              data: {
-                username,
-                targetUsername,
-                message: (!username ? "U" : "Targetu") + "ser cannot be empty!",
-              },
-            });
+          return res.status(400).json({
+            success: false,
+            data: {
+              username,
+              targetUsername,
+              message: (!username ? "U" : "Targetu") + "ser cannot be empty!",
+            },
+          });
 
         const user = await User.findOne({ username: username });
         const targetUser = await User.findOne({ username: targetUsername });
         if (!user || !targetUser)
-          return res
-            .status(400)
-            .json({
-              success: false,
-              data: {
-                user,
-                targetUser,
-                message: (!user ? "U" : "Targetu") + "ser not found!",
-              },
-            });
+          return res.status(400).json({
+            success: false,
+            data: {
+              user,
+              targetUser,
+              message: (!user ? "U" : "Targetu") + "ser not found!",
+            },
+          });
         if (user == targetUser)
-          return res
-            .status(400)
-            .json({
-              success: false,
-              data: {
-                user,
-                targetUser,
-                message: "Cannot send message to yourself!",
-              },
-            });
+          return res.status(400).json({
+            success: false,
+            data: {
+              user,
+              targetUser,
+              message: "Cannot send message to yourself!",
+            },
+          });
 
         const query = await ChatMessage.create({
           user: user._id,
@@ -160,16 +146,14 @@ export default async function handler(req, res) {
           message: req.body.message,
         });
         if (!query)
-          return res
-            .status(400)
-            .json({
-              success: false,
-              data: {
-                user,
-                targetUser,
-                message: "Failed to create new message!",
-              },
-            });
+          return res.status(400).json({
+            success: false,
+            data: {
+              user,
+              targetUser,
+              message: "Failed to create new message!",
+            },
+          });
 
         res
           .status(200)

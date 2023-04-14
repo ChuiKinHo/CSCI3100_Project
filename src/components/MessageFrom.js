@@ -8,15 +8,15 @@ import { useEffect, useState } from "react";
 import { set } from "mongoose";
 import { userImgProfile } from "../_unsorted/imageRelated/cloudinary/utils";
 
-export default function MessageFrom({ loginUserInfo }) {
-  if (loginUserInfo != null) {
+export default function MessageFrom({ loginUserInfo, text }) {
+  if (loginUserInfo.username != "") {
     return (
       <div className="chat-message">
         <div className="flex items-end justify-end">
           <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
             <div>
               <span className="px-4 py-2 rounded-lg inline-block bg-blue-600 text-white">
-                Are you using sudo?
+                {text}
               </span>
             </div>
           </div>

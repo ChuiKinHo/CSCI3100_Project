@@ -1,18 +1,36 @@
 import { useRouter } from "next/router";
-import Post from "@/components/Post";
-import Widget from "@/components/Widget";
+// import Post from "@/components/Post";
+// import Widget from "@/components/Widget";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import useStorage from "@/hooks/useStorage";
 import { userImgProfile } from "../../_unsorted/imageRelated/cloudinary/utils";
-import Link from "next/link";
 import MessageFrom from "../../components/MessageFrom";
 import MessageTo from "../../components/MessageTo";
+import { useRef } from "react";
 
 export default function userPage() {
   const { getItem } = useStorage();
   const [loginUsername, setLoginUsername] = useState(null);
-  const [followed, setFollowed] = useState(null);
+  const [rendering, setRendering] = useState(false);
+  const router = useRouter();
+  const username = router.query.username;
+  const [message, setMessage] = useState("");
+  const [inputText, setInputText] = useState("");
+  const inputRef = useRef(null);
+  const [message_sent, setMessageSent] = useState(false);
+
+  const handleTextChange = (event) => {
+    setInputText(event.target.value);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      inputRef.current.click();
+    }
+  };
+
   const [userInfo, setUserInfo] = useState({
     username: "",
     name: "",
@@ -21,6 +39,7 @@ export default function userPage() {
     follower: [],
     mytweets: [],
   });
+
   const [loginUserInfo, setLoginInfo] = useState({
     username: "",
     name: "",
@@ -29,16 +48,45 @@ export default function userPage() {
     follower: [],
     mytweets: [],
   });
-  const [posts, setPosts] = useState([]);
-  const router = useRouter();
-  const username = router.query.username;
-  const [parentFolAction, setParentFolAction] = useState(null);
-  const [childState, setChildState] = useState(0);
-  const handleChildStateChange = () => {
-    if (childState !== null) setChildState(childState + 1);
-    else setChildState(0);
-    //console.log(childState);
+
+  const handleMessage = (event) => {
+    console.log(inputText);
+    event.preventDefault();
+    const form = document.getElementById("my-form");
+    if (form.checkValidity()) {
+      const reqData = {
+        message: inputText,
+        username: loginUserInfo.username,
+        targetUsername: username,
+      };
+      if (
+        reqData.message !== "" &&
+        reqData.username !== "" &&
+        reqData.targetUsername !== ""
+      ) {
+        fetch("/api/users/privateChat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(reqData),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data !== null && data.success) {
+              window.alert("Message Sent");
+              setMessageSent(!message_sent);
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching posts:", error);
+          });
+      }
+    } else {
+      form.reportValidity();
+    }
   };
+
   useEffect(() => {
     if (username) {
       fetch("/api/users?q=@" + username, {
@@ -61,10 +109,10 @@ export default function userPage() {
           console.error("Error fetching posts:", error);
         });
     }
-  }, [username, childState, parentFolAction]);
+  }, [username]);
 
   useEffect(() => {
-    if (username) {
+    if (loginUsername) {
       fetch("/api/users?q=@" + loginUsername, {
         method: "GET",
         headers: {
@@ -85,31 +133,57 @@ export default function userPage() {
           console.error("Error fetching posts:", error);
         });
     }
-  }, [username, childState, parentFolAction]);
+  }, [loginUsername]);
 
   useEffect(() => {
     setLoginUsername(getItem("username", "session"));
   }, [getItem("username", "session")]);
 
   useEffect(() => {
-    if (userInfo.username !== loginUsername) {
-      setFollowed(
-        userInfo.follower
-          .map((follower) => follower.username)
-          .includes(loginUsername)
-      );
-    } else {
-      setFollowed(null);
+    console.log("fetch message");
+    if (username && loginUserInfo.username !== "") {
+      const reqData = {
+        username: username,
+        targetUsername: loginUserInfo.username,
+      };
+      fetch("/api/users/privateChat", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(reqData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data !== null && data.success) {
+            setMessage(data.data.messages);
+            setRendering(true);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching posts:", error);
+        });
     }
-  }, [userInfo]);
+  }, [username, loginUserInfo.username, message_sent]);
 
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
+    }
+  }, [message]);
   function goBack() {
     router.back();
   }
-  if (userInfo.username === "") {
+
+  if (
+    userInfo.username === "" &&
+    loginUserInfo.username === "" &&
+    rendering === false
+  ) {
     return <div>Loading...</div>;
   } else {
-    console.log(userInfo)
     return (
       <>
         <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
@@ -132,23 +206,47 @@ export default function userPage() {
             <div
               id="messages"
               className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
+              ref={messagesEndRef}
             >
-              <MessageTo userInfo={userInfo} />
-
-              <MessageFrom loginUserInfo={loginUserInfo} />
+              {message === "" ? (
+                <p className="center">Start Chatting!</p>
+              ) : (
+                <div>
+                  {message.map((msg, index) => (
+                    <div key={index}>
+                      {msg.user === loginUserInfo._id ? (
+                        <MessageFrom
+                          loginUserInfo={loginUserInfo}
+                          text={msg.message}
+                        />
+                      ) : (
+                        <MessageTo userInfo={userInfo} text={msg.message} />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
-            <div clasNames="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
+            <form
+              clasNames="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0"
+              id="my-form"
+            >
               <div className="relative flex">
                 <input
                   type="text"
                   placeholder="Write your message!"
                   className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 bg-gray-200 rounded-md "
+                  required
+                  onChange={handleTextChange}
+                  onKeyDown={handleKeyDown}
                 />
                 <div className="absolute right-0 items-center inset-y-0 hidden sm:flex">
                   <button
                     type="button"
                     className="inline-flex items-center justify-center rounded-lg px-4 py-3 transition duration-500 ease-in-out text-white bg-blue-500 hover:bg-blue-400 focus:outline-none"
+                    onClick={handleMessage}
+                    onKeyDown={handleKeyDown}
                   >
                     <span className="font-bold">Send</span>
                     <svg
@@ -162,13 +260,9 @@ export default function userPage() {
                   </button>
                 </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
-        <Widget
-          onStateChange={handleChildStateChange}
-          checkFol={parentFolAction}
-        />
       </>
     );
   }

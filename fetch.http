@@ -25,8 +25,8 @@ PUT http://localhost:3000/api/users
 Content-Type: application/json
 
 {
-  "username": "user0",
-  "password": "user1"
+  "username": "user1234",
+  "password": "user1234"
 }
 ### PUT - UPDATE USER 2
 PUT http://localhost:3000/api/users
@@ -124,7 +124,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/api/users/privateChat
+PUT http://localhost:3000/api/users/privateChat
 Content-Type: application/json
 
 {
