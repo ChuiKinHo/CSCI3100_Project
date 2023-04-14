@@ -132,16 +132,19 @@ export default function ActionBar({ post }) {
           </>
         )}
       </button>
-
-      <button className="flex items-center">
-        <ArrowPathRoundedSquareIcon
-          className="h-9 w-9 hoverEffect p-2 hover:text-blue-600 hover:bg-blue-100"
-          onClick={handleButtonClick}
-        />
-        {showPopUp && (
-          <Retweet id={post.id} post={post} onClose={handleClosePopUp} />
-        )}
-      </button>
+      {post.private ? (
+        <div className="flex items-center"></div>
+      ) : (
+        <button className="flex items-center">
+          <ArrowPathRoundedSquareIcon
+            className="h-9 w-9 hoverEffect p-2 hover:text-blue-600 hover:bg-blue-100"
+            onClick={handleButtonClick}
+          />
+          {showPopUp && (
+            <Retweet id={post.id} post={post} onClose={handleClosePopUp} />
+          )}
+        </button>
+      )}
     </div>
   );
 }

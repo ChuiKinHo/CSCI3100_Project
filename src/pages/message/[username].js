@@ -249,6 +249,7 @@ export default function userPage() {
                     className="inline-flex items-center justify-center rounded-lg px-4 py-3 transition duration-500 ease-in-out text-white bg-blue-500 hover:bg-blue-400 focus:outline-none"
                     onClick={handleMessage}
                     onKeyDown={handleKeyDown}
+                    ref={inputRef}
                   >
                     <span className="font-bold">Send</span>
                     <svg

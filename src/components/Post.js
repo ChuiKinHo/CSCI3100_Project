@@ -87,7 +87,7 @@ export default function Post({ id }) {
       ""
     ) : (
       <>
-        {retweet !== null && (
+        {retweet !== null && retweet.userObjectId && (
           <div className="border border-gray-200">
             <Link
               href={"/" + post.userObjectId.username + "/status/" + post.id}
@@ -213,7 +213,7 @@ export default function Post({ id }) {
           </div>
         )}
 
-        {!post.retweet && (
+        {!post.retweet && post.userObjectId && (
           <div className="border border-gray-200">
             <Link
               href={"/" + post.userObjectId.username + "/status/" + post.id}
