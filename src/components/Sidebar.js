@@ -110,7 +110,14 @@ export default function Sidebar() {
                 )}
               </Link>
 
-              <SidebarMenuItem text="Explore" Icon={HashtagIcon} />
+              <Link href="/explore">
+                {pathname === "/explore" ? (
+                  <SidebarMenuItem text="Explore" Icon={HashtagIcon} active />
+                ) : (
+                  <SidebarMenuItem text="Explore" Icon={HashtagIcon} />
+                )}
+              </Link>
+
               {username != null ? (
                 <>
                   <Link href={"/" + username}>
