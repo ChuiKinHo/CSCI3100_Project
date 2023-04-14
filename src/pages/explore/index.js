@@ -29,7 +29,11 @@ export default function Explore() {
           className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100"
           onClick={() => goBack()}
         />
-        <Widget onStateChange={handleChildStateChange} checkFol={() => {}} />
+        <Widget
+          onStateChange={handleChildStateChange}
+          checkFol={() => {}}
+          explore={true}
+        />
       </div>
     </div>
   );
