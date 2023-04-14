@@ -239,7 +239,7 @@ export default function Widget({ onStateChange, checkFol }) {
   // TODO:: think about refreshing the page, is there any problem? If no, then remove this line.
 
   return username != null && randomUsers !== null ? (
-    <div className="xl:w-[600px] hidden lg:inline ml-4 space-y-4">
+    <div className="xl:w-[600px] lg:inline ml-4 space-y-4">
       <Search />
 
       <h4 className="font-bold text-xl px-4">Who to follow</h4>
