@@ -36,7 +36,6 @@ export default function Login() {
         return res.json();
       })
       .then((json) => {
-        console.log(json);
         if (!json) return;
 
         if (json.data.admin) {
