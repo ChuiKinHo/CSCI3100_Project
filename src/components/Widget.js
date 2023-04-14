@@ -80,7 +80,8 @@ function NotLogin() {
 // }
 
 export default function Widget({ onStateChange, checkFol, explore }) {
-  if (explore === null) {
+  // console.log(explore);
+  if (explore === undefined) {
     explore = false;
   }
   const { getItem } = useStorage();
