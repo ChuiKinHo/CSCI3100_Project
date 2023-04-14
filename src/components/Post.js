@@ -93,6 +93,7 @@ export default function Post({ id }) {
         {retweet !== null && retweet.userObjectId && (
           <div className="border border-gray-200">
             <div
+              className="cursor-pointer"
               onClick={() => {
                 router.push(
                   "/" + post.userObjectId.username + "/status/" + post.id
