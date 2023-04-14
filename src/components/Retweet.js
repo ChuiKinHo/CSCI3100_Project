@@ -185,7 +185,7 @@ const Retweet = ({ onClose, id }) => {
                         </span>
                       </div>
                     </div>
-                    <p className="text-gray-800 text-[15px sm:text-[16px] mb-2">
+                    <p className="text-gray-800 text-[15px] sm:text-[16px] mb-2">
                       {post.text}
                     </p>
                     {post.img !== "" && imageVideoDisplay(post.img, 300, 300)}

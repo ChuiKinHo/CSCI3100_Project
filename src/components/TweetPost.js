@@ -87,7 +87,7 @@ export default function TweetPost({ post }) {
             </div>
           </div>
           <div>
-            <p className="text-gray-800 text-[15px sm:text-[16px] mb-2">
+            <p className="text-gray-800 text-[15px] sm:text-[16px] mb-2">
               {post.text}
             </p>
           </div>
