@@ -10,7 +10,7 @@ import { userImg } from "../_unsorted/imageRelated/cloudinary/utils";
 
 function NotLogin() {
   return (
-    <div className="xl:w-[600px] hidden lg:inline ml-4 space-y-4 my-5">
+    <div className=" lg:inline ml-4 space-y-4 my-5">
       {/* <Search /> */}
       <div>
         <Link href="/i/login">

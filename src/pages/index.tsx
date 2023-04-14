@@ -50,7 +50,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="xl:w-[600px] hidden lg:inline ml-4 space-y-4 py-5">
+      <div className=" lg:inline ml-4 space-y-4 py-5">
         <div>
           <Link href="/i/login">
             <button className="flex bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95">
