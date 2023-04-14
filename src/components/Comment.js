@@ -42,7 +42,7 @@ export default function Comment({ commentId, id }) {
   }, []);
 
   // TODO:: More polishing is needed
-  console.log(post);
+  // console.log(post);
   return (
     <div className="flex p-3 cursor-pointer border-b border-gray-200">
       <img
