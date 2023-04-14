@@ -104,9 +104,12 @@ export default async function handler(req, res) {
                   "userObjectId",
                   "username name usrImg -_id"
                 );
+                //console.log(tweets);
                 tweets = tweets.filter(
                   (tweet) =>
-                    tweet.userObjectId.username !== username && !tweet.private
+                    tweet.userObjectId &&
+                    tweet.userObjectId.username !== username &&
+                    !tweet.private
                 );
               }
             }
