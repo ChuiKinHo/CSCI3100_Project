@@ -172,7 +172,7 @@ export default function Post({ id }) {
                         </div>
 
                         <div>
-                          <p className="text-gray-800 text-[15px sm:text-[16px] mb-2">
+                          <p className="text-gray-800 text-[15px] sm:text-[16px] mb-2">
                             {retweet.text}
                           </p>
                           {
