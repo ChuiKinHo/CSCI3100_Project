@@ -8,35 +8,35 @@ export default async function handler(req, res) {
 
   await dbConnect();
 
-  const reqCheck = async (r) => {
-    console.log("aaa")
-    console.log(await r)
-    console.log("aaa")
-    const username = r.body.username
-    const targetUsername = r.body.targetUsername
-    if (!username || !targetUsername)
-      return { success: false, data: { username, targetUsername, message: (!username ? "U" : "Targetu") + "ser cannot be empty!" } }
+  // const reqCheck = async (r) => {
+  //   console.log("aaa")
+  //   console.log(await r)
+  //   console.log("aaa")
+  //   const username = r.body.username
+  //   const targetUsername = r.body.targetUsername
+  //   if (!username || !targetUsername)
+  //     return { success: false, data: { username, targetUsername, message: (!username ? "U" : "Targetu") + "ser cannot be empty!" } }
 
-    const user = await getUserId(username)
-    const targetUser = await getUserId(targetUsername)
-    if (!user || !targetUser)
-      return { success: false, data: { user, targetUser, message: (!username ? "U" : "Targetu") + "ser not found!" } }
+  //   const user = await getUserId(username)
+  //   const targetUser = await getUserId(targetUsername)
+  //   if (!user || !targetUser)
+  //     return { success: false, data: { user, targetUser, message: (!username ? "U" : "Targetu") + "ser not found!" } }
 
-    if (user == targetUser)
-      return { success: false, data: { user, targetUser, message: "Cannot send message to yourself!" } }
+  //   if (user == targetUser)
+  //     return { success: false, data: { user, targetUser, message: "Cannot send message to yourself!" } }
 
-    return { success: true, user, targetUser }
+  //   return { success: true, user, targetUser }
 
-    // const username = req.body.username
-    // const targetUsername = req.body.targetUsername
-    // if (!username || !targetUsername)
-    //   return res.status(400).json({ success: false, data: { username, targetUsername, message: (!username ? "U" : "Targetu") + "ser cannot be empty!" } })
+  //   // const username = req.body.username
+  //   // const targetUsername = req.body.targetUsername
+  //   // if (!username || !targetUsername)
+  //   //   return res.status(400).json({ success: false, data: { username, targetUsername, message: (!username ? "U" : "Targetu") + "ser cannot be empty!" } })
 
-    // const user = await getUserId(username)
-    // const targetUser = await getUserId(targetUsername)
-    // if (!user || !targetUser)
-    //   return res.status(400).json({ success: false, data: { user, targetUser, message: (!username ? "U" : "Targetu") + "ser not found!" } })
-  }
+  //   // const user = await getUserId(username)
+  //   // const targetUser = await getUserId(targetUsername)
+  //   // if (!user || !targetUser)
+  //   //   return res.status(400).json({ success: false, data: { user, targetUser, message: (!username ? "U" : "Targetu") + "ser not found!" } })
+  // }
 
   // api/users
   switch (method) {
@@ -93,9 +93,11 @@ export default async function handler(req, res) {
           return res.status(400).json({ success: false, 
             data: { user, targetUser, message: "Cannot send message to yourself!" } })
 
-        const query = await ChatMessage.create({ user: user._id, targetUser: targetUser._id, message: req.body.message })
+        const query = await ChatMessage.create({ user: user._id, targetUser: targetUser._id, 
+          message: req.body.message })
         if (!query)
-          return res.status(400).json({ success: false, data: { user, targetUser, message: "Failed to create new message!" } })
+          return res.status(400).json({ success: false, data: { user, targetUser, 
+            message: "Failed to create new message!" } })
 
         res.status(200).json({ success: true, data: { user, targetUser, query } });
       } catch (error) {
