@@ -50,7 +50,7 @@ export default function userPage() {
   });
 
   const handleMessage = (event) => {
-    console.log(inputText);
+    //console.log(inputText);
     event.preventDefault();
     const form = document.getElementById("my-form");
     if (form.checkValidity()) {
