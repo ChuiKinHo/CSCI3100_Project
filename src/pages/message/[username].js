@@ -184,31 +184,33 @@ export default function userPage() {
   ) {
     return <div>Loading...</div>;
   } else {
+    console.log(message);
+
     return (
       <>
         <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
-          <div className="flex py-2 px-3 sticky top-0 z-50 bg-white border-b border-gray-200">
-            <ArrowLeftIcon
-              className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100"
-              onClick={() => goBack()}
-            />
-            <div
-              style={{ height: "50px", width: "50px" }}
-              className="md rounded-full relative avatar"
-            >
-              <div className="absolute"> {userImgProfile(userInfo)}</div>
-            </div>
-            <h2 className="text-lg sm:text-xl font-bold cursor-pointer ml-3">
-              {userInfo.name}
-            </h2>
-          </div>
           <div className="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen">
+            <div className="flex py-2 px-3 sticky top-0 z-50 bg-white border-b border-gray-200">
+              <ArrowLeftIcon
+                className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100"
+                onClick={() => goBack()}
+              />
+              <div
+                style={{ height: "50px", width: "50px" }}
+                className="md rounded-full relative avatar"
+              >
+                <div className="absolute"> {userImgProfile(userInfo)}</div>
+              </div>
+              <h2 className="text-lg sm:text-xl font-bold cursor-pointer ml-3">
+                {userInfo.name}
+              </h2>
+            </div>
             <div
               id="messages"
               className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
               ref={messagesEndRef}
             >
-              {message === "" ? (
+              {message.length === 0 ? (
                 <p className="center">Start Chatting!</p>
               ) : (
                 <div>

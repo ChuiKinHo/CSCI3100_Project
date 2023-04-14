@@ -113,11 +113,6 @@ export default function Sidebar() {
               <SidebarMenuItem text="Explore" Icon={HashtagIcon} />
               {username != null ? (
                 <>
-                  {/* <SidebarMenuItem text="Notifications" Icon={BellIcon} /> */}
-                  <SidebarMenuItem text="Messages" Icon={InboxIcon} />
-                  {/* <SidebarMenuItem text="Bookmarks" Icon={BookmarkIcon} /> */}
-                  {/* <SidebarMenuItem text='Lists' Icon={ClipboardIcon} /> */}
-
                   <Link href={"/" + username}>
                     {pathname === "/[username]" ? (
                       <SidebarMenuItem text="Profile" Icon={UserIcon} active />
