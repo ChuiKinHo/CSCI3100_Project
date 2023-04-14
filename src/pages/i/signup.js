@@ -169,7 +169,11 @@ export default function Signup() {
           </form>
         </div>
       </div>
-      <Widget onStateChange={handleChildStateChange} checkFol={() => {}} />
+      <Widget
+        onStateChange={handleChildStateChange}
+        checkFol={() => {}}
+        explore={false}
+      />
     </>
   );
 }

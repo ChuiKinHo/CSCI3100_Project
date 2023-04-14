@@ -156,7 +156,7 @@ export default function followerPage() {
 
           <div className="flex p-3">The user has no follower</div>
         </div>
-        <Widget onStateChange={handleChildStateChange} />
+        <Widget onStateChange={handleChildStateChange} explore={false} />
       </>
     );
   } else {
@@ -220,6 +220,7 @@ export default function followerPage() {
         <Widget
           onStateChange={handleChildStateChange}
           checkFol={parentFolAction}
+          explore={false}
         />
       </>
     );

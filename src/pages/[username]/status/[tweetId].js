@@ -133,7 +133,11 @@ export default function Tweet() {
             ))}
           </div>
         </div>
-        <Widget onStateChange={handleChildStateChange} />
+        <Widget
+          onStateChange={handleChildStateChange}
+          checkFol={() => {}}
+          explore={false}
+        />
       </>
     );
   }

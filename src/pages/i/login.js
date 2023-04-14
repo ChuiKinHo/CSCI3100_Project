@@ -114,7 +114,11 @@ export default function Login() {
           </form>
         </div>
       </div>
-      <Widget onStateChange={handleChildStateChange} />
+      <Widget
+        onStateChange={handleChildStateChange}
+        checkFol={() => {}}
+        explore={false}
+      />
     </>
   );
 }

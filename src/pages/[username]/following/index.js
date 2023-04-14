@@ -158,7 +158,7 @@ export default function followingPage() {
 
           <div className="flex p-3">The user is not following anyone</div>
         </div>
-        <Widget onStateChange={handleChildStateChange} />
+        <Widget onStateChange={handleChildStateChange} explore={false} />
       </>
     );
   } else {
@@ -222,6 +222,7 @@ export default function followingPage() {
         <Widget
           onStateChange={handleChildStateChange}
           checkFol={parentFolAction}
+          explore={false}
         />
       </>
     );

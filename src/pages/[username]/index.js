@@ -257,6 +257,7 @@ export default function userPage() {
         <Widget
           onStateChange={handleChildStateChange}
           checkFol={parentFolAction}
+          explore={false}
         />
       </>
     );

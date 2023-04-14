@@ -151,7 +151,11 @@ export default function userPage() {
 
           <div className="flex p-3">No Result Found</div>
         </div>
-        <Widget onStateChange={handleChildStateChange} />
+        <Widget
+          onStateChange={handleChildStateChange}
+          checkFol={() => {}}
+          explore={false}
+        />
       </>
     );
   } else {
@@ -216,6 +220,7 @@ export default function userPage() {
         <Widget
           onStateChange={handleChildStateChange}
           checkFol={parentFolAction}
+          explore={false}
         />
       </>
     );

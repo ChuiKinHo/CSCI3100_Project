@@ -81,9 +81,9 @@ function NotLogin() {
 
 export default function Widget({ onStateChange, checkFol, explore }) {
   // console.log(explore);
-  if (explore === undefined) {
-    explore = false;
-  }
+  // if (explore === undefined) {
+  //   explore = false;
+  // }
   const { getItem } = useStorage();
   const [username, setUsername] = useState(null);
   //const posts = getRecommendedPosts();

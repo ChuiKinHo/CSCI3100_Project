@@ -32,7 +32,11 @@ export default function Home() {
   return username ? (
     <>
       <Feed />
-      <Widget onStateChange={handleChildStateChange} checkFol={() => {}} />
+      <Widget
+        onStateChange={handleChildStateChange}
+        checkFol={() => {}}
+        explore={false}
+      />
     </>
   ) : (
     <>
