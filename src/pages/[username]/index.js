@@ -185,6 +185,16 @@ export default function userPage() {
                       Follow
                     </button>
                   )}
+                  {followed !== null ? (
+                    <button
+                      className="ml-auto bg-black text-white rounded-full text-sm px-3.5 py-1.5 font-bold my-10"
+                      onClick={() => {
+                        router.push(`/message/${username}/`);
+                      }}
+                    >
+                      Message
+                    </button>
+                  ) : null}
                 </div>
               </div>
 

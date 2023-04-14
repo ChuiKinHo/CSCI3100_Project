@@ -31,7 +31,7 @@ export function sidebarImg(user) {
 export function userImgProfile(user) {
   return (
     <CldImage
-      className="md rounded-full relative border-4 border-gray-900"
+      className="md rounded-full relative"
       width="1000"
       height="1000"
       crop="fill"
