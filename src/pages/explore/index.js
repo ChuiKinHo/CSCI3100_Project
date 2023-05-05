@@ -1,4 +1,13 @@
 /*
+ * -----------------------------
+ * File - index.js
+ * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
+ * Date: May  5 2023, 11:08:51 PM
+ * Version: 1.0
+ * Description:
+ * -----------------------------
+ */
+/*
   This is the Explore page component, which displays user and post suggestions to the user.
   It imports the Widget component from "@/components/Widget.js", as well as ArrowLeftIcon and useRouter from Next.js.
   The component uses Next.js' useRouter hook to get the current username from the URL query parameter.

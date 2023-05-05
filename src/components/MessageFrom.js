@@ -1,3 +1,12 @@
+/*
+ * -----------------------------
+ * File - MessageFrom.js
+ * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
+ * Date: May  5 2023, 11:08:51 PM
+ * Version: 1.0
+ * Description:
+ * -----------------------------
+ */
 import Search from "./Search.js";
 import Post from "./Post.js";
 import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
