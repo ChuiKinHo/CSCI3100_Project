@@ -1,12 +1,3 @@
-/*
- * -----------------------------
- * File - Comment.js
- * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
- * Date: May  5 2023, 11:08:51 PM
- * Version: 1.0
- * Description:
- * -----------------------------
- */
 import {
   ChatBubbleBottomCenterTextIcon,
   EllipsisHorizontalCircleIcon,

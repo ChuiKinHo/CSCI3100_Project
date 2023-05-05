@@ -1,13 +1,4 @@
 /*
- * -----------------------------
- * File - index.js
- * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
- * Date: May  5 2023, 11:08:51 PM
- * Version: 1.0
- * Description:
- * -----------------------------
- */
-/*
 References:
 Image and Video Upload to Cloudinary using NextJs Server-Side
 https://dev.to/hackmamba/image-and-video-upload-to-cloudinary-using-nextjs-server-side-multer-and-xata-database-3l9f
