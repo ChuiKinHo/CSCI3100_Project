@@ -26,9 +26,10 @@ To run the project on your local development server, follow these steps:
 ## Project Structure
 
 The project structure is based on the standard Next.js project structure, with additional folders and files added for specific functionality.
-*src/pages/ - Contains the application pages.
-*src/components/ - Contains reusable React components used throughout the application.
-*src/styles/ - Contains global styles for the application.
-*src/pages/api - Contains the api routes can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello).
+
+- src/pages/ - Contains the application pages.
+- src/components/ - Contains reusable React components used throughout the application.
+- src/styles/ - Contains global styles for the application.
+- src/pages/api - Contains the api routes can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello).
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
