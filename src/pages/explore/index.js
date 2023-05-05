@@ -1,15 +1,12 @@
-/*
-  This is the Explore page component, which displays user and post suggestions to the user.
-  It imports the Widget component from "@/components/Widget.js", as well as ArrowLeftIcon and useRouter from Next.js.
-  The component uses Next.js' useRouter hook to get the current username from the URL query parameter.
-  It also defines message and childState states using useState hooks.
-  The component has a handleChildStateChange function that updates the childState state whenever it is called.
-  The goBack function uses useRouter to navigate back to the previous page when the back arrow is clicked.
-  The return statement renders a header section with a back arrow and the Widget component.
-*/
-
 import Widget from "@/components/Widget.js";
+import Post from "@/components/Post.js";
+import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
+import useStorage from "@/hooks/useStorage";
+import Link from "next/link.js";
+import { useEffect, useState } from "react";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
+import { set } from "mongoose";
+import { userImg } from "@/_unsorted/imageRelated/cloudinary/utils";
 import { useRouter } from "next/router";
 
 export default function Explore() {
@@ -20,6 +17,7 @@ export default function Explore() {
   const handleChildStateChange = () => {
     if (childState !== null) setChildState(childState + 1);
     else setChildState(0);
+    //console.log(childState);
   };
   function goBack() {
     router.back();
