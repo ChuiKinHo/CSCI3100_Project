@@ -1,6 +1,5 @@
+//page of instant messaging of users
 import { useRouter } from "next/router";
-// import Post from "@/components/Post";
-// import Widget from "@/components/Widget";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import useStorage from "@/hooks/useStorage";
