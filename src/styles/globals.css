@@ -1,9 +1,10 @@
+/* gloabl CSS style applied to the whole project*/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer components{
-    .hoverEffect{
-        @apply cursor-pointer hover:bg-gray-200 rounded-full w-[52px] xl:w-auto h-[52px] xl:h-auto xl:p-3 transition duration-500 ease-out
-    }
+@layer components {
+  .hoverEffect {
+    @apply cursor-pointer hover:bg-gray-200 rounded-full w-[52px] xl:w-auto h-[52px] xl:h-auto xl:p-3 transition duration-500 ease-out;
+  }
 }

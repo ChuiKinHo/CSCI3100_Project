@@ -1,3 +1,4 @@
+// Import dependencies
 import { useRouter } from "next/router";
 import Widget from "@/components/Widget";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
@@ -6,24 +7,35 @@ import { Link } from "next/link";
 import { userImg } from "@/_unsorted/imageRelated/cloudinary/utils";
 import useStorage from "@/hooks/useStorage";
 
+// Define the functional component
 export default function followerPage() {
+  // Get the current router object
   const router = useRouter();
+
+  // Get the getItem function from useStorage
   const { getItem } = useStorage();
+
+  // Define and initialize the component states
   const [loginUsername, setLoginUsername] = useState(null);
   const username = router.query.username;
   const [queryReturn, setQueryReturn] = useState([]);
   const [queryReturnFollowed, setQueryReturnFollowed] = useState([]);
   const [parentFolAction, setParentFolAction] = useState(null);
   const [childState, setChildState] = useState(0);
+
+  // Define a function to handle child state changes
   const handleChildStateChange = () => {
     if (childState !== null) setChildState(childState + 1);
     else setChildState(0);
     //console.log(childState);
   };
+
+  // Use an effect hook to update the login username state when getItem is updated
   useEffect(() => {
     setLoginUsername(getItem("username", "session"));
   }, [getItem("username", "session")]);
 
+  // Use an effect hook to fetch data from the API endpoint when the username or childState states are updated
   useEffect(() => {
     if (username != null) {
       fetch("/api/follow?follower=" + username, {
@@ -48,6 +60,7 @@ export default function followerPage() {
     }
   }, [username, childState]);
 
+  // Use an effect hook to update the queryReturnFollowed state when the queryReturn and loginUsername states are updated
   useEffect(() => {
     if (
       queryReturn !== null &&
@@ -64,6 +77,7 @@ export default function followerPage() {
     }
   }, [queryReturn, loginUsername]);
 
+  // Define a function to handle the follow action
   const handleFol = (index) => {
     fetch(
       "/api/follow?username=" +
@@ -92,7 +106,6 @@ export default function followerPage() {
             username: queryReturn[index].username,
             followed: true,
           });
-          //console.log("follow success");
         }
       })
       .catch((error) => {
@@ -100,6 +113,7 @@ export default function followerPage() {
       });
   };
 
+  // action to handle unfollow
   const handleUnfol = (index) => {
     fetch(
       "/api/follow?username=" +
@@ -142,7 +156,7 @@ export default function followerPage() {
   function redirect(username) {
     router.push("/" + username);
   }
-
+  //when the returned query isn't empty, render the page
   if (queryReturn.length === 0) {
     return (
       <>

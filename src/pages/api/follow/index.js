@@ -17,6 +17,7 @@ export default async function handler(req, res) {
         //get list of following
         let user;
         if (req.query.following) {
+          //if the query is following, get list of following
           const username = req.query.following;
           user = await User.findOne({ username: username }).populate({
             path: "following",
@@ -28,6 +29,7 @@ export default async function handler(req, res) {
           });
           user = user.following;
         } else if (req.query.follower) {
+          // if the query is follower, get list of follower
           const username = req.query.follower;
           user = await User.findOne({ username: username }).populate({
             path: "follower",
