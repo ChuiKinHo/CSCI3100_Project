@@ -10,70 +10,33 @@ export default async function handler(req, res) {
 
   await dbConnect();
 
-  // api/users
+  // Handle GET requests to retrieve a single tweet
   switch (method) {
     case "GET":
       try {
         let target_Tweet;
         const tweetid = req.query.tweetid;
         if (tweetid) {
+          // Find the tweet with the specified ID
           let retweet_return = await Tweet.findOne({ id: tweetid });
+
+          // Retrieve the original tweet and the user who posted it
           target_Tweet = await Tweet.findOne({
             id: retweet_return.targetTweetId,
           }).populate("userObjectId", "username name usrImg -_id");
         }
+
+        // Send the retrieved tweet as a JSON response
         res.status(200).json({ success: true, data: target_Tweet });
       } catch (error) {
+        // Log and send an error response if an error occurs
         console.log(error);
         res.status(400).json({ success: false });
       }
       break;
 
-    // case "POST": // Create new Post
-    //   try {
-    //     let retweetTo = NULL;
-    //     if (req.body["retweetTo"]) {
-    //       retweetTo = await Tweet.findOne({
-    //         id: Number(req.body["retweetTo"]),
-    //       });
-    //     }
-
-    //     if (await Tweet.exists({ username: Number(req.body["id"]) })) {
-    //       res.status(400).json({ success: false, data: "id already exist!" });
-    //       break;
-    //     }
-
-    //     const author = await User.findOne({
-    //       username: String(req.body["author"]),
-    //     });
-    //     if (!author) {
-    //       res.status(400).json({ success: false, data: "author not found!" });
-    //       break;
-    //     }
-
-    //     const tweet = await Tweet.create({
-    //       id: Number(req.body["id"]),
-    //       userObjectId: author._id,
-    //       // author: author.username,
-    //       postTime: Date(req.body["postTime"]),
-    //       text: String(req.body["text"]),
-    //       timelineId: Number(req.body["timelineId"]),
-    //       likeCount: 0,
-    //       dislikeCount: 0,
-    //       like_by_me: false,
-    //       dislike_by_me: false,
-
-    //       //FIXME: change later
-    //       retweetTo: retweetTo._id,
-    //     });
-
-    //     res.status(201).json({ success: true, data: tweet });
-    //   } catch (error) {
-    //     res.status(400).json({ success: false, data: { error: error } });
-    //   }
-    //   break;
-
     default:
+      // Send an error response for invalid requests
       res.status(400).json({ success: false, data: "Invalid request!" });
       break;
   }
