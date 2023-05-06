@@ -41,6 +41,11 @@ export default function Widget({ onStateChange, checkFol, explore }) {
   const [username, setUsername] = useState(null);
   const [posts, setPosts] = useState([]);
   const [randomUsers, setRandomUsers] = useState([]);
+
+  // This useEffect hook fetches the latest tweets from the server when the `username` prop changes.
+  // It then filters out any tweets authored by the current user and randomly selects 3 tweets to display.
+  // The selected tweets are set as the component's state using `setPosts`.
+
   useEffect(() => {
     if (username) {
       fetch("/api/tweets", {
@@ -62,6 +67,9 @@ export default function Widget({ onStateChange, checkFol, explore }) {
     }
   }, [username]);
 
+  // This useEffect hook fetches data about other users from the server when the `username` prop changes.
+  // It then filters out the current user's data, randomly selects 3 users to display, and sets the `followed` property of each user.
+  // The selected users are set as the component's state using `setRandomUsers`.
   useEffect(() => {
     if (username) {
       fetch("/api/users", {
@@ -95,6 +103,10 @@ export default function Widget({ onStateChange, checkFol, explore }) {
     setUsername(getItem("username", "session"));
   }, [getItem("username", "session")]);
 
+  // This useEffect hook updates the `followed` property of a user in the `randomUsers` state when the `checkFol` prop changes.
+  // The `checkFol` prop contains information about a user whose `followed` status has changed.
+  // If the `randomUsers` state contains the user and their `followed` status has changed, the `randomUsers` state is updated accordingly.
+
   useEffect(() => {
     if (
       checkFol !== null &&
@@ -126,6 +138,7 @@ export default function Widget({ onStateChange, checkFol, explore }) {
     }
   }, [checkFol]);
 
+  // This function is called when the user clicks the follow button of a user in the `randomUsers` state.
   const handleFol = (index) => {
     fetch(
       "/api/follow?username=" +
@@ -157,6 +170,7 @@ export default function Widget({ onStateChange, checkFol, explore }) {
         console.error("Error fetching posts:", error);
       });
   };
+  // This function is called when the user clicks the unfollow button of a user in the `randomUsers` state.
   const handleUnfol = (index) => {
     fetch(
       "/api/follow?username=" +
