@@ -4,7 +4,7 @@
  * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
  * Date: May  5 2023, 11:08:51 PM
  * Version: 1.0
- * Description:
+ * Description: retweet pop up
  * -----------------------------
  */
 import React, { useState } from "react";
@@ -34,6 +34,7 @@ const Retweet = ({ onClose, id }) => {
     setWarning("");
   };
 
+  //handle submit
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(id);
@@ -44,7 +45,6 @@ const Retweet = ({ onClose, id }) => {
       img: "",
       retweet: true,
     };
-    //console.log(reqData);
     if (
       reqData.username !== null &&
       reqData.input !== null &&
@@ -77,12 +77,13 @@ const Retweet = ({ onClose, id }) => {
     }
     setInput("");
   };
-
+  //get username and admin status
   useEffect(() => {
     setUsername(getItem("username", "session"));
     setIsAdmin(getItem("admin", "session"));
   }, [getItem("username", "session"), getItem("admin", "session")]);
 
+  //get user info
   useEffect(() => {
     if (username != null) {
       fetch("/api/users?q=@" + username, {
@@ -106,6 +107,7 @@ const Retweet = ({ onClose, id }) => {
     }
   }, [username]);
 
+  //get post info
   useEffect(() => {
     if (username != null) {
       fetch("/api/tweets?tweetid=" + id + "&username=" + username, {
@@ -135,8 +137,8 @@ const Retweet = ({ onClose, id }) => {
     onClose();
   };
 
+  //if post is successfully fetched
   if (post !== null) {
-    console.log(post.image);
     return (
       <div
         className="fixed z-50 inset-0 overflow-y-auto bg-gray-800 bg-opacity-50 flex items-center justify-center"
@@ -147,17 +149,19 @@ const Retweet = ({ onClose, id }) => {
             className="bg-white rounded-lg shadow-lg p-8 flex flex-col w-fit h-fit justify-between"
             onClick={handlePopUpClick}
           >
+            {/* close button to close the popup */}
             <div className="flex justify-start ">
               <XMarkIcon
                 className="h-6 w-6 float-right text-sky-500"
                 onClick={handleCloseClick}
               />
             </div>
-
             <div className="flex p-3 cursor-pointer border-b border-gray-200">
+              {/* user image of the login user */}
               {userImg(userInfo)}
               <div className="flex-1">
                 <div className="flex items-center justify-between"></div>
+                {/* text area for retweet input */}
                 <div className="flex-1 ">
                   <textarea
                     id="input"
@@ -169,7 +173,7 @@ const Retweet = ({ onClose, id }) => {
                     onChange={handleInputChange}
                   ></textarea>
                 </div>
-
+                {/* user info and the post user wanna retweet*/}
                 <div className="flex p-3 cursor-pointer border rounded-lg border-gray-300 ">
                   {userImg(post.userObjectId)}
                   <div className="flex-1">
@@ -197,14 +201,14 @@ const Retweet = ({ onClose, id }) => {
                     <p className="text-gray-800 text-[15px] sm:text-[16px] mb-2">
                       {post.text}
                     </p>
+                    {/* if post has image or video, display it */}
                     {post.img !== "" && imageVideoDisplay(post.img, 300, 300)}
-                    {/* <img className="rounded-2xl mr-2" src={post.image} alt="" /> */}
                   </div>
                 </div>
-                {/* <img className="rounded-2xl mr-2" src={post.image} alt="" /> */}
               </div>
             </div>
             <p className="text-red-500">{warning}</p>
+            {/* if input is empty, disable button and prevent user to retweet*/}
             <div className="flex justify-end mt-3">
               {input.length === 0 ? (
                 <button
