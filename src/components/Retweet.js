@@ -4,7 +4,7 @@
  * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
  * Date: May  5 2023, 11:08:51 PM
  * Version: 1.0
- * Description:
+ * Description: Retweet popup component
  * -----------------------------
  */
 import React, { useState } from "react";
@@ -44,7 +44,6 @@ const Retweet = ({ onClose, id }) => {
       img: "",
       retweet: true,
     };
-    //console.log(reqData);
     if (
       reqData.username !== null &&
       reqData.input !== null &&
@@ -135,18 +134,26 @@ const Retweet = ({ onClose, id }) => {
     onClose();
   };
 
+  // This code renders a modal window containing a form for submitting a comment or retweet of a post.
+
+  // Check if a post is available and log its image to the console
   if (post !== null) {
     console.log(post.image);
+
+    // Return a div containing the modal window markup
     return (
       <div
+        // Modal window style
         className="fixed z-50 inset-0 overflow-y-auto bg-gray-800 bg-opacity-50 flex items-center justify-center"
         onClick={handleCloseClick}
       >
         <form onSubmit={handleSubmit}>
           <div
+            // Form style
             className="bg-white rounded-lg shadow-lg p-8 flex flex-col w-fit h-fit justify-between"
             onClick={handlePopUpClick}
           >
+            {/* Close button */}
             <div className="flex justify-start ">
               <XMarkIcon
                 className="h-6 w-6 float-right text-sky-500"
@@ -155,10 +162,12 @@ const Retweet = ({ onClose, id }) => {
             </div>
 
             <div className="flex p-3 cursor-pointer border-b border-gray-200">
+              {/* User avatar */}
               {userImg(userInfo)}
               <div className="flex-1">
                 <div className="flex items-center justify-between"></div>
                 <div className="flex-1 ">
+                  {/* Text area for entering comment or retweet message */}
                   <textarea
                     id="input"
                     name="input"
@@ -170,17 +179,21 @@ const Retweet = ({ onClose, id }) => {
                   ></textarea>
                 </div>
 
+                {/* Display the post being commented or retweeted */}
                 <div className="flex p-3 cursor-pointer border rounded-lg border-gray-300 ">
                   {userImg(post.userObjectId)}
                   <div className="flex-1">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-1 whitespace-nowrap">
+                        {/* Post author username */}
                         <h4 className="font-bold text-[15px] sm:text-[16px] hover:underline">
                           {post.userObjectId.username}
                         </h4>
+                        {/* Post author user ID */}
                         <span className="text-sm sm:text-[15px]">
                           @{post.userObjectId.userId} -{" "}
                         </span>
+                        {/* Time ago since the post was made */}
                         <span className="text-sm sm:text-[15px] hover:underline">
                           {new Intl.RelativeTimeFormat("en", {
                             numeric: "auto",
@@ -194,17 +207,20 @@ const Retweet = ({ onClose, id }) => {
                         </span>
                       </div>
                     </div>
+                    {/* Post text */}
                     <p className="text-gray-800 text-[15px] sm:text-[16px] mb-2">
                       {post.text}
                     </p>
+                    {/* Post image or video */}
                     {post.img !== "" && imageVideoDisplay(post.img, 300, 300)}
-                    {/* <img className="rounded-2xl mr-2" src={post.image} alt="" /> */}
                   </div>
                 </div>
-                {/* <img className="rounded-2xl mr-2" src={post.image} alt="" /> */}
               </div>
             </div>
+
+            {/* Warning message when trying to submit an empty comment */}
             <p className="text-red-500">{warning}</p>
+            {/* Retweet button */}
             <div className="flex justify-end mt-3">
               {input.length === 0 ? (
                 <button
