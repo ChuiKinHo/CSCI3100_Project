@@ -97,7 +97,6 @@ export default async function handler(req, res) {
         res
           .status(400)
           .json({ success: false, data: { error: error.toString() } });
-        //console.log("error: " + error);
       }
       break;
 

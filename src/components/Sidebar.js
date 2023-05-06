@@ -52,7 +52,6 @@ export default function Sidebar() {
     })
       .then((res) => res.json())
       .then((json) => {
-        console.log(json.data.admin);
         // If the user is an admin, remove the admin key from session storage
         if (json.data.admin) {
           removeItem("admin", "session");

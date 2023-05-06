@@ -27,7 +27,6 @@ export default function userPage() {
   const handleChildStateChange = () => {
     if (childState !== null) setChildState(childState + 1);
     else setChildState(0);
-    //console.log(childState);
   };
   useEffect(() => {
     setLoginUsername(getItem("username", "session"));
@@ -65,7 +64,6 @@ export default function userPage() {
         )
       );
     }
-    //console.log(queryReturn);
   }, [queryReturn]);
 
   const handleFol = (index) => {
@@ -96,7 +94,6 @@ export default function userPage() {
             username: queryReturn[index].username,
             followed: true,
           });
-          //console.log("follow success");
         }
       })
       .catch((error) => {
@@ -132,7 +129,6 @@ export default function userPage() {
             username: queryReturn[index].username,
             followed: false,
           });
-          //console.log("follow success");
         }
       })
       .catch((error) => {

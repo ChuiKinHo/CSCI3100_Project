@@ -113,7 +113,6 @@ export default async function handler(req, res) {
                   "userObjectId",
                   "username name usrImg -_id"
                 );
-                //console.log(tweets);
                 tweets = tweets.filter(
                   (tweet) =>
                     tweet.userObjectId &&
@@ -209,7 +208,6 @@ export default async function handler(req, res) {
           .status(200)
           .json({ success: true, data: tweets, permission: permission });
       } catch (error) {
-        console.log(error);
         res.status(400).json({ success: false });
       }
       break;

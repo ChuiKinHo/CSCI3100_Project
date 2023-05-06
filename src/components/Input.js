@@ -60,7 +60,6 @@ export default function Input() {
         .then((response) => response.json())
         .then((data) => {
           if (data !== null && data.success) {
-            console.log("post Tweet successful");
             router.push("/" + username + "/status/" + data.data.id);
           }
         })

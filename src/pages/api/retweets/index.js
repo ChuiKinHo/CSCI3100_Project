@@ -39,7 +39,6 @@ export default async function handler(req, res) {
         res.status(200).json({ success: true, data: target_Tweet });
       } catch (error) {
         // Log and send an error response if an error occurs
-        console.log(error);
         res.status(400).json({ success: false });
       }
       break;

@@ -43,19 +43,16 @@ export default async function handler(req, res) {
               { $pull: { likes: tweets._id } }
             );
             await Tweet.updateOne({ id: tweetid }, { $inc: { likeCount: -1 } });
-            // console.log(-1);
           } else {
             await User.updateOne(
               { username: username },
               { $addToSet: { likes: tweets._id } }
             );
             await Tweet.updateOne({ id: tweetid }, { $inc: { likeCount: +1 } });
-            // console.log(+1);
           }
         }
         res.status(200).json({ success: true });
       } catch (error) {
-        console.log(error);
         res.status(400).json({ success: false });
       }
       break;

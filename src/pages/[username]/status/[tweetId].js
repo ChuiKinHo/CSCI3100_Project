@@ -101,12 +101,9 @@ export default function Tweet() {
   const handleChildStateChange = () => {
     // if (childState !== null) setChildState(childState + 1);
     // else setChildState(0);
-    //console.log(childState);
   };
 
   if (post && permission !== null) {
-    //console.log(post);
-
     return !permission ? (
       <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
         <h2 className="text-xl">no permission</h2>

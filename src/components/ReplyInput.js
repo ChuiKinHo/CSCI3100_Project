@@ -52,7 +52,6 @@ export default function ReplyInput({ post, onReply }) {
         .then((data) => {
           if (data !== null && data.success) {
             onReply();
-            console.log("reply Tweet successful");
           }
         })
         .catch((error) => {

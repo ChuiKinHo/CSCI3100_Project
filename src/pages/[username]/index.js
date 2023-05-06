@@ -36,7 +36,6 @@ export default function userPage() {
   const handleChildStateChange = () => {
     if (childState !== null) setChildState(childState + 1);
     else setChildState(0);
-    //console.log(childState);
   };
   useEffect(() => {
     if (username) {

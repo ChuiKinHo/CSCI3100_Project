@@ -36,7 +36,6 @@ export default function followerPage() {
   const handleChildStateChange = () => {
     if (childState !== null) setChildState(childState + 1);
     else setChildState(0);
-    //console.log(childState);
   };
 
   // Use an effect hook to update the login username state when getItem is updated
@@ -151,7 +150,6 @@ export default function followerPage() {
             username: queryReturn[index].username,
             followed: false,
           });
-          //console.log("unfollow success");
         }
       })
       .catch((error) => {

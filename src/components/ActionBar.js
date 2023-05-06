@@ -67,8 +67,6 @@ export default function ActionBar({ post }) {
         }
         setLikeByMe(!likeByMe);
       });
-    } else {
-      console.log("please wait for the page to finish loading");
     }
   }
 
@@ -91,8 +89,6 @@ export default function ActionBar({ post }) {
         }
         setDislikeByMe(!dislikeByMe);
       });
-    } else {
-      console.log("please wait for the page to finish loading");
     }
   }
 

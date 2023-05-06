@@ -17,44 +17,10 @@ export default async function handler(req, res) {
 
   await dbConnect();
 
-  // const reqCheck = async (r) => {
-  //   console.log("aaa")
-  //   console.log(await r)
-  //   console.log("aaa")
-  //   const username = r.body.username
-  //   const targetUsername = r.body.targetUsername
-  //   if (!username || !targetUsername)
-  //     return { success: false, data: { username, targetUsername, message: (!username ? "U" : "Targetu") + "ser cannot be empty!" } }
-
-  //   const user = await getUserId(username)
-  //   const targetUser = await getUserId(targetUsername)
-  //   if (!user || !targetUser)
-  //     return { success: false, data: { user, targetUser, message: (!username ? "U" : "Targetu") + "ser not found!" } }
-
-  //   if (user == targetUser)
-  //     return { success: false, data: { user, targetUser, message: "Cannot send message to yourself!" } }
-
-  //   return { success: true, user, targetUser }
-
-  //   // const username = req.body.username
-  //   // const targetUsername = req.body.targetUsername
-  //   // if (!username || !targetUsername)
-  //   //   return res.status(400).json({ success: false, data: { username, targetUsername, message: (!username ? "U" : "Targetu") + "ser cannot be empty!" } })
-
-  //   // const user = await getUserId(username)
-  //   // const targetUser = await getUserId(targetUsername)
-  //   // if (!user || !targetUser)
-  //   //   return res.status(400).json({ success: false, data: { user, targetUser, message: (!username ? "U" : "Targetu") + "ser not found!" } })
-  // }
-
   // api/users
   switch (method) {
-    // const req = await reqCheck(req)
-    // if (!req.success)
-    //   return res.status(400).json(req)
     case "PUT":
       try {
-        // req: { username, targetUsername }
         const username = req.body.username;
         const targetUsername = req.body.targetUsername;
         if (!username || !targetUsername)
@@ -108,7 +74,6 @@ export default async function handler(req, res) {
           .status(200)
           .json({ success: true, data: { user, targetUser, messages } });
       } catch (error) {
-        console.log("ewqe465q");
         res.status(400).json({ success: false, data: { error: error } });
       }
       break;

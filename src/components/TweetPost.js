@@ -26,10 +26,6 @@ export default function TweetPost({ post }) {
 
   // useEffect hook that fetches the target tweet and sets the targetPost state variable
   useEffect(() => {
-    if (targetPost !== null) {
-      console.log(targetPost.id);
-    }
-
     if (post.targetTweetId !== null && loginUsername !== null) {
       fetch(
         "/api/tweets?tweetid=" +

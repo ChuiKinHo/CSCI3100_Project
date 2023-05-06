@@ -37,7 +37,6 @@ const Retweet = ({ onClose, id }) => {
   //handle submit
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(id);
     const reqData = {
       username: username,
       input: input,
@@ -62,7 +61,6 @@ const Retweet = ({ onClose, id }) => {
           if (data !== null && data.success) {
             onClose();
             router.push("/" + username + "/status/" + data.data.id);
-            console.log("retweet successful");
           }
         })
         .catch((error) => {

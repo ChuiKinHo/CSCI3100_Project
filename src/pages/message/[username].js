@@ -58,7 +58,6 @@ export default function userPage() {
   });
 
   const handleMessage = (event) => {
-    //console.log(inputText);
     event.preventDefault();
     const form = document.getElementById("my-form");
     if (form.checkValidity()) {
@@ -148,7 +147,6 @@ export default function userPage() {
   }, [getItem("username", "session")]);
 
   useEffect(() => {
-    console.log("fetch message");
     if (username && loginUserInfo.username !== "") {
       const reqData = {
         username: username,
@@ -192,8 +190,6 @@ export default function userPage() {
   ) {
     return <div>Loading...</div>;
   } else {
-    console.log(message);
-
     return (
       <>
         <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">

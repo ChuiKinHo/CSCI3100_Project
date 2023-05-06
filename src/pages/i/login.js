@@ -60,7 +60,6 @@ export default function Login() {
           setItem("refreshToken", json.data.refreshToken, "session");
           router.replace("/");
         } else {
-          console.log("Unknown error");
         }
       });
   };
@@ -68,7 +67,6 @@ export default function Login() {
   const handleChildStateChange = () => {
     if (childState !== null) setChildState(childState + 1);
     else setChildState(0);
-    //console.log(childState);
   };
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
