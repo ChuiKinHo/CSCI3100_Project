@@ -1,4 +1,13 @@
-import mongoose from "mongoose";
+/*
+ * -----------------------------
+ * File - dbConnect.js
+ * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
+ * Date: May  5 2023, 11:08:51 PM
+ * Version: 1.0
+ * Description:
+ * -----------------------------
+ */
+import mongoose from 'mongoose'
 
 /** 
 Source : 
@@ -6,21 +15,23 @@ https://github.com/vercel/next.js/blob/canary/examples/with-mongodb-mongoose/uti
 **/
 
 async function dbConnect() {
-  const MONGODB_DATA_API_URL = process.env.MONGODB_DATA_API_URL;
+  const MONGODB_DATA_API_URL = process.env.MONGODB_DATA_API_URL
 
   if (!MONGODB_DATA_API_URL)
-    throw new Error("Cannot find MONGODB_DATA_API_URL .env.local");
+    throw new Error('Cannot find MONGODB_DATA_API_URL .env.local')
 
   /**
    * Global is used here to maintain a cached connection across hot reloads
    * in development. This prevents connections growing exponentially
    * during API Route usage.
    */
-  let cached = await global.mongoose;
+  let cached = await global.mongoose
 
-  if (!cached) cached = global.mongoose = { conn: null, promise: null };
+  if (!cached)
+    cached = global.mongoose = { conn: null, promise: null }
 
-  if (cached.conn) return cached.conn;
+  if (cached.conn)
+    return cached.conn
 
   if (!cached.promise) {
     const opts = {
@@ -29,14 +40,12 @@ async function dbConnect() {
       bufferCommands: false,
       bufferMaxEntries: 0,
       useFindAndModify: true,
-      useCreateIndex: true,
-    };
-    cached.promise = mongoose
-      .connect(MONGODB_DATA_API_URL, opts)
-      .then((mongoose) => mongoose);
+      useCreateIndex: true
+    }
+    cached.promise = mongoose.connect(MONGODB_DATA_API_URL, opts).then(mongoose => mongoose)
   }
-  cached.conn = await cached.promise;
-  return cached.conn;
+  cached.conn = await cached.promise
+  return cached.conn
 }
 
-export default dbConnect;
+export default dbConnect

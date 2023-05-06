@@ -4,9 +4,12 @@
  * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
  * Date: May  5 2023, 11:08:51 PM
  * Version: 1.0
- * Description: Contains the Schemas for the database
+ * Description:
  * -----------------------------
  */
+/*
+Contains the Schemas for the database
+*/
 
 /* References:
 Using Mongoose with Next.js 11
@@ -76,17 +79,11 @@ const Tweet = mongoose.models.Tweet || mongoose.model("Tweet", TweetSchema);
 
 const ChatMessageSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
-  targetUser: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: "User",
-  },
+  targetUser: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
   message: { type: String, required: true },
   timestamp: { type: Date, required: true, default: Date.now },
 });
-const ChatMessage =
-  mongoose.models.ChatMessage ||
-  mongoose.model("ChatMessage", ChatMessageSchema);
+const ChatMessage = mongoose.models.ChatMessage || mongoose.model("ChatMessage", ChatMessageSchema);
 
 // Not used yet, preassumably for authentication, haven't looked into Auth0 yet, dunno if Auth0 can do tokens
 const TokenSchema = new mongoose.Schema({
