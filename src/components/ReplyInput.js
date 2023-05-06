@@ -4,18 +4,15 @@
  * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
  * Date: May  5 2023, 11:08:51 PM
  * Version: 1.0
- * Description: Reply input component
+ * Description:
  * -----------------------------
  */
-// Import dependencies
 import useStorage from "../hooks/useStorage";
 import { useEffect, useState } from "react";
 import { userImg } from "../_unsorted/imageRelated/cloudinary/utils";
 import { useRef } from "react";
 
-// Define the ReplyInput component
 export default function ReplyInput({ post, onReply }) {
-  // Initialize state variables using the useState hook
   const { getItem, removeItem } = useStorage();
   const [username, setUsername] = useState(null);
   const [isAdmin, setIsAdmin] = useState(1);
@@ -24,13 +21,11 @@ export default function ReplyInput({ post, onReply }) {
   const [input, setInput] = useState("");
   const [warning, setWarning] = useState("");
 
-  // Define the handleInputChange function, which is called when the user types in the reply input field
   const handleInputChange = (e) => {
     setInput(e.target.value);
-    setWarning(""); // Clear any warning messages
+    setWarning("");
   };
 
-  // Define the handleSubmit function, which is called when the user submits the reply form
   const handleSubmit = (event) => {
     event.preventDefault();
     const reqData = {
@@ -40,13 +35,12 @@ export default function ReplyInput({ post, onReply }) {
       img: "",
       retweet: false,
     };
-    // Check whether the required data is present and not empty
+    //console.log(reqData);
     if (
       reqData.username !== null &&
       reqData.input !== null &&
       reqData.input.length !== 0
     ) {
-      // Make a POST request to the server to submit the reply
       fetch("/api/post", {
         method: "POST",
         headers: {
@@ -57,7 +51,7 @@ export default function ReplyInput({ post, onReply }) {
         .then((response) => response.json())
         .then((data) => {
           if (data !== null && data.success) {
-            onReply(); // Call the onReply callback to update the UI
+            onReply();
             console.log("reply Tweet successful");
           }
         })
@@ -65,23 +59,20 @@ export default function ReplyInput({ post, onReply }) {
           console.error("Error fetching posts:", error);
         });
     } else {
-      // Display a warning message if the input is invalid or empty
       if (reqData.input === null || reqData.input.length === 0) {
         setWarning("Input cannot be empty");
       } else {
         setWarning("An error occur");
       }
     }
-    setInput(""); // Clear the input field after submission
+    setInput("");
   };
 
-  // Use the useEffect hook to fetch the username and isAdmin data from the browser's local storage
   useEffect(() => {
     setUsername(getItem("username", "session"));
     setIsAdmin(getItem("admin", "session"));
   }, [getItem("username", "session"), getItem("admin", "session")]);
 
-  // Use the useEffect hook to fetch user info from the server based on the current username
   useEffect(() => {
     if (username != null) {
       fetch("/api/users?q=@" + username, {
@@ -105,12 +96,32 @@ export default function ReplyInput({ post, onReply }) {
     }
   }, [username]);
 
-  // Check whether the component is mounted and userInfo is not null before rendering
+  useEffect(() => {
+    if (username != null) {
+      fetch("/api/users?q=@" + username, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setUserInfo(data.data);
+          isMountedRef.current = true;
+
+          return () => {
+            isMountedRef.current = false;
+          };
+        })
+        .catch((error) => {
+          console.error("Error fetching posts:", error);
+        });
+    }
+  }, [username]);
   if (isMountedRef && userInfo != null) {
     return (
-      // Render the reply input form
       <div className="flex border-b border-gray-200 p-3 space-x-3">
-        {userImg(userInfo)} {/* Render the user's avatar */}
+        {userImg(userInfo)}
         <div className="w-full divide-gray-200">
           <form onSubmit={handleSubmit}>
             <div className="flex flex-row">
@@ -124,7 +135,6 @@ export default function ReplyInput({ post, onReply }) {
                 onChange={handleInputChange}
               ></textarea>
               <div>
-                {/* Disable the Reply button if the input field is empty */}
                 {input.length === 0 ? (
                   <button
                     type="submit"
@@ -144,7 +154,6 @@ export default function ReplyInput({ post, onReply }) {
               </div>
             </div>
             <p className="text-red-500">{warning}</p>
-            {/* Display any warning messages */}
           </form>
         </div>
       </div>

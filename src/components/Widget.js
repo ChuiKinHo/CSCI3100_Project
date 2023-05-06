@@ -39,9 +39,63 @@ function NotLogin() {
   );
 }
 
+// function getRecommendedPosts() {
+//   const [posts, setPosts] = useState([]);
+
+//   useEffect(() => {
+//     fetch("/api/tweets", {
+//       method: "GET",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     })
+//       .then((response) => response.json())
+//       .then((data) => {
+//         setPosts(data.data);
+//       })
+//       .catch((error) => {
+//         console.error("Error fetching posts:", error);
+//       });
+//   }, []);
+
+//   // Randomly select three posts from the posts array
+//   const randomPosts = posts.sort(() => 0.5 - Math.random()).slice(0, 3);
+
+//   return randomPosts;
+// }
+
+// function getRecommendedUsers() {
+//   const [users, setUsers] = useState([]);
+
+//   useEffect(() => {
+//     fetch("/api/users", {
+//       method: "GET",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     })
+//       .then((response) => response.json())
+//       .then((data) => {
+//         setUsers(data.data);
+//       })
+//       .catch((error) => {
+//         console.error("Error fetching posts:", error);
+//       });
+//   }, []);
+
+//   // Randomly select three posts from the posts array
+//   const recommendedUsers = users.sort(() => 0.5 - Math.random()).slice(0, 3);
+//   return recommendedUsers;
+// }
+
 export default function Widget({ onStateChange, checkFol, explore }) {
+  // console.log(explore);
+  // if (explore === undefined) {
+  //   explore = false;
+  // }
   const { getItem } = useStorage();
   const [username, setUsername] = useState(null);
+  //const posts = getRecommendedPosts();
   const [posts, setPosts] = useState([]);
   const [randomUsers, setRandomUsers] = useState([]);
   useEffect(() => {
@@ -187,6 +241,8 @@ export default function Widget({ onStateChange, checkFol, explore }) {
           });
           setRandomUsers(newRandomUsers);
           onStateChange();
+          //console.log("unfollow success");
+          //console.log(newRandomUsers);
         }
       })
       .catch((error) => {
@@ -204,12 +260,22 @@ export default function Widget({ onStateChange, checkFol, explore }) {
 
       <h4 className="font-bold text-xl px-4">Who to follow</h4>
       {randomUsers.map((randomUser, index) => {
+        //console.log(randomUser);
+        //console.log(randomUser.followed);
         return (
           <div
             key={randomUser._id}
             className="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-500 ease-out"
           >
-            <Link href={"/" + randomUser.username}>{userImg(randomUser)}</Link>
+            <Link href={"/" + randomUser.username}>
+              {/* <img
+              className="rounded-full"
+              width="40"
+              src={randomUser.userImg}
+              alt=""
+            /> */}
+              {userImg(randomUser)}
+            </Link>
 
             <div className="truncate ml-4 leading-5">
               <Link href={"/" + randomUser.username}>
@@ -243,6 +309,9 @@ export default function Widget({ onStateChange, checkFol, explore }) {
           </div>
         );
       })}
+      {/* <button className="text-blue-300 pl-4 pb-3 hover:text-blue-400">
+        Show more
+      </button> */}
 
       <div className="flex items-center p-3 relative">
         <ChatBubbleBottomCenterTextIcon className="h-5 text-gray-500" />
@@ -251,6 +320,9 @@ export default function Widget({ onStateChange, checkFol, explore }) {
       {posts.map((post) => (
         <Post key={post.id} id={post.id} post={post} />
       ))}
+      {/* <button className="text-blue-300 pl-4 pb-3 hover:text-blue-400">
+        Show more
+      </button> */}
     </div>
   ) : (
     NotLogin()

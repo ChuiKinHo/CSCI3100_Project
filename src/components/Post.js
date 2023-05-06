@@ -7,39 +7,41 @@
  * Description: post component - display a single post
  * -----------------------------
  */
-import { useStorage } from "../_hooks/useStorage";
-import { useRouter } from "next/router";
 import {
-  ArrowPathRoundedSquareIcon,
   ChatBubbleBottomCenterTextIcon,
   EllipsisHorizontalCircleIcon,
   ArrowPathRoundedSquareIcon,
   HandThumbUpIcon,
   HandThumbDownIcon,
   LockClosedIcon,
-} from "@radix-ui/react-icons";
-import { userImg } from "../_unsorted/imageRelated/cloudinary/utils";
-import { imageVideoDisplay } from "../_unsorted/imageRelated/helpers";
+} from "@heroicons/react/24/outline";
+// import Link from "next/link";
+import { CldImage } from "next-cloudinary";
+import React, { useState, useEffect } from "react";
+// import Retweet from "@/components/Retweet";
+import ActionBar from "@/components/ActionBar";
+import useStorage from "../hooks/useStorage";
+import {
+  userImg,
+  imageVideoDisplay,
+} from "../_unsorted/imageRelated/cloudinary/utils";
+import Retweet from "./Retweet";
+import { useRouter } from "next/router";
 
-export default function TweetDetail({ id }) {
-  // Get the `getItem` and `removeItem` methods from the `useStorage` hook
+export default function Post({ id }) {
   const { getItem, removeItem } = useStorage();
-  // Define several states using the `useState` hook
   const [username, setUsername] = useState(null);
   const [isAdmin, setIsAdmin] = useState(1);
   const [post, setPost] = useState(null);
   const [retweet, setRetweet] = useState(null);
   const [permission, setPermission] = useState(null);
-  // Get the `useRouter` hook
   const router = useRouter();
 
-  // Use the `useEffect` hook to update the `username` and `isAdmin` states based on the session storage values
   useEffect(() => {
     setUsername(getItem("username", "session"));
     setIsAdmin(getItem("admin", "session"));
   }, [getItem("username", "session"), getItem("admin", "session")]);
 
-  // Use the `useEffect` hook to fetch the tweet post data from the server and update the `post` and `permission` states accordingly
   useEffect(() => {
     if (username != null) {
       fetch("/api/tweets?tweetid=" + id + "&username=" + username, {
@@ -65,7 +67,7 @@ export default function TweetDetail({ id }) {
         });
     }
   }, [id, username]);
-  // Use the `useEffect` hook to fetch the retweet post data from the server and update the `retweet` state accordingly
+
   useEffect(() => {
     if (post !== null && post.retweet && id !== null && permission) {
       fetch("/api/retweets?tweetid=" + id, {
@@ -91,8 +93,8 @@ export default function TweetDetail({ id }) {
     event.preventDefault();
   };
 
-  // if the post is not null and the permission is not null, return the post
   if (post && permission !== null) {
+    //console.log(post);
     return !permission ? (
       ""
     ) : (
@@ -114,7 +116,6 @@ export default function TweetDetail({ id }) {
                 </div>
 
                 <div className="flex items-center justify-start">
-                  {/* when click the user image, go to the user profile */}
                   <div
                     onClick={() => {
                       router.push("/" + post.userObjectId.username);
@@ -147,6 +148,8 @@ export default function TweetDetail({ id }) {
                       )}
                     </span>
                   </div>
+
+                  {/* <EllipsisHorizontalCircleIcon className="h-10 hoverEffect w-10 hover:bg-sky-100 hover:text-sky-500 p-2 " /> */}
                 </div>
 
                 <p className="text-gray-800 text-[15px] sm:text-[16px] mb-2">
@@ -236,6 +239,7 @@ export default function TweetDetail({ id }) {
             <ActionBar post={post} />
           </div>
         )}
+
         {!post.retweet && post.userObjectId && (
           <div className="border border-gray-200">
             <div
