@@ -4,7 +4,7 @@
  * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
  * Date: May  5 2023, 11:08:51 PM
  * Version: 1.0
- * Description: get all users information from database with all information populated
+ * Description: Get all users information from database with all information populated.
  * -----------------------------
  */
 import dbConnect from "../../../_unsorted/database/dbConnect";

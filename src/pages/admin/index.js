@@ -4,18 +4,13 @@
  * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
  * Date: May  5 2023, 11:08:51 PM
  * Version: 1.0
- * Description:
+ * Description: Admin page, only accessible by admin, can create and delete users, and view users' information.
  * -----------------------------
  */
 import React, { useState } from "react";
 import { userImg } from "../../_unsorted/imageRelated/cloudinary/utils";
 import { CldUploadButton } from "next-cloudinary";
 import { PhotoIcon } from "@heroicons/react/20/solid";
-
-const createUserJSON = (event) => ({
-  username: event.target.username.value,
-  password: event.target.password.value,
-});
 
 export default function adminPage() {
   const [mode, setMode] = useState(0);
@@ -29,6 +24,12 @@ export default function adminPage() {
   });
 
   const deleteUser = async (user) => {
+    const confirm = document.getElementById(user.username).value;
+    if (confirm !== user.username) {
+      alert("Please type the username correctly to confirm!")
+      return
+    }
+
     const response = await fetch("/api/users", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
@@ -64,14 +65,6 @@ export default function adminPage() {
     // Stop the form from submitting and refreshing the page.
     event.preventDefault();
 
-    // Send the data to the server in JSON format.
-    // const JSONdata = JSON.stringify({
-    //   username: event.target.username.value,
-    //   password: event.target.password.value,
-    // })
-
-    // Form the request for sending data to the server.
-    // const options = { method: method, headers: { "Content-Type": "application/json" }, body: JSONdata }
     // Send the form data to our forms API on Vercel and get a response.
     if (
       !createUserData.username ||
@@ -312,90 +305,6 @@ export default function adminPage() {
     );
   };
 
-  const getTargetUser = async () => {
-    try {
-      const res = await fetch("/api/users", {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
-      const data = await res.json();
-      setData(await data.data);
-      setDirty(false);
-      return data.data;
-    } catch (error) {
-      console.error("Error fetching posts:", error);
-    }
-  };
-
-  const updateUserInfoTable = () => {
-    return (
-      <>
-        <div className="flex flex-col overflow-x-auto p-1.5 w-full inline-block align-middle overflow-hidden border rounded-lg mb-5">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase"
-                >
-                  Username
-                </th>
-                {/* <th scope="col" className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">Search</th> */}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              <tr>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <input type="text" placeholder="username"></input>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {/* <button type="button" onClick={() => }
-                  className="px-4 py-2 text-gray-900 bg-slate-200 hover:bg-slate-300 border border-slate-300 hover:border-slate-400 mx-auto rounded-lg">
-                    Search
-                  </button> */}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div className="flex flex-col overflow-x-auto p-1.5 w-full inline-block align-middle overflow-hidden border rounded-lg">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase"
-                >
-                  Password
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase"
-                >
-                  Reset
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              <tr>
-                <td className="px-6 py-4 whitespace-nowrap">{"<REDACTED>"}</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <button
-                    type="button"
-                    className="px-4 py-2 text-gray-900 bg-slate-200 hover:bg-slate-300 border border-slate-300 hover:border-slate-400 mx-auto rounded-lg"
-                  >
-                    Reset
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </>
-    );
-  };
-
   const deleteUserTable = () => {
     dirty && fetchAllUsers();
     return (
@@ -441,7 +350,7 @@ export default function adminPage() {
                       {userImg(user)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <input type="text" placeholder={user.username}></input>
+                      <input type="text" id={user.username} placeholder={user.username}></input>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <button type="button" onClick={() => deleteUser(user)}>
@@ -492,10 +401,6 @@ export default function adminPage() {
         >
           View Users' Information
         </button>
-        {/* <button type="button" className="px-4 py-2 text-gray-900 bg-slate-200 hover:bg-slate-300 border border-slate-300 hover:border-slate-400 mx-auto"
-          onClick={() => { setDirty(true) || setMode(3) }}>
-          Update User Information
-        </button> */}
         <button
           type="button"
           className="px-4 py-2 text-gray-900 bg-slate-200 hover:bg-slate-300 border border-slate-300 hover:border-slate-400 mx-auto rounded-r-lg"
@@ -514,8 +419,6 @@ export default function adminPage() {
         ? createUserTable()
         : mode == 2
         ? viewUserInfoTable()
-        : mode == 3
-        ? updateUserInfoTable()
         : mode == 4
         ? deleteUserTable()
         : null}

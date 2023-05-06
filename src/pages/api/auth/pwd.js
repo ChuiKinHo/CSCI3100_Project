@@ -4,14 +4,11 @@
  * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
  * Date: May  5 2023, 11:08:51 PM
  * Version: 1.0
- * Description:
+ * Description: Password hashing function
  * -----------------------------
  */
 import dbConnect from '../../../_unsorted/database/dbConnect'
-import { User } from '../../../_unsorted/database/schemas'
 import { pwd } from '../../../_unsorted/util/utils'
-import jwt from 'jsonwebtoken'
-import { getUserId, loginQuery, getRefTokenByUserId, getRefTokenByUsername, deleteToken, addToken } from '../../../_unsorted/util/queryUtil'
 
 export default async function handler(req, res) {
   
@@ -20,7 +17,7 @@ export default async function handler(req, res) {
 
   await dbConnect()
 
-  // api/auth/login
+  // api/auth/pwd
   switch (method) {
     case 'GET': // Create new User by input
       try {
