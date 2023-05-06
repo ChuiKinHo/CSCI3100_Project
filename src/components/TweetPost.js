@@ -56,7 +56,6 @@ export default function TweetPost({ post }) {
         });
     }
   }, [loginUsername]);
-  // TODO:: More polishing is needed
   if (post !== null)
     return (
       <>

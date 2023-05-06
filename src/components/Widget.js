@@ -249,7 +249,6 @@ export default function Widget({ onStateChange, checkFol, explore }) {
         console.error("Error fetching posts:", error);
       });
   };
-  // TODO:: think about refreshing the page, is there any problem? If no, then remove this line.
 
   return username != null && randomUsers !== null ? (
     <div

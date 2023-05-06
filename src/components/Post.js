@@ -4,7 +4,7 @@
  * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
  * Date: May  5 2023, 11:08:51 PM
  * Version: 1.0
- * Description:
+ * Description: post component - display a single post
  * -----------------------------
  */
 import {
@@ -149,7 +149,6 @@ export default function Post({ id }) {
                     </span>
                   </div>
 
-                  {/*TODO:: Turn this into button */}
                   {/* <EllipsisHorizontalCircleIcon className="h-10 hoverEffect w-10 hover:bg-sky-100 hover:text-sky-500 p-2 " /> */}
                 </div>
 
@@ -295,8 +294,6 @@ export default function Post({ id }) {
                         )}
                       </span>
                     </div>
-                    {/*TODO:: Turn this into button */}
-                    {/* <EllipsisHorizontalCircleIcon className="h-10 hoverEffect w-10 hover:bg-sky-100 hover:text-sky-500 p-2 " /> */}
                     <div className="flex">
                       {post.targetTweetId && (
                         <ChatBubbleBottomCenterTextIcon className="h-10 w-10 p-2" />
@@ -311,13 +308,6 @@ export default function Post({ id }) {
                     {post.text}
                   </p>
                   {post.img !== "" &&
-                    // <CldImage
-                    //   width={700}
-                    //   height={700}
-                    //   crop="fill"
-                    //   src={post?.img}
-                    //   alt={post?.img}
-                    // />
                     ([
                       "mp4",
                       "mov",

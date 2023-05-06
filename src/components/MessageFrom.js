@@ -4,7 +4,7 @@
  * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
  * Date: May  5 2023, 11:08:51 PM
  * Version: 1.0
- * Description:
+ * Description: MessageFrom component for rendering messages from the user
  * -----------------------------
  */
 import { userImgProfile } from "../_unsorted/imageRelated/cloudinary/utils"; // import userImgProfile utility function from Cloudinary

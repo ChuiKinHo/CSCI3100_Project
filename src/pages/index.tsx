@@ -10,8 +10,6 @@ import Link from "next/link";
 import { CldImage } from "next-cloudinary";
 import Image from "next/image";
 
-// TODO:: Remove sample data
-
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {

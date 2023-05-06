@@ -110,7 +110,6 @@ export default function Sidebar() {
         {isAdmin ? null : ( // If admin is logged in, don't show the sidebar
           <>
             <div className="mt-4 mb-2.5 xl:items-start">
-              {/* TODO:: dark theme, log out, other stuff on the sidebar */}
               <Link href="/">
                 {pathname === "/" ? (
                   <SidebarMenuItem text="Home" Icon={HomeIcon} active />

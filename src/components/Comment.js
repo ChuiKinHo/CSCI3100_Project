@@ -82,7 +82,6 @@ export default function Comment({ commentId, id }) {
             </span>
           </div>
           {/* Display a menu icon that opens a dropdown menu */}
-          {/* TODO: Turn this into a button */}
           <EllipsisHorizontalCircleIcon className="h-10 hoverEffect w-10 hover:bg-sky-100 hover:text-sky-500 p-2 " />
         </div>
         {/* Display the comment text and image */}
