@@ -211,33 +211,24 @@ export default function Post({ id }) {
                           <p className="text-gray-800 text-[15px] sm:text-[16px] mb-2">
                             {retweet.text}
                           </p>
-                          {
-                            retweet.img != "" &&
-                              ([
-                                "mp4",
-                                "mov",
-                                "avi",
-                                "wmv",
-                                "flv",
-                                "mkv",
-                                "webm",
-                              ].includes(retweet.img.split(".").pop()) ? (
-                                <div onClick={handleVideoClick}>
-                                  {imageVideoDisplay(retweet.img, 700, 700)}
-                                </div>
-                              ) : (
-                                <div>
-                                  {imageVideoDisplay(retweet.img, 700, 700)}
-                                </div>
-                              ))
-                            // <CldImage
-                            //   width={700}
-                            //   height={700}
-                            //   crop="fill"
-                            //   src={retweet?.img}
-                            //   alt={retweet?.img}
-                            // />
-                          }
+                          {retweet.img != "" &&
+                            ([
+                              "mp4",
+                              "mov",
+                              "avi",
+                              "wmv",
+                              "flv",
+                              "mkv",
+                              "webm",
+                            ].includes(retweet.img.split(".").pop()) ? (
+                              <div onClick={handleVideoClick}>
+                                {imageVideoDisplay(retweet.img, 700, 700)}
+                              </div>
+                            ) : (
+                              <div>
+                                {imageVideoDisplay(retweet.img, 700, 700)}
+                              </div>
+                            ))}
                         </div>
                       </div>
                     </div>
