@@ -4,7 +4,7 @@
  * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
  * Date: May  5 2023, 11:08:51 PM
  * Version: 1.0
- * Description:
+ * Description: display the following page of a user similiar to followers page
  * -----------------------------
  */
 import { useRouter } from "next/router";
@@ -29,10 +29,12 @@ export default function followingPage() {
     if (childState !== null) setChildState(childState + 1);
     else setChildState(0);
   };
+  // get the username of the user who is currently logged in
   useEffect(() => {
     setLoginUsername(getItem("username", "session"));
   }, [getItem("username", "session")]);
 
+  // get the following list of the user
   useEffect(() => {
     if (username) {
       fetch("/api/follow?following=" + username, {
@@ -73,6 +75,7 @@ export default function followingPage() {
     }
   }, [queryReturn, loginUsername]);
 
+  // handle the follow button onclick
   const handleFol = (index) => {
     fetch(
       "/api/follow?username=" +
@@ -108,6 +111,7 @@ export default function followingPage() {
       });
   };
 
+  // handle the unfollow button onclick
   const handleUnfol = (index) => {
     fetch(
       "/api/follow?username=" +

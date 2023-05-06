@@ -4,7 +4,7 @@
  * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
  * Date: May  5 2023, 11:08:51 PM
  * Version: 1.0
- * Description:
+ * Description: tweet page with comments
  * -----------------------------
  */
 import {
@@ -42,7 +42,7 @@ export default function Tweet() {
   const [isAdmin, setIsAdmin] = useState(1);
   const [replyState, setReplyState] = useState(0);
   const [permission, setPermission] = useState(null);
-
+  // handle reply
   const handleOnReply = () => {
     if (replyState !== null) setReplyState(replyState + 1);
     else setReplyState(0);
@@ -51,12 +51,12 @@ export default function Tweet() {
   function goBack() {
     router.back();
   }
-
+  // get username and admin status from session storage
   useEffect(() => {
     setUsername(getItem("username", "session"));
     setIsAdmin(getItem("admin", "session"));
   }, [getItem("username", "session"), getItem("admin", "session")]);
-
+  // get the tweet
   useEffect(() => {
     if (username != null && tweetId != undefined) {
       fetch("/api/tweets?tweetid=" + tweetId + "&username=" + username, {

@@ -174,9 +174,6 @@ export default function userPage() {
                 </div>
                 <div className="flex flex-col text-right">
                   {followed === null ? (
-                    // <button className="flex justify-center max-h-max whitespace-nowrap focus:outline-none focus:ring rounded max-w-max border bg-transparent border-blue-500 text-blue-500 hover:border-blue-800 hover:border-blue-800 flex items-center hover:shadow-lg font-bold py-2 px-4 rounded-full mr-0 ml-auto">
-                    //   Edit Profile
-                    // </button>
                     ""
                   ) : followed ? (
                     <button
@@ -240,19 +237,6 @@ export default function userPage() {
           </div>
 
           <div>
-            {/* <div className="flex flex-row border border-gray-200 justify-center space-x-4">
-              
-            </div> */}
-            {/* <nav className="flex flex-row sm:justify-center space-x-4">
-              {["Tweets", "Replies", "Likes"].map((menuItem, i) => (
-                <button
-                  key={i}
-                  className="basis-1/3 rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-slate-300 hover:text-slate-900"
-                >
-                  {menuItem}
-                </button>
-              ))}
-            </nav> */}
             <nav className="flex flex-row sm:justify-center space-x-4 border-t border-gray-200 bg-slate-50">
               <p className="px-3 py-2 text-slate-700 font-medium">Tweets</p>
             </nav>
