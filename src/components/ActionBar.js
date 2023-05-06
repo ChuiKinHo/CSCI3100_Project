@@ -4,7 +4,7 @@
  * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
  * Date: May  5 2023, 11:08:51 PM
  * Version: 1.0
- * Description:
+ * Description: Action bar template for each post
  * -----------------------------
  */
 import {
@@ -48,6 +48,7 @@ export default function ActionBar({ post }) {
     setShowPopUp(false);
   };
 
+  //handle onclick of the like button
   function onClick_like() {
     if (username != null) {
       fetch("/api/like?tweetid=" + post.id + "&username=" + username, {
@@ -68,6 +69,7 @@ export default function ActionBar({ post }) {
     }
   }
 
+  //handle onclick of the dislike button
   function onClick_dislike() {
     if (username != null) {
       fetch("/api/dislike?tweetid=" + post.id + "&username=" + username, {
@@ -90,12 +92,14 @@ export default function ActionBar({ post }) {
 
   return (
     <div className="flex justify-between text-gray-500 p-2">
+      {/* Button to navigate to the post page */}
       <Link href={"/" + post.userObjectId.username + "/status/" + post.id}>
         <button className="flex items-center select-none">
           <ChatBubbleBottomCenterTextIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
         </button>
       </Link>
 
+      {/* Button to like the post */}
       <button
         className="flex items-center group"
         onClick={() => {
@@ -119,12 +123,14 @@ export default function ActionBar({ post }) {
         )}
       </button>
 
+      {/* Button to dislike the post */}
       <button
         className="flex items-center group"
         onClick={() => {
           onClick_dislike();
         }}
       >
+        {/* if the user has already disliked the post, the dislike button will be red*/}
         {dislikeByMe ? (
           <>
             <HandThumbDownIconSolid className="h-9 w-9 hoverEffect p-2 text-red-600 group-hover:text-red-600 group-hover:bg-red-100" />
@@ -133,6 +139,7 @@ export default function ActionBar({ post }) {
             </span>
           </>
         ) : (
+          // else the dislike button will be gray
           <>
             <HandThumbDownIcon className="h-9 w-9 hoverEffect p-2 text-gray-600 group-hover:text-red-600 group-hover:bg-red-100" />
             <span className="text-gray-600 text-sm select-none group-hover:text-red-600 px-1">
@@ -141,6 +148,8 @@ export default function ActionBar({ post }) {
           </>
         )}
       </button>
+
+      {/* Button to retweet the post */}
       {post.private ? (
         <div className="flex items-center"></div>
       ) : (
@@ -149,6 +158,7 @@ export default function ActionBar({ post }) {
             className="h-9 w-9 hoverEffect p-2 hover:text-blue-600 hover:bg-blue-100"
             onClick={handleButtonClick}
           />
+          {/* Display the retweet popup if showPopUp is true */}
           {showPopUp && (
             <Retweet id={post.id} post={post} onClose={handleClosePopUp} />
           )}

@@ -1,4 +1,12 @@
-/* gloabl CSS style applied to the whole project*/
+/*
+ * -----------------------------
+ * File - ActionBar.js
+ * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
+ * Date: May  5 2023, 11:08:51 PM
+ * Version: 1.0
+ * Description: Golabl CSS style for the whole project
+ * -----------------------------
+ */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
