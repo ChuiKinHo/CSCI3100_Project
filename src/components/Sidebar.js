@@ -4,7 +4,7 @@
  * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
  * Date: May  5 2023, 11:08:51 PM
  * Version: 1.0
- * Description:
+ * Description: sidebar component
  * -----------------------------
  */
 import {
@@ -32,15 +32,18 @@ export default function Sidebar() {
   const [userInfo, setUserInfo] = useState(null);
   const isMountedRef = useRef(false);
 
+  // A function that redirects the user to the specified username page
   function redirect(username) {
     router.push("/" + username);
   }
 
+  // useEffect hook that sets the username and isAdmin state variables based on session storage
   useEffect(() => {
     setUsername(getItem("username", "session"));
     setIsAdmin(getItem("admin", "session"));
   }, [getItem("username", "session"), getItem("admin", "session")]);
 
+  // A function that handles logout
   const handleLogout = () => {
     fetch("/api/auth/logout", {
       method: "DELETE",
@@ -50,19 +53,23 @@ export default function Sidebar() {
       .then((res) => res.json())
       .then((json) => {
         console.log(json.data.admin);
+        // If the user is an admin, remove the admin key from session storage
         if (json.data.admin) {
           removeItem("admin", "session");
         } else {
+          // Otherwise, remove the username, access token, and refresh token keys from session storage
           removeItem("username", "session");
           removeItem("accessToken", "session");
           removeItem("refreshToken", "session");
         }
+        // Reset the user info and redirect the user to the home page
         setUserInfo(null);
         router.replace("/");
         return null;
       });
   };
 
+  // useEffect hook that fetches user information from the server based on the username state variable
   useEffect(() => {
     if (username != null) {
       fetch("/api/users?q=@" + username, {
@@ -76,6 +83,7 @@ export default function Sidebar() {
           setUserInfo(data.data);
           isMountedRef.current = true;
 
+          // Return a function that sets the isMountedRef.current flag to false
           return () => {
             isMountedRef.current = false;
           };
@@ -107,9 +115,11 @@ export default function Sidebar() {
           </div>
         </Link>
 
-        {isAdmin ? null : ( // If admin is logged in, don't show the sidebar
+        {/* If admin is logged in, don't show the sidebar */}
+        {isAdmin ? null : (
           <>
             <div className="mt-4 mb-2.5 xl:items-start">
+              {/* Home link */}
               <Link href="/">
                 {pathname === "/" ? (
                   <SidebarMenuItem text="Home" Icon={HomeIcon} active />
@@ -118,6 +128,7 @@ export default function Sidebar() {
                 )}
               </Link>
 
+              {/* Explore link */}
               <Link href="/explore">
                 {pathname === "/explore" ? (
                   <SidebarMenuItem text="Explore" Icon={HashtagIcon} active />
@@ -126,6 +137,7 @@ export default function Sidebar() {
                 )}
               </Link>
 
+              {/* Profile link */}
               {username != null ? (
                 <>
                   <Link href={"/" + username}>
@@ -135,11 +147,11 @@ export default function Sidebar() {
                       <SidebarMenuItem text="Profile" Icon={UserIcon} />
                     )}
                   </Link>
-                  {/* <SidebarMenuItem text='More' Icon={EllipsisHorizontalCircleIcon} /> */}
                 </>
               ) : null}
             </div>
 
+            {/* User info */}
             {username != null ? (
               <>
                 <div className="flex items-center px-4 py-1 cursor-pointer transition duration-500 ease-out ">
@@ -173,6 +185,7 @@ export default function Sidebar() {
           </>
         )}
 
+        {/* Logout button */}
         {username != null || isAdmin ? (
           <div className="absolute bottom-0">
             <button

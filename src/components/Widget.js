@@ -4,7 +4,7 @@
  * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
  * Date: May  5 2023, 11:08:51 PM
  * Version: 1.0
- * Description:
+ * Description: Widget component for the sidebar
  * -----------------------------
  */
 import Search from "./Search.js";
@@ -13,14 +13,11 @@ import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
 import useStorage from "../hooks/useStorage";
 import Link from "next/link.js";
 import { useEffect, useState } from "react";
-
-import { set } from "mongoose";
 import { userImg } from "../_unsorted/imageRelated/cloudinary/utils";
 
 function NotLogin() {
   return (
     <div className=" lg:inline ml-4 space-y-4 my-5">
-      {/* <Search /> */}
       <div>
         <Link href="/i/login">
           <button className="flex bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95">
@@ -39,63 +36,9 @@ function NotLogin() {
   );
 }
 
-// function getRecommendedPosts() {
-//   const [posts, setPosts] = useState([]);
-
-//   useEffect(() => {
-//     fetch("/api/tweets", {
-//       method: "GET",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     })
-//       .then((response) => response.json())
-//       .then((data) => {
-//         setPosts(data.data);
-//       })
-//       .catch((error) => {
-//         console.error("Error fetching posts:", error);
-//       });
-//   }, []);
-
-//   // Randomly select three posts from the posts array
-//   const randomPosts = posts.sort(() => 0.5 - Math.random()).slice(0, 3);
-
-//   return randomPosts;
-// }
-
-// function getRecommendedUsers() {
-//   const [users, setUsers] = useState([]);
-
-//   useEffect(() => {
-//     fetch("/api/users", {
-//       method: "GET",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     })
-//       .then((response) => response.json())
-//       .then((data) => {
-//         setUsers(data.data);
-//       })
-//       .catch((error) => {
-//         console.error("Error fetching posts:", error);
-//       });
-//   }, []);
-
-//   // Randomly select three posts from the posts array
-//   const recommendedUsers = users.sort(() => 0.5 - Math.random()).slice(0, 3);
-//   return recommendedUsers;
-// }
-
 export default function Widget({ onStateChange, checkFol, explore }) {
-  // console.log(explore);
-  // if (explore === undefined) {
-  //   explore = false;
-  // }
   const { getItem } = useStorage();
   const [username, setUsername] = useState(null);
-  //const posts = getRecommendedPosts();
   const [posts, setPosts] = useState([]);
   const [randomUsers, setRandomUsers] = useState([]);
   useEffect(() => {
@@ -208,8 +151,6 @@ export default function Widget({ onStateChange, checkFol, explore }) {
           });
           setRandomUsers(newRandomUsers);
           onStateChange();
-          //console.log("follow success");
-          //console.log(newRandomUsers);
         }
       })
       .catch((error) => {
@@ -241,8 +182,6 @@ export default function Widget({ onStateChange, checkFol, explore }) {
           });
           setRandomUsers(newRandomUsers);
           onStateChange();
-          //console.log("unfollow success");
-          //console.log(newRandomUsers);
         }
       })
       .catch((error) => {
@@ -252,31 +191,27 @@ export default function Widget({ onStateChange, checkFol, explore }) {
 
   return username != null && randomUsers !== null ? (
     <div
+      // Set the class name of the div to be `xl:w-[600px]` if `explore` is true. Otherwise, set it to `hidden`.
       className={`xl:w-[600px] ${
         explore ? "" : "hidden"
       } lg:inline ml-4 space-y-4`}
     >
+      {/* Render a `Search` component */}
       <Search />
-
+      {/* Display the heading "Who to follow" */}
       <h4 className="font-bold text-xl px-4">Who to follow</h4>
+      {/* Iterate through the `randomUsers` array using the `map()` function */}
       {randomUsers.map((randomUser, index) => {
-        //console.log(randomUser);
-        //console.log(randomUser.followed);
         return (
+          // For each user, display their information in a box
           <div
             key={randomUser._id}
             className="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-500 ease-out"
           >
-            <Link href={"/" + randomUser.username}>
-              {/* <img
-              className="rounded-full"
-              width="40"
-              src={randomUser.userImg}
-              alt=""
-            /> */}
-              {userImg(randomUser)}
-            </Link>
-
+            {/* Render the user's profile picture, which is a link to their
+            profile page */}
+            <Link href={"/" + randomUser.username}>{userImg(randomUser)}</Link>
+            {/* Display the user's name and username */}
             <div className="truncate ml-4 leading-5">
               <Link href={"/" + randomUser.username}>
                 <h4 className="font-bold hover:underline text-[14px] truncate">
@@ -287,6 +222,8 @@ export default function Widget({ onStateChange, checkFol, explore }) {
                 @{randomUser.username}
               </h5>
             </div>
+            {/* Display a button to follow or unfollow the user, depending on
+            whether or not they are already followed */}
             {randomUser.followed ? (
               <button
                 key={index}
@@ -309,22 +246,19 @@ export default function Widget({ onStateChange, checkFol, explore }) {
           </div>
         );
       })}
-      {/* <button className="text-blue-300 pl-4 pb-3 hover:text-blue-400">
-        Show more
-      </button> */}
-
+      {/* Display the heading "You may like" */}
       <div className="flex items-center p-3 relative">
         <ChatBubbleBottomCenterTextIcon className="h-5 text-gray-500" />
         <h4 className="font-bold text-xl px-4">You may like</h4>
       </div>
+      {/* Iterate through the `posts` array using the `map()` function */}
       {posts.map((post) => (
+        // Render a `Post` component for each post
         <Post key={post.id} id={post.id} post={post} />
       ))}
-      {/* <button className="text-blue-300 pl-4 pb-3 hover:text-blue-400">
-        Show more
-      </button> */}
     </div>
   ) : (
+    // Render the `NotLogin()` function if the `username` or `randomUsers` are null
     NotLogin()
   );
 }
