@@ -4,7 +4,7 @@
  * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
  * Date: May  5 2023, 11:08:51 PM
  * Version: 1.0
- * Description:
+ * Description: The ReplyInput component is used to render the reply input box
  * -----------------------------
  */
 import useStorage from "../hooks/useStorage";
@@ -26,6 +26,7 @@ export default function ReplyInput({ post, onReply }) {
     setWarning("");
   };
 
+  // Submit the reply
   const handleSubmit = (event) => {
     event.preventDefault();
     const reqData = {
@@ -35,7 +36,6 @@ export default function ReplyInput({ post, onReply }) {
       img: "",
       retweet: false,
     };
-    //console.log(reqData);
     if (
       reqData.username !== null &&
       reqData.input !== null &&
@@ -67,12 +67,13 @@ export default function ReplyInput({ post, onReply }) {
     }
     setInput("");
   };
-
+  // Get the username and admin status from session storage
   useEffect(() => {
     setUsername(getItem("username", "session"));
     setIsAdmin(getItem("admin", "session"));
   }, [getItem("username", "session"), getItem("admin", "session")]);
 
+  // Get the user info
   useEffect(() => {
     if (username != null) {
       fetch("/api/users?q=@" + username, {
@@ -95,7 +96,7 @@ export default function ReplyInput({ post, onReply }) {
         });
     }
   }, [username]);
-
+  // Render the reply input box
   useEffect(() => {
     if (username != null) {
       fetch("/api/users?q=@" + username, {
@@ -120,11 +121,17 @@ export default function ReplyInput({ post, onReply }) {
   }, [username]);
   if (isMountedRef && userInfo != null) {
     return (
+      // Container for the form
       <div className="flex border-b border-gray-200 p-3 space-x-3">
+        {/* Render user's profile image */}
         {userImg(userInfo)}
+        {/* Form container */}
         <div className="w-full divide-gray-200">
+          {/* Form with submit handler */}
           <form onSubmit={handleSubmit}>
+            {/* Form row with textarea and submit button */}
             <div className="flex flex-row">
+              {/* Textarea for user input */}
               <textarea
                 id="input"
                 name="input"
@@ -134,7 +141,10 @@ export default function ReplyInput({ post, onReply }) {
                 value={input}
                 onChange={handleInputChange}
               ></textarea>
+
+              {/* Submit button */}
               <div>
+                {/* If input is empty, disable button and adjust styling */}
                 {input.length === 0 ? (
                   <button
                     type="submit"
@@ -144,6 +154,7 @@ export default function ReplyInput({ post, onReply }) {
                     Reply
                   </button>
                 ) : (
+                  // If input is not empty, enable button
                   <button
                     type="submit"
                     className="bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50"
@@ -153,6 +164,8 @@ export default function ReplyInput({ post, onReply }) {
                 )}
               </div>
             </div>
+
+            {/* Display warning message if necessary */}
             <p className="text-red-500">{warning}</p>
           </form>
         </div>

@@ -9,23 +9,16 @@
  */
 import {
   ChatBubbleBottomCenterTextIcon,
-  EllipsisHorizontalCircleIcon,
   ArrowPathRoundedSquareIcon,
-  HandThumbUpIcon,
-  HandThumbDownIcon,
   LockClosedIcon,
 } from "@heroicons/react/24/outline";
-// import Link from "next/link";
-import { CldImage } from "next-cloudinary";
 import React, { useState, useEffect } from "react";
-// import Retweet from "@/components/Retweet";
 import ActionBar from "@/components/ActionBar";
 import useStorage from "../hooks/useStorage";
 import {
   userImg,
   imageVideoDisplay,
 } from "../_unsorted/imageRelated/cloudinary/utils";
-import Retweet from "./Retweet";
 import { useRouter } from "next/router";
 
 export default function Post({ id }) {
@@ -68,6 +61,7 @@ export default function Post({ id }) {
     }
   }, [id, username]);
 
+  // Get retweet
   useEffect(() => {
     if (post !== null && post.retweet && id !== null && permission) {
       fetch("/api/retweets?tweetid=" + id, {
@@ -94,7 +88,6 @@ export default function Post({ id }) {
   };
 
   if (post && permission !== null) {
-    //console.log(post);
     return !permission ? (
       ""
     ) : (
@@ -148,8 +141,6 @@ export default function Post({ id }) {
                       )}
                     </span>
                   </div>
-
-                  {/* <EllipsisHorizontalCircleIcon className="h-10 hoverEffect w-10 hover:bg-sky-100 hover:text-sky-500 p-2 " /> */}
                 </div>
 
                 <p className="text-gray-800 text-[15px] sm:text-[16px] mb-2">
