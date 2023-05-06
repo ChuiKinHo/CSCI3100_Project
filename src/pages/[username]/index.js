@@ -4,7 +4,7 @@
  * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
  * Date: May  5 2023, 11:08:51 PM
  * Version: 1.0
- * Description:
+ * Description: The page for user profile
  * -----------------------------
  */
 import { useRouter } from "next/router";
@@ -143,6 +143,7 @@ export default function userPage() {
     return <div>Loading...</div>;
   } else {
     return (
+      //display all comment tweets
       <>
         <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
           <div className="flex py-2 px-3 sticky top-0 z-50 bg-white border-b border-gray-200">
