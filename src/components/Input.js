@@ -4,7 +4,7 @@
  * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
  * Date: May  5 2023, 11:08:51 PM
  * Version: 1.0
- * Description:
+ * Description: input component for posting tweets
  * -----------------------------
  */
 import { FaceSmileIcon, PhotoIcon } from "@heroicons/react/20/solid";
@@ -137,8 +137,10 @@ export default function Input() {
       <div className="flex border-b border-gray-200 p-3 space-x-3">
         <div>{userImg(userInfo)}</div>
         <div className="w-full divide-y divide-gray-200">
+          {/* Form for submitting a new tweet */}
           <form onSubmit={handleSubmit}>
             <div className="flex-1">
+              {/* Text area for inputting the tweet content */}
               <textarea
                 id="input"
                 name="input"
@@ -149,10 +151,12 @@ export default function Input() {
                 onChange={handleInputChange}
               ></textarea>
             </div>
+            {/* Display the uploaded image or video */}
             <div className="flex items-center justify-between pt-2.5">
               {imgid !== "" && imageVideoDisplay(imgid, 700, 700)}
             </div>
 
+            {/* Buttons for uploading an image or setting the tweet as private */}
             <div className="flex items-center justify-between pt-2.5">
               <div className="flex">
                 <CldUploadButton
@@ -169,6 +173,7 @@ export default function Input() {
                 >
                   <PhotoIcon className="h-10 w-10 hoverEffect p-2 text-sky-500 hover:bg-sky-100" />
                 </CldUploadButton>
+                {/* Button for setting the tweet as public or private */}
                 {isPrivate ? (
                   <div
                     className="bg-white text-green-500 border border-green-300 px-4 py-1.5 rounded-full font-bold shadow-md hover:bg-green-100 disabled:opacity-50 cursor-pointer"
@@ -185,6 +190,7 @@ export default function Input() {
                   </div>
                 )}
               </div>
+              {/* Button for submitting the tweet */}
               {input.length === 0 ? (
                 <button
                   type="submit"
@@ -202,6 +208,7 @@ export default function Input() {
                 </button>
               )}
             </div>
+            {/* Display warning messages */}
             <p className="text-red-500">{warning}</p>
           </form>
         </div>

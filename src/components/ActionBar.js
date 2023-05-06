@@ -4,7 +4,7 @@
  * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
  * Date: May  5 2023, 11:08:51 PM
  * Version: 1.0
- * Description: Action bar template for each post
+ * Description: Action bar components for each post
  * -----------------------------
  */
 import {
@@ -50,6 +50,9 @@ export default function ActionBar({ post }) {
 
   //handle onclick of the like button
   function onClick_like() {
+    //if the page is still loading, the username will be null
+    //else the username will be the username of the current user
+    //and the api will be called to like the post
     if (username != null) {
       fetch("/api/like?tweetid=" + post.id + "&username=" + username, {
         method: "PUT",
@@ -71,6 +74,9 @@ export default function ActionBar({ post }) {
 
   //handle onclick of the dislike button
   function onClick_dislike() {
+    //if the page is still loading, the username will be null
+    //else the username will be the username of the current user
+    //and the api will be called to dislike the post
     if (username != null) {
       fetch("/api/dislike?tweetid=" + post.id + "&username=" + username, {
         method: "PUT",
@@ -98,7 +104,6 @@ export default function ActionBar({ post }) {
           <ChatBubbleBottomCenterTextIcon className="h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100" />
         </button>
       </Link>
-
       {/* Button to like the post */}
       <button
         className="flex items-center group"
@@ -106,6 +111,7 @@ export default function ActionBar({ post }) {
           onClick_like();
         }}
       >
+        {/* if the user has already liked the post, the like button will be green*/}
         {likeByMe ? (
           <>
             <HandThumbUpIconSolid className="h-9 w-9 hoverEffect p-2 hover:text-green-600 hover:bg-green-100 text-green-600 group-hover:text-green-600 group-hover:bg-green-100" />
@@ -114,6 +120,7 @@ export default function ActionBar({ post }) {
             </span>
           </>
         ) : (
+          // if the user has not liked the post, the like button will be gray
           <>
             <HandThumbUpIcon className="h-9 w-9 hoverEffect p-2 hover:text-green-600 hover:bg-green-100 text-gray-600 group-hover:text-green-600" />
             <span className="text-gray-600 text-sm select-none group-hover:text-green-600 px-1">
@@ -122,7 +129,6 @@ export default function ActionBar({ post }) {
           </>
         )}
       </button>
-
       {/* Button to dislike the post */}
       <button
         className="flex items-center group"
@@ -148,11 +154,12 @@ export default function ActionBar({ post }) {
           </>
         )}
       </button>
-
       {/* Button to retweet the post */}
+      {/* if the post is private, the retweet button will not be displayed */}
       {post.private ? (
         <div className="flex items-center"></div>
       ) : (
+        //else the retweet button will be displayed and the retweet popup will be displayed if the user clicks on the button
         <button className="flex items-center">
           <ArrowPathRoundedSquareIcon
             className="h-9 w-9 hoverEffect p-2 hover:text-blue-600 hover:bg-blue-100"

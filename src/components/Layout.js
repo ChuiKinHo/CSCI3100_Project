@@ -8,9 +8,10 @@
  * -----------------------------
  */
 import Head from "next/head";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "./Sidebar";
 
 export default function Layout({ children }) {
+  // Render the page title, meta description, and favicon using Next.js' <Head> component
   return (
     <div>
       <Head>
@@ -19,10 +20,12 @@ export default function Layout({ children }) {
         <link rel="icon" href="/twitter.ico" />
       </Head>
 
+      {/* Render the sidebar component in the header */}
       <header className="flex mx-auto">
         <Sidebar />
       </header>
 
+      {/* Render the main content of the page */}
       <main className="flex min-h-screen mr-auto ml-16 sm:ml-auto">
         {children}
       </main>

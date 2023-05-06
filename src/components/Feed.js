@@ -4,7 +4,7 @@
  * Author: Chui Kin Ho, Chow Tsz Ching, Dingcheng Wang, Heung Tsz Kit, Tanja Impens
  * Date: May  5 2023, 11:08:51 PM
  * Version: 1.0
- * Description:
+ * Description: Feed component for timeline in home page
  * -----------------------------
  */
 import { useState, useEffect } from "react";
@@ -16,14 +16,16 @@ export default function Feed() {
   const [posts, setPosts] = useState([]);
   const { getItem, removeItem } = useStorage();
   const [username, setUsername] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(1);
+  const [isAdmin, setIsAdmin] = useState(1); // Set default value to 1
   const [post, setPost] = useState(null);
 
+  // Set username and isAdmin states from storage
   useEffect(() => {
     setUsername(getItem("username", "session"));
-    setIsAdmin(getItem("admin", "session"));
+    setIsAdmin(getItem("admin", "session")); // If admin value is not in storage, default to 1
   }, [getItem("username", "session"), getItem("admin", "session")]);
 
+  // Fetch posts for current user on component mount and whenever the username changes
   useEffect(() => {
     if (username) {
       fetch("/api/tweets?username=" + username, {
@@ -34,8 +36,7 @@ export default function Feed() {
       })
         .then((response) => response.json())
         .then((data) => {
-          setPosts(data.data);
-          //console.log(data.data);
+          setPosts(data.data); // Set posts state to data array
         })
         .catch((error) => {
           console.error("Error fetching posts:", error);
@@ -49,6 +50,7 @@ export default function Feed() {
         <h2 className="text-lg sm:text-xl font-bold cursor-pointer">Home</h2>
       </div>
       <Input />
+      {/* Render a Post component for each post in the posts array */}
       {posts.map((post) => (
         <Post key={post.id} id={post.id} />
       ))}
